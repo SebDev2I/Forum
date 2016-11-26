@@ -5,11 +5,15 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using ConsumeWSRest;
 
 namespace WSForum
 {
-    public class Service : IService
+    public class ServiceForum : IForum
     {
-        
+        public WSR_Result GetMessages(WSR_Param param)
+        {
+            return new WSR_Result();
+        }
     }
 }
