@@ -10,14 +10,14 @@ namespace DALForum
 {
     public class RegisteredDb : DALBase
     {
-        public static RegisteredDTO GetUserById(int iduser)
+        public RegisteredDTO GetUserById(int iduser)
         {
             SqlCommand command = GetDbSprocCommand("GETUSERSBYID");
             command.Parameters.Add(CreateParameter("@ID", iduser));
             return GetSingleDTO<RegisteredDTO>(ref command);
         }
 
-        public static List<RegisteredDTO> GetAll()
+        public List<RegisteredDTO> GetAll()
         {
             SqlCommand cmd = GetDbSprocCommand("GETALLUSERS");
             return GetDTOList<RegisteredDTO>(ref cmd);

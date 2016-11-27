@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{9da87557-2b8a-4db7-881e-17cacd5b9660}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsumeWSRest\ConsumeWSRest.csproj">
       <Project>{40415DC9-6833-4C59-B885-D39530B8BE13}</Project>
       <Name>ConsumeWSRest</Name>

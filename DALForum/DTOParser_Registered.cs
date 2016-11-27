@@ -22,9 +22,9 @@ namespace DALForum
         public override DTOBase PopulateDTO(SqlDataReader reader)
         {
             RegisteredDTO r = new RegisteredDTO();
-            if (!reader.IsDBNull(Ord_IdUser)) { r.IdUser = reader.GetInt32(Ord_IdUser); }
-            if (!reader.IsDBNull(Ord_IdStatus)) { r.StatusUser = reader.GetInt32(Ord_IdStatus); }
-            if (!reader.IsDBNull(Ord_IdTraining)) { r.TrainingUser = reader.GetInt32(Ord_IdTraining); }
+            if (!reader.IsDBNull(Ord_IdUser)) { r.IdUser = Convert.ToInt32(reader.GetDecimal(Ord_IdUser)); }
+            if (!reader.IsDBNull(Ord_IdStatus)) { r.StatusUser = Convert.ToInt32(reader.GetDecimal(Ord_IdStatus)); }
+            if (!reader.IsDBNull(Ord_IdTraining)) { r.TrainingUser = Convert.ToInt32(reader.GetDecimal(Ord_IdTraining)); }
             if (!reader.IsDBNull(Ord_Name)) { r.NameUser = reader.GetString(Ord_Name); }
             if (!reader.IsDBNull(Ord_Firstname)) { r.FirstnameUser = reader.GetString(Ord_Firstname); }
             if (!reader.IsDBNull(Ord_Email)) { r.EmailUser = reader.GetString(Ord_Email); }

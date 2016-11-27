@@ -1,4 +1,5 @@
-﻿using ConsumeWSRest;
+﻿using Common;
+using ConsumeWSRest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,14 @@ namespace WSForum
             RequestFormat = WebMessageFormat.Xml,
             BodyStyle = WebMessageBodyStyle.Bare)]
         WSR_Result GetMessages(WSR_Param param);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Essai",
+            Method = "POST",
+            ResponseFormat = WebMessageFormat.Xml,
+            RequestFormat = WebMessageFormat.Xml,
+            BodyStyle = WebMessageBodyStyle.Wrapped)]
+        WSR_Result GetEssai(WSR_Param param);
     }
 
 

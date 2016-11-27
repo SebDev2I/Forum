@@ -115,9 +115,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{9DA87557-2B8A-4DB7-881E-17CACD5B9660}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConsumeWSRest\ConsumeWSRest.csproj">
       <Project>{40415DC9-6833-4C59-B885-D39530B8BE13}</Project>
       <Name>ConsumeWSRest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DALForum\DALForum.csproj">
+      <Project>{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}</Project>
+      <Name>DALForum</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
