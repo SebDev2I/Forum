@@ -13,12 +13,15 @@ namespace WSForum
 {
     public class ServiceForum : IForum
     {
-        public WSR_Result GetEssai(WSR_Param param)
+        public WSR_Result GetUserById(WSR_Param param, string iduser)
         {
-            return new WSR_Result();
+            RegisteredDb db = new RegisteredDb();
+            RegisteredDTO registered = db.GetUserById(Convert.ToInt32(iduser));
+            WSR_Result r = new WSR_Result(registered, true);
+            return r;
         }
 
-        public WSR_Result GetMessages(WSR_Param param)
+        public WSR_Result GetUsers(WSR_Param param)
         {
             RegisteredDb db = new RegisteredDb();
             List<RegisteredDTO> list = db.GetAll();

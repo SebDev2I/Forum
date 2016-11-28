@@ -20,12 +20,12 @@ namespace ConsoleTestWSForum
             Console.ForegroundColor = ConsoleColor.Magenta;
 
             WSR_Param param = new WSR_Param();
-            Post(param, "Messages");
+            Post(param, "Users");
             Console.ReadKey();
         }
         public static void Post(WSR_Param essai, string resource)
         {
-            string path = HTTP + "/" + resource;
+            string path = HTTP + "/" + resource + "/1";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
             request.ContentType = "application/json";
             request.Method = "POST";

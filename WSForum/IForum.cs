@@ -14,20 +14,20 @@ namespace WSForum
     public interface IForum
     {
         [OperationContract]
-        [WebInvoke(UriTemplate = "Messages",
+        [WebInvoke(UriTemplate = "Users",
             Method = "POST",
             ResponseFormat = WebMessageFormat.Xml,
             RequestFormat = WebMessageFormat.Xml,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result GetMessages(WSR_Param param);
+        WSR_Result GetUsers(WSR_Param param);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "Essai",
+        [WebInvoke(UriTemplate = "Users/{iduser}",
             Method = "POST",
             ResponseFormat = WebMessageFormat.Xml,
             RequestFormat = WebMessageFormat.Xml,
-            BodyStyle = WebMessageBodyStyle.Wrapped)]
-        WSR_Result GetEssai(WSR_Param param);
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetUserById(WSR_Param param, string iduser);
     }
 
 
