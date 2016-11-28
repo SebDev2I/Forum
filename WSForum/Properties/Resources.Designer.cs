@@ -8,9 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConsumeWSRest.Properties {
+namespace WSForum.Properties {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -40,7 +39,7 @@ namespace ConsumeWSRest.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ConsumeWSRest.Properties.Resources", typeof(Resources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WSForum.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,65 +61,20 @@ namespace ConsumeWSRest.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à erreur à l&apos;appel du service.
+        ///   Recherche une chaîne localisée semblable à .
         /// </summary>
-        internal static string ERREUR_APPELSERVICE {
+        internal static string PARAMKEYINCONNU {
             get {
-                return ResourceManager.GetString("ERREUR_APPELSERVICE", resourceCulture);
+                return ResourceManager.GetString("PARAMKEYINCONNU", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Recherche une chaîne localisée semblable à .
         /// </summary>
-        internal static string ERREUR_DESERIALISATIONRETOUR {
+        internal static string PARAMTYPEINVALID {
             get {
-                return ResourceManager.GetString("ERREUR_DESERIALISATIONRETOUR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à erreur à la sérialisation des paramètres.
-        /// </summary>
-        internal static string ERREUR_SERIALISATIONPARAMS {
-            get {
-                return ResourceManager.GetString("ERREUR_SERIALISATIONPARAMS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à erreur de sérialisation du retour.
-        /// </summary>
-        internal static string ERREUR_SERIALISATIONRESULT {
-            get {
-                return ResourceManager.GetString("ERREUR_SERIALISATIONRESULT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à .
-        /// </summary>
-        internal static string ERREUR_TIMEOUT {
-            get {
-                return ResourceManager.GetString("ERREUR_TIMEOUT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à application/json.
-        /// </summary>
-        internal static string SERIALISATION_JSON {
-            get {
-                return ResourceManager.GetString("SERIALISATION_JSON", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à application/xml.
-        /// </summary>
-        internal static string SERIALISATION_XML {
-            get {
-                return ResourceManager.GetString("SERIALISATION_XML", resourceCulture);
+                return ResourceManager.GetString("PARAMTYPEINVALID", resourceCulture);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace ConsumeWSRest
     public enum TypeSerializer
     {
         Xml = 0,
-        Json = 1
+        Json = 1,
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ConsumeWSRest
         /// <param name="typeSerializer">Type de sérialisation (Xml/Json)</param>
         /// <param name="cancel">Jeton permettant d'annuler l'appel en cours</param>
         /// <returns>Objet retourné par le service ou Erreur, de type WSR_Result</returns>
-        public static async Task<WSR_Result> Call(string adresseService, WSR_Param param, TypeSerializer typeSerializer, CancellationToken cancel)
+        public static async Task<WSR_Result> Call(string adresseService, string method, WSR_Param param, TypeSerializer typeSerializer, CancellationToken cancel)
         {
             try
             {
@@ -48,19 +48,71 @@ namespace ConsumeWSRest
                     using (StringContent contentParam = SerializeParam(param, typeSerializer))
                     {
                         // Appel du service Rest (en asynchrone)
-                        using (HttpResponseMessage wcfResponse = await client.PostAsync(adresseService, contentParam, cancel))
+                        if (method == "GET")
                         {
-                            if (wcfResponse.IsSuccessStatusCode)
+                            using (HttpResponseMessage wcfResponse = await client.GetAsync(adresseService, cancel))
                             {
-                                // Désérialisation de la réponse du service
-                                return DeserializeHttpContent(wcfResponse.Content, typeSerializer);
-                            }
-                            else
-                            {
-                                // ATTENTION en Windows phone on a une erreur 404 au bout de 60s même avec le timeout 'Timeout.Infinite'
-                                return new WSR_Result(WSR_Result.CodeRet_AppelService, String.Format(Properties.Resources.ERREUR_APPELSERVICE, wcfResponse.ReasonPhrase));
+                                if (wcfResponse.IsSuccessStatusCode)
+                                {
+                                    // Désérialisation de la réponse du service
+                                    return DeserializeHttpContent(wcfResponse.Content, typeSerializer);
+                                }
+                                else
+                                {
+                                    // ATTENTION en Windows phone on a une erreur 404 au bout de 60s même avec le timeout 'Timeout.Infinite'
+                                    return new WSR_Result(WSR_Result.CodeRet_AppelService, String.Format(Properties.Resources.ERREUR_APPELSERVICE, wcfResponse.ReasonPhrase));
+                                }
                             }
                         }
+                        else if(method == "POST")
+                        {
+                            using (HttpResponseMessage wcfResponse = await client.PostAsync(adresseService, contentParam, cancel))
+                            {
+                                if (wcfResponse.IsSuccessStatusCode)
+                                {
+                                    // Désérialisation de la réponse du service
+                                    return DeserializeHttpContent(wcfResponse.Content, typeSerializer);
+                                }
+                                else
+                                {
+                                    // ATTENTION en Windows phone on a une erreur 404 au bout de 60s même avec le timeout 'Timeout.Infinite'
+                                    return new WSR_Result(WSR_Result.CodeRet_AppelService, String.Format(Properties.Resources.ERREUR_APPELSERVICE, wcfResponse.ReasonPhrase));
+                                }
+                            }
+                        }
+                        else if(method == "PUT")
+                        {
+                            using (HttpResponseMessage wcfResponse = await client.PutAsync(adresseService, contentParam, cancel))
+                            {
+                                if (wcfResponse.IsSuccessStatusCode)
+                                {
+                                    // Désérialisation de la réponse du service
+                                    return DeserializeHttpContent(wcfResponse.Content, typeSerializer);
+                                }
+                                else
+                                {
+                                    // ATTENTION en Windows phone on a une erreur 404 au bout de 60s même avec le timeout 'Timeout.Infinite'
+                                    return new WSR_Result(WSR_Result.CodeRet_AppelService, String.Format(Properties.Resources.ERREUR_APPELSERVICE, wcfResponse.ReasonPhrase));
+                                }
+                            }
+                        }
+                        else if(method == "DELETE")
+                        {
+                            using (HttpResponseMessage wcfResponse = await client.DeleteAsync(adresseService, cancel))
+                            {
+                                if (wcfResponse.IsSuccessStatusCode)
+                                {
+                                    // Désérialisation de la réponse du service
+                                    return DeserializeHttpContent(wcfResponse.Content, typeSerializer);
+                                }
+                                else
+                                {
+                                    // ATTENTION en Windows phone on a une erreur 404 au bout de 60s même avec le timeout 'Timeout.Infinite'
+                                    return new WSR_Result(WSR_Result.CodeRet_AppelService, String.Format(Properties.Resources.ERREUR_APPELSERVICE, wcfResponse.ReasonPhrase));
+                                }
+                            }
+                        }
+                        else return new WSR_Result(WSR_Result.CodeRet_AppelService, String.Format(Properties.Resources.ERREUR_APPELSERVICE, "appel method get, post, put ou delete"));
                     }
                 }
             }

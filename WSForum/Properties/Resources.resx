@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ERREUR_APPELSERVICE" xml:space="preserve">
-    <value>erreur à l'appel du service</value>
-  </data>
-  <data name="ERREUR_DESERIALISATIONRETOUR" xml:space="preserve">
+  <data name="PARAMKEYINCONNU" xml:space="preserve">
     <value />
   </data>
-  <data name="ERREUR_SERIALISATIONPARAMS" xml:space="preserve">
-    <value>erreur à la sérialisation des paramètres</value>
-  </data>
-  <data name="ERREUR_SERIALISATIONRESULT" xml:space="preserve">
-    <value>erreur de sérialisation du retour</value>
-  </data>
-  <data name="ERREUR_TIMEOUT" xml:space="preserve">
+  <data name="PARAMTYPEINVALID" xml:space="preserve">
     <value />
-  </data>
-  <data name="SERIALISATION_JSON" xml:space="preserve">
-    <value>application/json</value>
-  </data>
-  <data name="SERIALISATION_XML" xml:space="preserve">
-    <value>application/xml</value>
   </data>
 </root>

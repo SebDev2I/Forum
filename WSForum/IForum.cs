@@ -14,20 +14,34 @@ namespace WSForum
     public interface IForum
     {
         [OperationContract]
+        [WebGet(UriTemplate = "Users",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetUsers();
+
+        [OperationContract]
         [WebInvoke(UriTemplate = "Users",
             Method = "POST",
-            ResponseFormat = WebMessageFormat.Xml,
-            RequestFormat = WebMessageFormat.Xml,
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result GetUsers(WSR_Param param);
+        WSR_Result CreateUser(WSR_Param param);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Users/{iduser}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetUserById(string iduser);
 
         [OperationContract]
         [WebInvoke(UriTemplate = "Users/{iduser}",
-            Method = "POST",
-            ResponseFormat = WebMessageFormat.Xml,
-            RequestFormat = WebMessageFormat.Xml,
+            Method = "PUT",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result GetUserById(WSR_Param param, string iduser);
+        WSR_Result UpdateUser(WSR_Param param, string iduser);
     }
 
 

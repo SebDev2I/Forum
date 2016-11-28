@@ -13,12 +13,18 @@ namespace DALForum
         {
             switch (DTOType.Name)
             {
+                case "MessageDTO":
+                    return new DTOParser_Message();
                 case "RegisteredDTO":
                     return new DTOParser_Registered();
-                    break;
-                case "PostDTO":
-                    return new DTOParser_Registered();
-                    break;
+                case "RubricDTO":
+                    return new DTOParser_Rubric();
+                case "StatusDTO":
+                    return new DTOParser_Status();
+                case "TopicDTO":
+                    return new DTOParser_Status();
+                case "TrainingDTO":
+                    return new DTOParser_Training();
             }
             // Si nous arrivons ici alors c'est que nous n'avons pas réussi à trouver le type correspondant. 
             //Nous levons donc une exception.
