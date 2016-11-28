@@ -26,7 +26,7 @@ namespace DALForum
         public override void PopulateOrdinals(SqlDataReader reader)
         {
             Ord_IdStatus = reader.GetOrdinal("ID_STATUS");
-            Ord_NameStatus = reader.GetOrdinal("NAME_STATUS");
+            Ord_NameStatus = reader.GetOrdinal("NAME_STATUS");//
         }
     }
 }
