@@ -29,9 +29,9 @@ namespace ConsoleTestWSForum
             r.IdRubric = 8;
             r.NameRubric = "essai update";
             p.Add("save", r);
-            //Response<RubricDTO>(p, "Rubrics", "POST", 0);
+            Response<RubricDTO>(p, "Rubrics", "GET", 0);
             //Response<RubricDTO>(p, "Rubrics", "DELETE", 8);
-            Response<RubricDTO>(p, "Users", "GET", 0);
+            //Response<StatusDTO>(p, "Status", "GET", 0);
             //Get<RubricDTO>("Rubrics", "GET");
             Console.ReadKey();
         }

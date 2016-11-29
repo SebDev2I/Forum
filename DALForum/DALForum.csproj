@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="RegisteredDb.cs" />
     <Compile Include="RubricDb.cs" />
+    <Compile Include="StatusDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

@@ -38,7 +38,6 @@ namespace WSForum
             }
             else return result;
         }
-
         public WSR_Result GetUsers()
         {
             object data = null;
@@ -136,6 +135,63 @@ namespace WSForum
             {
                 RubricDb db = new RubricDb();
                 data = db.DeleteRubric(Convert.ToInt32(idrubric));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetStatus()
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                StatusDb db = new StatusDb();
+                data = db.GetAll();
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetStatusById(string idstatus)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                StatusDb db = new StatusDb();
+                data = db.GetStatusById(Convert.ToInt32(idstatus));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result SaveStatus(WSR_Param param)
+        {
+            StatusDTO status = null;
+            object data = null;
+            WSR_Result result = null;
+
+            result = VerifParamType(param, "save", out status);
+
+            if (result == null)
+            {
+                status = (StatusDTO)param["save"];
+                StatusDb db = new StatusDb();
+                db.SaveStatus(ref status);
+                data = status;
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result DeleteStatus(string idstatus)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                StatusDb db = new StatusDb();
+                data = db.DeleteStatus(Convert.ToInt32(idstatus));
                 return new WSR_Result(data, true);
             }
             else return result;

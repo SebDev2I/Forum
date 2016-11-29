@@ -71,7 +71,37 @@ namespace WSForum
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result DeleteRubric(string iduser);
+        WSR_Result DeleteRubric(string idrubric);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Status",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetStatus();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Status/{idstatus}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetStatusById(string idstatus);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Status",
+            Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result SaveStatus(WSR_Param param);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Rubrics/{idrubric}",
+            Method = "DELETE",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result DeleteStatus(string idstatus);
     }
 
 
