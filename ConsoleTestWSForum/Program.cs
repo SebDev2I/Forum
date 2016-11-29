@@ -25,48 +25,84 @@ namespace ConsoleTestWSForum
             Console.ForegroundColor = ConsoleColor.Magenta;
 
             WSR_Param p = new WSR_Param();
-            RegisteredDTO r = new RegisteredDTO();
-            //r.IdUser = 16;
-            r.StatusUser = 0;
-            r.TrainingUser = 0;
-            r.NameUser = "free";
-            r.FirstnameUser = "free";
-            r.EmailUser = "efjkl@fjl.fr";
-            r.LoginUser = "fjdkls";
-            r.PwdUser = "jkljkjlkj";
-            r.KeywordUser = "chien";
+            RubricDTO r = new RubricDTO();
+            r.IdRubric = 8;
+            r.NameRubric = "essai update";
             p.Add("save", r);
-            //Response(p);
-            Response(5);
+            //Response<RubricDTO>(p, "Rubrics", "POST", 0);
+            //Response<RubricDTO>(p, "Rubrics", "DELETE", 8);
+            Response<RubricDTO>(p, "Users", "GET", 0);
+            //Get<RubricDTO>("Rubrics", "GET");
             Console.ReadKey();
         }
 
-        public static async void Response(WSR_Param p)
+        public static async void Response<T>(WSR_Param p, string resource, string method, int id)
         {
             _CancellationAsync = new CancellationTokenSource();
-            WSR_Result r = await ConsumeWSR.Call(ConstructResource("Users"), "POST", p, TypeSerializer.Json, _CancellationAsync.Token);
-            //Console.WriteLine(r.Data);
-            /*RegisteredDTO registered = (RegisteredDTO)r.Data;
-            Console.WriteLine(registered.IdUser + " " + registered.NameUser);*/
-            /*List<RegisteredDTO> lst = (List<RegisteredDTO>)r.Data;
-            foreach (RegisteredDTO item in lst)
+            WSR_Result r;
+            string path;
+            
+            if(method == "GET")
             {
-                Console.WriteLine(item.IdUser + item.NameUser);
-            }*/
+                if (id != 0)
+                {
+                    path = ConstructResource(resource, id);
+                    r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
+                    T obj = (T)r.Data;
+                    Console.WriteLine(obj.ToString());
+                }
+                else
+                {
+                    path = ConstructResource(resource);
+                    r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
+                    List<T> lst = new List<T>();
+                    lst = (List<T>)r.Data;
+                    foreach (T item in lst)
+                    {
+                        Console.WriteLine(item.ToString());
+                    }
+                }
+            }
+            else if(method == "POST")
+            {
+                path = ConstructResource(resource);
+                r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
+                T obj = (T)r.Data;
+                Console.WriteLine(obj.ToString());
+            }
+            else if(method == "DELETE")
+            {
+                path = ConstructResource(resource, id);
+                r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
+                bool obj = (bool)r.Data;
+                Console.WriteLine(obj.ToString());
+            }
         }
 
-        public static async void Response(int id)
+        public static async void Get<T>(string resource, string method)
         {
             _CancellationAsync = new CancellationTokenSource();
-            WSR_Param p = new WSR_Param();
-            WSR_Result r = await ConsumeWSR.Call(ConstructResource("Users", id), "DELETE", p, TypeSerializer.Json, _CancellationAsync.Token);
-            Console.WriteLine(r.Data.ToString());
-            //RegisteredDTO registered = (RegisteredDTO)r.Data;
-            //Console.WriteLine(registered.NameUser);
-            //RegisteredDTO registered = (RegisteredDTO)r.Data;
+            WSR_Result r = await ConsumeWSR.Call(ConstructResource(resource), method, null, TypeSerializer.Json, _CancellationAsync.Token);
             
-            //Console.WriteLine(registered.EmailUser);
+            List<T> lst = new List<T>();
+
+            lst = (List<T>)r.Data;
+            foreach (T item in lst)
+            {
+               Console.WriteLine(item.ToString());
+            }
+        }
+
+        public static async void Get<T>(string resource, string method, int id)
+        {
+            _CancellationAsync = new CancellationTokenSource();
+            WSR_Result r = await ConsumeWSR.Call(ConstructResource(resource, id), method, null, TypeSerializer.Json, _CancellationAsync.Token);
+
+            Object obj = new Object();
+            obj = (T)r.Data;
+            Console.WriteLine(obj.ToString());
             
+
         }
         private static string ConstructResource(string resource)
         {

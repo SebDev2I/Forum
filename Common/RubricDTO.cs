@@ -17,5 +17,10 @@ namespace Common
             NameRubric = String_NullValue;
             IsNew = true;
         }
+
+        public override string ToString()
+        {
+            return " Id : " + IdRubric + " Nom : " + NameRubric;
+        }
     }
 }

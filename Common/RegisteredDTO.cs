@@ -42,6 +42,13 @@ namespace Common
             KeywordUser = String_NullValue;
             IsNew = true;
         }
+
+        public override string ToString()
+        {
+            return " Id : " + IdUser + " Statut : " + StatusUser + " Training : " + TrainingUser +
+                " Nom : " + NameUser + " Prénom : " + FirstnameUser + " Email : " + EmailUser
+                + " Login : " + LoginUser + " Pwd : " + PwdUser + " Mot-clé : " + KeywordUser;
+        }
     }
 
 }

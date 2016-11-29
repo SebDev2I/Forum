@@ -24,10 +24,7 @@ namespace DALForum
         }
 
         public void SaveUser(ref RegisteredDTO registered)
-        {// La sproc gérera l'insertion et la mise à jour.
-         // Nous avons juste besoin de retourner l'id approprié de la personne.
-         // S'il s'agit d'une nouvelle personne, alors nous retournons le NewPerson.
-         // S'il s'agit d'une mise à jour, nous renvoyons juste l'id.
+        {
             SqlCommand command = new SqlCommand();
             SqlParameter paramNewUserId = new SqlParameter();
             bool isNewRecord = false;

@@ -52,7 +52,6 @@ namespace WSForum
             }
             else return result;
         }
-
         public WSR_Result SaveUser(WSR_Param param)
         {
             RegisteredDTO registered = null;
@@ -71,25 +70,6 @@ namespace WSForum
             }
             else return result;
         }
-
-        /*public WSR_Result UpdateUser(WSR_Param param)
-        {
-            RegisteredDTO registered = null;
-            object data = null;
-            WSR_Result result = null;
-
-            result = VerifParamType(param, "update", out registered);
-
-            if (result == null)
-            {
-                registered = (RegisteredDTO)param["update"];
-                RegisteredDb db = new RegisteredDb();
-                data = db.UpdateUser(registered);
-                return new WSR_Result(data, true);
-            }
-            else return result;
-        }*/
-
         public WSR_Result DeleteUser(string iduser)
         {
             object data = null;
@@ -103,6 +83,64 @@ namespace WSForum
             }
             else return result;
         }
+        public WSR_Result GetRubrics()
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                RubricDb db = new RubricDb();
+                data = db.GetAll();
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetRubricById(string idrubric)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                RubricDb db = new RubricDb();
+                data = db.GetRubricById(Convert.ToInt32(idrubric));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result SaveRubric(WSR_Param param)
+        {
+            RubricDTO rubric = null;
+            object data = null;
+            WSR_Result result = null;
+
+            result = VerifParamType(param, "save", out rubric);
+
+            if (result == null)
+            {
+                rubric = (RubricDTO)param["save"];
+                RubricDb db = new RubricDb();
+                db.SaveRubric(ref rubric);
+                data = rubric;
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result DeleteRubric(string idrubric)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                RubricDb db = new RubricDb();
+                data = db.DeleteRubric(Convert.ToInt32(idrubric));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+
         #region Fonctions perso
 
         /// <summary>
