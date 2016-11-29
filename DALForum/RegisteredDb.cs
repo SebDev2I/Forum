@@ -23,11 +23,11 @@ namespace DALForum
             return GetDTOList<RegisteredDTO>(ref cmd);
         }
 
-        public static void SaveUser(ref RegisteredDTO registered)
+        public void CreateUser(ref RegisteredDTO registered)
         {// La sproc gérera l'insertion et la mise à jour.
-         // Nous avons juste besoin de retourner le GUID approprié de la personne.
+         // Nous avons juste besoin de retourner l'id approprié de la personne.
          // S'il s'agit d'une nouvelle personne, alors nous retournons le NewPerson.
-         // S'il s'agit d'une mise à jour, nous renvoyons juste le PersonGuid.
+         // S'il s'agit d'une mise à jour, nous renvoyons juste l'id.
             bool isNewRecord = false;
             if (registered.IdUser.Equals(Common.DTOBase.Int_NullValue)) { isNewRecord = true; }
 
@@ -36,7 +36,7 @@ namespace DALForum
             // La méthode CreateParameter va gérer cela pour nous et créer les paramètres null pour tous 
             // les membres DTO qui correspondent à DTOBase.NullValue dans le type de données du membre.
             SqlCommand command = GetDbSprocCommand("INSERTUSERS");
-            command.Parameters.Add(CreateParameter("@IDUSER", registered.IdUser));
+            //command.Parameters.Add(CreateParameter("@IDUSER", registered.IdUser));
             command.Parameters.Add(CreateParameter("@IDSTATUS", registered.StatusUser));
             command.Parameters.Add(CreateParameter("@IDTRAINING", registered.TrainingUser));
             command.Parameters.Add(CreateParameter("@NAME", registered.NameUser, 50));

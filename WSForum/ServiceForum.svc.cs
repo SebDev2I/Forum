@@ -57,17 +57,20 @@ namespace WSForum
             else return result;
         }
 
-        public WSR_Result CreateUser(WSR_Param param)
+        public WSR_Result SaveUser(WSR_Param param)
         {
-            string save = null;
+            RegisteredDTO registered = null;
             object data = null;
             WSR_Result result = null;
 
-            result = VerifParamType(param, "save", out save);
+            result = VerifParamType(param, "save", out registered);
+
             if (result == null)
             {
+                registered = (RegisteredDTO)param["save"];
                 RegisteredDb db = new RegisteredDb();
-                data = db.save();
+                db.CreateUser(ref registered);
+                data = registered;
                 return new WSR_Result(data, true);
             }
             else return result;

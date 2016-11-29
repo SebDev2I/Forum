@@ -26,7 +26,7 @@ namespace WSForum
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result CreateUser(WSR_Param param);
+        WSR_Result SaveUser(WSR_Param param);
 
         [OperationContract]
         [WebGet(UriTemplate = "Users/{iduser}",

@@ -26,6 +26,14 @@ namespace ConsoleTestWSForum
 
             WSR_Param p = new WSR_Param();
             RegisteredDTO r = new RegisteredDTO();
+            r.StatusUser = 0;
+            r.TrainingUser = 0;
+            r.NameUser = "essai";
+            r.FirstnameUser = "essai";
+            r.EmailUser = "efjkl@fjl.fr";
+            r.LoginUser = "fjdkls";
+            r.PwdUser = "jkljkjlkj";
+            r.KeywordUser = "chien";
             p.Add("save", r);
             Response(p);
             //Response(5);
@@ -37,11 +45,13 @@ namespace ConsoleTestWSForum
             _CancellationAsync = new CancellationTokenSource();
             WSR_Result r = await ConsumeWSR.Call(ConstructResource("Users"), "POST", p, TypeSerializer.Json, _CancellationAsync.Token);
             Console.WriteLine(r.Data);
-            List<RegisteredDTO> lst = (List<RegisteredDTO>)r.Data;
+            RegisteredDTO registered = (RegisteredDTO)r.Data;
+            Console.WriteLine(registered.IdUser + " " + registered.NameUser);
+            /*List<RegisteredDTO> lst = (List<RegisteredDTO>)r.Data;
             foreach (RegisteredDTO item in lst)
             {
-                Console.WriteLine(item.NameUser);
-            }
+                Console.WriteLine(item.IdUser + item.NameUser);
+            }*/
         }
 
         public static async void Response(int id)
