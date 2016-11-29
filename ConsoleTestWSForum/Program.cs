@@ -26,17 +26,18 @@ namespace ConsoleTestWSForum
 
             WSR_Param p = new WSR_Param();
             RegisteredDTO r = new RegisteredDTO();
+            //r.IdUser = 16;
             r.StatusUser = 0;
             r.TrainingUser = 0;
-            r.NameUser = "essai";
-            r.FirstnameUser = "essai";
+            r.NameUser = "free";
+            r.FirstnameUser = "free";
             r.EmailUser = "efjkl@fjl.fr";
             r.LoginUser = "fjdkls";
             r.PwdUser = "jkljkjlkj";
             r.KeywordUser = "chien";
             p.Add("save", r);
-            Response(p);
-            //Response(5);
+            //Response(p);
+            Response(5);
             Console.ReadKey();
         }
 
@@ -44,9 +45,9 @@ namespace ConsoleTestWSForum
         {
             _CancellationAsync = new CancellationTokenSource();
             WSR_Result r = await ConsumeWSR.Call(ConstructResource("Users"), "POST", p, TypeSerializer.Json, _CancellationAsync.Token);
-            Console.WriteLine(r.Data);
-            RegisteredDTO registered = (RegisteredDTO)r.Data;
-            Console.WriteLine(registered.IdUser + " " + registered.NameUser);
+            //Console.WriteLine(r.Data);
+            /*RegisteredDTO registered = (RegisteredDTO)r.Data;
+            Console.WriteLine(registered.IdUser + " " + registered.NameUser);*/
             /*List<RegisteredDTO> lst = (List<RegisteredDTO>)r.Data;
             foreach (RegisteredDTO item in lst)
             {
@@ -58,12 +59,13 @@ namespace ConsoleTestWSForum
         {
             _CancellationAsync = new CancellationTokenSource();
             WSR_Param p = new WSR_Param();
-            p.Add("login", "toto");
-            WSR_Result r = await ConsumeWSR.Call(ConstructResource("Users", id), "GET", p, TypeSerializer.Json, _CancellationAsync.Token);
-            Console.WriteLine(r.Data);
-            RegisteredDTO registered = (RegisteredDTO)r.Data;
+            WSR_Result r = await ConsumeWSR.Call(ConstructResource("Users", id), "DELETE", p, TypeSerializer.Json, _CancellationAsync.Token);
+            Console.WriteLine(r.Data.ToString());
+            //RegisteredDTO registered = (RegisteredDTO)r.Data;
+            //Console.WriteLine(registered.NameUser);
+            //RegisteredDTO registered = (RegisteredDTO)r.Data;
             
-            Console.WriteLine(registered.EmailUser);
+            //Console.WriteLine(registered.EmailUser);
             
         }
         private static string ConstructResource(string resource)

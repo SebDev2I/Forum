@@ -21,14 +21,6 @@ namespace WSForum
         WSR_Result GetUsers();
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "Users",
-            Method = "POST",
-            ResponseFormat = WebMessageFormat.Json,
-            RequestFormat = WebMessageFormat.Json,
-            BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result SaveUser(WSR_Param param);
-
-        [OperationContract]
         [WebGet(UriTemplate = "Users/{iduser}",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,
@@ -36,12 +28,20 @@ namespace WSForum
         WSR_Result GetUserById(string iduser);
 
         [OperationContract]
+        [WebInvoke(UriTemplate = "Users",
+            Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result SaveUser(WSR_Param param);
+        
+        [OperationContract]
         [WebInvoke(UriTemplate = "Users/{iduser}",
-            Method = "PUT",
+            Method = "DELETE",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
-        WSR_Result UpdateUser(WSR_Param param, string iduser);
+        WSR_Result DeleteUser(string iduser);
     }
 
 

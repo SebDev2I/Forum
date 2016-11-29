@@ -27,11 +27,9 @@ namespace WSForum
         public const int CodeRet_ErreurInterneService = 100;
         public WSR_Result GetUserById(string iduser)
         {
-            //string login = null;
             object data = null;
             WSR_Result result = null;
 
-            //result = VerifParamType(param, "login", out login);
             if (result == null)
             {
                 RegisteredDb db = new RegisteredDb();
@@ -43,11 +41,9 @@ namespace WSForum
 
         public WSR_Result GetUsers()
         {
-            //string login = null;
             object data = null;
             WSR_Result result = null;
 
-            //result = VerifParamType(param, "login", out login);
             if (result == null)
             {
                 RegisteredDb db = new RegisteredDb();
@@ -69,18 +65,44 @@ namespace WSForum
             {
                 registered = (RegisteredDTO)param["save"];
                 RegisteredDb db = new RegisteredDb();
-                db.CreateUser(ref registered);
+                db.SaveUser(ref registered);
                 data = registered;
                 return new WSR_Result(data, true);
             }
             else return result;
         }
 
-        public WSR_Result UpdateUser(WSR_Param param, string iduser)
+        /*public WSR_Result UpdateUser(WSR_Param param)
         {
-            throw new NotImplementedException();
-        }
+            RegisteredDTO registered = null;
+            object data = null;
+            WSR_Result result = null;
 
+            result = VerifParamType(param, "update", out registered);
+
+            if (result == null)
+            {
+                registered = (RegisteredDTO)param["update"];
+                RegisteredDb db = new RegisteredDb();
+                data = db.UpdateUser(registered);
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }*/
+
+        public WSR_Result DeleteUser(string iduser)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                RegisteredDb db = new RegisteredDb();
+                data = db.DeleteUser(Convert.ToInt32(iduser));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
         #region Fonctions perso
 
         /// <summary>
