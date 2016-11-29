@@ -28,7 +28,7 @@ namespace ConsoleTestWSForum
             StatusDTO s = new StatusDTO();
             s.NameStatus = "essai";
             p.Add("save", s);
-            Response<StatusDTO>(null, "Status", "POST", 0);
+            Response<StatusDTO>(p, "Status", "POST", 0);
             //Response<RubricDTO>(p, "Rubrics", "DELETE", 8);
             //Response<StatusDTO>(p, "Status", "GET", 0);
             //Get<RubricDTO>("Rubrics", "GET");

@@ -42,7 +42,7 @@ namespace DALForum
                 command.Parameters.Add(CreateParameter("@ID", status.IdStatus));
             }
 
-            command.Parameters.Add(CreateParameter("@NAME", status.NameStatus, 50));
+            command.Parameters.Add(CreateParameter("@NAME", status.NameStatus, 30));
 
 
             // Exécute la commande.
