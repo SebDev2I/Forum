@@ -17,5 +17,10 @@ namespace Common
             NameStatus = String_NullValue;
             IsNew = true;
         }
+
+        public override string ToString()
+        {
+            return " Id : " + IdStatus + " Name : " + NameStatus;
+        }
     }
 }

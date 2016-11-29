@@ -96,7 +96,7 @@ namespace WSForum
         WSR_Result SaveStatus(WSR_Param param);
 
         [OperationContract]
-        [WebInvoke(UriTemplate = "Rubrics/{idrubric}",
+        [WebInvoke(UriTemplate = "Status/{idstatus}",
             Method = "DELETE",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
