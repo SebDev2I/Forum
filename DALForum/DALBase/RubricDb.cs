@@ -42,7 +42,7 @@ namespace DALForum
                 command.Parameters.Add(CreateParameter("@ID", rubric.IdRubric));
             }
 
-            command.Parameters.Add(CreateParameter("@NAME", rubric.NameRubric, 50));
+            command.Parameters.Add(CreateParameter("@NAME", rubric.NameRubric, 10));
             
 
             // Exécute la commande.

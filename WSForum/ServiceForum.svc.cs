@@ -197,6 +197,67 @@ namespace WSForum
             else return result;
         }
 
+        public WSR_Result GetTrainings()
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TrainingDb db = new TrainingDb();
+                data = db.GetAll();
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+
+        public WSR_Result GetTrainingById(string idtraining)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TrainingDb db = new TrainingDb();
+                data = db.GetTrainingById(Convert.ToInt32(idtraining));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+
+        public WSR_Result SaveTraining(WSR_Param param)
+        {
+            TrainingDTO status = null;
+            object data = null;
+            WSR_Result result = null;
+
+            result = VerifParamType(param, "save", out status);
+
+            if (result == null)
+            {
+                status = (TrainingDTO)param["save"];
+                TrainingDb db = new TrainingDb();
+                db.SaveTraining(ref status);
+                data = status;
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+
+        public WSR_Result DeleteTraining(string idstatus)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TrainingDb db = new TrainingDb();
+                data = db.DeleteTraining(Convert.ToInt32(idstatus));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+
         #region Fonctions perso
 
         /// <summary>
@@ -243,6 +304,8 @@ namespace WSForum
         }
 
         
+
+
 
         #endregion Fonctions perso
     }

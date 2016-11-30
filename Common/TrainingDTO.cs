@@ -17,5 +17,10 @@ namespace Common
             NameTraining = String_NullValue;
             IsNew = true;
         }
+
+        public override string ToString()
+        {
+            return " Id : " + IdTraining + " Name : " + NameTraining;
+        }
     }
 }

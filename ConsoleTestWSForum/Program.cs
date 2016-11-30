@@ -25,10 +25,11 @@ namespace ConsoleTestWSForum
             Console.ForegroundColor = ConsoleColor.Magenta;
 
             WSR_Param p = new WSR_Param();
-            StatusDTO s = new StatusDTO();
-            s.NameStatus = "essai";
+            TrainingDTO s = new TrainingDTO();
+            s.NameTraining = "ESSAI";
+            s.IdTraining = 17;
             p.Add("save", s);
-            Response<StatusDTO>(p, "Status", "POST", 0);
+            Response<TrainingDTO>(p, "Trainings", "GET", 0);
             //Response<RubricDTO>(p, "Rubrics", "DELETE", 8);
             //Response<StatusDTO>(p, "Status", "GET", 0);
             //Get<RubricDTO>("Rubrics", "GET");
@@ -47,7 +48,6 @@ namespace ConsoleTestWSForum
                 {
                     path = ConstructResource(resource, id);
                     r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
-                    Console.WriteLine(r.ErrorCode);
                     T obj = (T)r.Data;
                     Console.WriteLine(obj.ToString());
                 }

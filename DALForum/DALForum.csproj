@@ -40,24 +40,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALBase.cs" />
-    <Compile Include="DTOParser.cs" />
-    <Compile Include="DTOParserFactory.cs" />
-    <Compile Include="DTOParser_Message.cs" />
-    <Compile Include="DTOParser_Registered.cs" />
-    <Compile Include="DTOParser_Rubric.cs" />
-    <Compile Include="DTOParser_Status.cs" />
-    <Compile Include="DTOParser_Topic.cs" />
-    <Compile Include="DTOParser_Training.cs" />
+    <Compile Include="DALBase\DALBase.cs" />
+    <Compile Include="DALBase\TrainingDb.cs" />
+    <Compile Include="DTOParser\DTOParser.cs" />
+    <Compile Include="DTOParser\DTOParserFactory.cs" />
+    <Compile Include="DTOParser\DTOParser_Message.cs" />
+    <Compile Include="DTOParser\DTOParser_Registered.cs" />
+    <Compile Include="DTOParser\DTOParser_Rubric.cs" />
+    <Compile Include="DTOParser\DTOParser_Status.cs" />
+    <Compile Include="DTOParser\DTOParser_Topic.cs" />
+    <Compile Include="DTOParser\DTOParser_Training.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RegisteredDb.cs" />
-    <Compile Include="RubricDb.cs" />
-    <Compile Include="StatusDb.cs" />
+    <Compile Include="DALBase\RegisteredDb.cs" />
+    <Compile Include="DALBase\RubricDb.cs" />
+    <Compile Include="DALBase\StatusDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -72,6 +73,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

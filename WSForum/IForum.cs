@@ -102,6 +102,36 @@ namespace WSForum
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
         WSR_Result DeleteStatus(string idstatus);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Trainings",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetTrainings();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Trainings/{idtraining}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetTrainingById(string idtraining);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Trainings",
+            Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result SaveTraining(WSR_Param param);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Trainings/{idtraining}",
+            Method = "DELETE",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result DeleteTraining(string idtraining);
     }
 
 
