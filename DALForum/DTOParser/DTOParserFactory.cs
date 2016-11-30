@@ -22,7 +22,7 @@ namespace DALForum
                 case "StatusDTO":
                     return new DTOParser_Status();
                 case "TopicDTO":
-                    return new DTOParser_Status();
+                    return new DTOParser_Topic();
                 case "TrainingDTO":
                     return new DTOParser_Training();
             }

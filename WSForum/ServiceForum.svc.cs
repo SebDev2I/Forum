@@ -196,7 +196,6 @@ namespace WSForum
             }
             else return result;
         }
-
         public WSR_Result GetTrainings()
         {
             object data = null;
@@ -210,7 +209,6 @@ namespace WSForum
             }
             else return result;
         }
-
         public WSR_Result GetTrainingById(string idtraining)
         {
             object data = null;
@@ -224,26 +222,24 @@ namespace WSForum
             }
             else return result;
         }
-
         public WSR_Result SaveTraining(WSR_Param param)
         {
-            TrainingDTO status = null;
+            TrainingDTO training = null;
             object data = null;
             WSR_Result result = null;
 
-            result = VerifParamType(param, "save", out status);
+            result = VerifParamType(param, "save", out training);
 
             if (result == null)
             {
-                status = (TrainingDTO)param["save"];
+                training = (TrainingDTO)param["save"];
                 TrainingDb db = new TrainingDb();
-                db.SaveTraining(ref status);
-                data = status;
+                db.SaveTraining(ref training);
+                data = training;
                 return new WSR_Result(data, true);
             }
             else return result;
         }
-
         public WSR_Result DeleteTraining(string idstatus)
         {
             object data = null;
@@ -253,6 +249,172 @@ namespace WSForum
             {
                 TrainingDb db = new TrainingDb();
                 data = db.DeleteTraining(Convert.ToInt32(idstatus));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetTopics()
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TopicDb db = new TopicDb();
+                data = db.GetAll();
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetTopicById(string idtopic)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TopicDb db = new TopicDb();
+                data = db.GetTopicById(Convert.ToInt32(idtopic));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetTopicsByRubric(string idrubric)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TopicDb db = new TopicDb();
+                data = db.GetTopicByRubric(Convert.ToInt32(idrubric));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetTopicsByUser(string iduser)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TopicDb db = new TopicDb();
+                data = db.GetTopicByUser(Convert.ToInt32(iduser));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result SaveTopic(WSR_Param param)
+        {
+            TopicDTO topic = null;
+            object data = null;
+            WSR_Result result = null;
+
+            result = VerifParamType(param, "save", out topic);
+
+            if (result == null)
+            {
+                topic = (TopicDTO)param["save"];
+                TopicDb db = new TopicDb();
+                db.SaveTopic(ref topic);
+                data = topic;
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result DeleteTopic(string idtopic)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                TopicDb db = new TopicDb();
+                data = db.DeleteTopic(Convert.ToInt32(idtopic));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetMessages()
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                MessageDb db = new MessageDb();
+                data = db.GetAll();
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetMessageById(string idmessage)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                MessageDb db = new MessageDb();
+                data = db.GetMessageById(Convert.ToInt32(idmessage));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetMessagesByTopic(string idtopic)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                MessageDb db = new MessageDb();
+                data = db.GetMessageByTopic(Convert.ToInt32(idtopic));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result GetMessagesByUser(string iduser)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                MessageDb db = new MessageDb();
+                data = db.GetMessageByUser(Convert.ToInt32(iduser));
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result SaveMessage(WSR_Param param)
+        {
+            MessageDTO message = null;
+            object data = null;
+            WSR_Result result = null;
+
+            result = VerifParamType(param, "save", out message);
+
+            if (result == null)
+            {
+                message = (MessageDTO)param["save"];
+                MessageDb db = new MessageDb();
+                db.SaveMessage(ref message);
+                data = message;
+                return new WSR_Result(data, true);
+            }
+            else return result;
+        }
+        public WSR_Result DeleteMessage(string idmessage)
+        {
+            object data = null;
+            WSR_Result result = null;
+
+            if (result == null)
+            {
+                MessageDb db = new MessageDb();
+                data = db.DeleteMessage(Convert.ToInt32(idmessage));
                 return new WSR_Result(data, true);
             }
             else return result;
@@ -302,11 +464,6 @@ namespace WSForum
 
             return null;
         }
-
-        
-
-
-
         #endregion Fonctions perso
     }
 }

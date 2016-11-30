@@ -132,6 +132,94 @@ namespace WSForum
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare)]
         WSR_Result DeleteTraining(string idtraining);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Topics",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetTopics();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Topics/{idtopic}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetTopicById(string idtopic);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Topics/Rubric={idrubric}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetTopicsByRubric(string idrubric);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Topics/User={iduser}",
+           ResponseFormat = WebMessageFormat.Json,
+           RequestFormat = WebMessageFormat.Json,
+           BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetTopicsByUser(string iduser);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Topics",
+            Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result SaveTopic(WSR_Param param);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Topics/{idtopic}",
+            Method = "DELETE",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result DeleteTopic(string idtopic);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Messages",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetMessages();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Messages/{idmessage}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetMessageById(string idmessage);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Messages/Topic={idtopic}",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetMessagesByTopic(string idtopic);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "Messages/User={iduser}",
+           ResponseFormat = WebMessageFormat.Json,
+           RequestFormat = WebMessageFormat.Json,
+           BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result GetMessagesByUser(string iduser);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Messages",
+            Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result SaveMessage(WSR_Param param);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "Messages/{idmessage}",
+            Method = "DELETE",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        WSR_Result DeleteMessage(string idmessage);
     }
 
 

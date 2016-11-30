@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALBase\DALBase.cs" />
+    <Compile Include="DALBase\MessageDb.cs" />
+    <Compile Include="DALBase\TopicDb.cs" />
     <Compile Include="DALBase\TrainingDb.cs" />
     <Compile Include="DTOParser\DTOParser.cs" />
     <Compile Include="DTOParser\DTOParserFactory.cs" />

@@ -30,7 +30,7 @@ namespace DALForum
             bool isNewRecord = false;
             if (registered.IdUser.Equals(Common.DTOBase.Int_NullValue))
             {
-                command = GetDbSprocCommand("INSERTUSERS");
+                command = GetDbSprocCommand("INSERTUSER");
                 paramNewUserId = CreateOutputParameter("@NEWUSERID", SqlDbType.Int);
                 command.Parameters.Add(paramNewUserId);
                 isNewRecord = true;
@@ -45,7 +45,7 @@ namespace DALForum
             command.Parameters.Add(CreateParameter("@IDTRAINING", registered.TrainingUser));
             command.Parameters.Add(CreateParameter("@NAME", registered.NameUser, 50));
             command.Parameters.Add(CreateParameter("@FIRSTNAME", registered.FirstnameUser, 50));
-            command.Parameters.Add(CreateParameter("@EMAIL", registered.EmailUser, 50));
+            command.Parameters.Add(CreateParameter("@EMAIL", registered.EmailUser, 100));
             command.Parameters.Add(CreateParameter("@LOGIN", registered.LoginUser, 50));
             command.Parameters.Add(CreateParameter("@PASSWORD", registered.PwdUser, 1024));
             command.Parameters.Add(CreateParameter("@KEYWORD", registered.KeywordUser, 50));

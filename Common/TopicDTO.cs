@@ -10,7 +10,7 @@ namespace Common
     {
         public int IdTopic { get; set; }
         public int IdUser { get; set; }
-        public int idRubric { get; set; }
+        public int IdRubric { get; set; }
         public DateTime DateTopic { get; set; }
         public string TitleTopic { get; set; }
         public string DescTopic { get; set; }
@@ -19,11 +19,21 @@ namespace Common
         {
             IdTopic = Int_NullValue;
             IdUser = Int_NullValue;
-            idRubric = Int_NullValue;
+            IdRubric = Int_NullValue;
             DateTopic = DateTime_NullValue;
             TitleTopic = String_NullValue;
             DescTopic = String_NullValue;
             IsNew = true;
+        }
+
+        public override string ToString()
+        {
+            return " Id : " + IdTopic
+                + " IdUser = " + IdUser
+                + " IdRubric = " + IdRubric
+                + " Date : " + DateTopic
+                + " Titre : " + TitleTopic
+                + " Description : " + DescTopic;
         }
     }
 }

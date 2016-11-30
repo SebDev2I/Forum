@@ -23,5 +23,11 @@ namespace Common
             ContentMessage = String_NullValue;
             IsNew = true;
         }
+
+        public override string ToString()
+        {
+            return " Idmessage : " + IdMessage + " Idtopic : " + IdTopic + " Iduser : " + IdUser
+                + " Date : " + DateMessage + " Contenu : " + ContentMessage;
+        }
     }
 }

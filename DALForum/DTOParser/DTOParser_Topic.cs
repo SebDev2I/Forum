@@ -22,7 +22,7 @@ namespace DALForum
             TopicDTO t = new TopicDTO();
             if (!reader.IsDBNull(Ord_IdTopic)) { t.IdTopic = Convert.ToInt32(reader.GetDecimal(Ord_IdTopic)); }
             if (!reader.IsDBNull(Ord_IdUser)) { t.IdUser = Convert.ToInt32(reader.GetDecimal(Ord_IdUser)); }
-            if (!reader.IsDBNull(Ord_IdRubric)) { t.idRubric = Convert.ToInt32(reader.GetDecimal(Ord_IdRubric)); }
+            if (!reader.IsDBNull(Ord_IdRubric)) { t.IdRubric = Convert.ToInt32(reader.GetDecimal(Ord_IdRubric)); }
             if (!reader.IsDBNull(Ord_DateTopic)) { t.DateTopic = reader.GetDateTime(Ord_DateTopic); }
             if (!reader.IsDBNull(Ord_DescTopic)) { t.DescTopic = reader.GetString(Ord_DescTopic); }
 

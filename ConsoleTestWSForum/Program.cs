@@ -25,14 +25,14 @@ namespace ConsoleTestWSForum
             Console.ForegroundColor = ConsoleColor.Magenta;
 
             WSR_Param p = new WSR_Param();
-            TrainingDTO s = new TrainingDTO();
-            s.NameTraining = "ESSAI";
-            s.IdTraining = 17;
-            p.Add("save", s);
-            Response<TrainingDTO>(p, "Trainings", "GET", 0);
-            //Response<RubricDTO>(p, "Rubrics", "DELETE", 8);
-            //Response<StatusDTO>(p, "Status", "GET", 0);
-            //Get<RubricDTO>("Rubrics", "GET");
+            MessageDTO m = new MessageDTO();
+            m.IdMessage = 15;
+            m.IdTopic = 0;
+            m.IdUser = 0;
+            m.DateMessage = DateTime.Now;
+            m.ContentMessage = "essai update";
+            p.Add("save", m);
+            Response<RegisteredDTO>(p, "Users", "GET", 0);
             Console.ReadKey();
         }
 
@@ -57,6 +57,7 @@ namespace ConsoleTestWSForum
                     r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
                     List<T> lst = new List<T>();
                     lst = (List<T>)r.Data;
+                    Console.WriteLine(r.ErrorCode);
                     foreach (T item in lst)
                     {
                         Console.WriteLine(item.ToString());

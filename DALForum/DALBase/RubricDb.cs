@@ -27,13 +27,13 @@ namespace DALForum
         public void SaveRubric(ref RubricDTO rubric)
         {
             SqlCommand command = new SqlCommand();
-            SqlParameter paramNewUserId = new SqlParameter();
+            SqlParameter paramNewRubricId = new SqlParameter();
             bool isNewRecord = false;
             if (rubric.IdRubric.Equals(Common.DTOBase.Int_NullValue))
             {
                 command = GetDbSprocCommand("INSERTRUBRIC");
-                paramNewUserId = CreateOutputParameter("@NEWUSERID", SqlDbType.Int);
-                command.Parameters.Add(paramNewUserId);
+                paramNewRubricId = CreateOutputParameter("@NEWRUBRICID", SqlDbType.Int);
+                command.Parameters.Add(paramNewRubricId);
                 isNewRecord = true;
             }
             else
@@ -51,7 +51,7 @@ namespace DALForum
             command.Connection.Close();
             if (nb == 1)
             {
-                if (isNewRecord && nb == 1) { rubric.IdRubric = (int)paramNewUserId.Value; }
+                if (isNewRecord && nb == 1) { rubric.IdRubric = (int)paramNewRubricId.Value; }
             }
         }
 
