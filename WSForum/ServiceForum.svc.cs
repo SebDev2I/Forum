@@ -8,6 +8,7 @@ using System.Text;
 using ConsumeWSRest;
 using DALForum;
 using Common;
+using DLLAuth;
 
 namespace WSForum
 {
@@ -25,6 +26,25 @@ namespace WSForum
         public const int CodeRet_ParamKeyInconnu = 10;
         public const int CodeRet_ParamTypeInvalid = 11;
         public const int CodeRet_ErreurInterneService = 100;
+
+        public WSR_Result GetAuthentication(WSR_Param param)
+        {
+            Token token = null;
+            object data = null;
+            WSR_Result result = null;
+
+            result = VerifParamType(param, "token", out token);
+
+            if (result == null)
+            {
+                token = (Token)param["token"];
+                TokenDb db = new TokenDb();
+                token = db.GetAuh(token);
+                data = token;
+                return new WSR_Result(data, true);
+            }
+            return result;
+        }
         public WSR_Result GetUserById(string iduser)
         {
             object data = null;
@@ -57,15 +77,29 @@ namespace WSForum
             object data = null;
             WSR_Result result = null;
 
-            result = VerifParamType(param, "save", out registered);
-
+            Token token = null;
+            result = VerifParamType(param, "token", out token);
             if (result == null)
             {
-                registered = (RegisteredDTO)param["save"];
-                RegisteredDb db = new RegisteredDb();
-                db.SaveUser(ref registered);
-                data = registered;
-                return new WSR_Result(data, true);
+                token = (Token)param["token"];
+                TokenDb dbToken = new TokenDb();
+                RegisteredDTO regToken = dbToken.GetInfoAuth(token);
+
+                if (TokenManager.IsTokenValid(token, regToken))
+                {
+                    result = VerifParamType(param, "save", out registered);
+
+                    if (result == null)
+                    {
+                        registered = (RegisteredDTO)param["save"];
+                        RegisteredDb db = new RegisteredDb();
+                        db.SaveUser(ref registered);
+                        data = registered;
+                        return new WSR_Result(data, true);
+                    }
+                    else return result;
+                }
+                else return result;
             }
             else return result;
         }

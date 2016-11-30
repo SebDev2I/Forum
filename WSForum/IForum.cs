@@ -14,6 +14,13 @@ namespace WSForum
     public interface IForum
     {
         [OperationContract]
+        [WebInvoke(UriTemplate = "Login",
+            Method = "POST",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json)]
+        WSR_Result GetAuthentication(WSR_Param param);
+
+        [OperationContract]
         [WebGet(UriTemplate = "Users",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json,

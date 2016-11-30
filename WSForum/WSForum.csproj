@@ -132,6 +132,10 @@
       <Project>{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}</Project>
       <Name>DALForum</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DLLAuth\DLLAuth.csproj">
+      <Project>{AFCB26AC-C0E0-4574-82E9-05E1776275E9}</Project>
+      <Name>DLLAuth</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

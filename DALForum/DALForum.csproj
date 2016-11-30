@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="DALBase\DALBase.cs" />
     <Compile Include="DALBase\MessageDb.cs" />
+    <Compile Include="DALBase\TokenDb.cs" />
     <Compile Include="DALBase\TopicDb.cs" />
     <Compile Include="DALBase\TrainingDb.cs" />
     <Compile Include="DTOParser\DTOParser.cs" />
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{9DA87557-2B8A-4DB7-881E-17CACD5B9660}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DLLAuth\DLLAuth.csproj">
+      <Project>{AFCB26AC-C0E0-4574-82E9-05E1776275E9}</Project>
+      <Name>DLLAuth</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

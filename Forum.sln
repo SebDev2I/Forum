@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALForum", "DALForum\DALForum.csproj", "{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLLAuth", "DLLAuth\DLLAuth.csproj", "{AFCB26AC-C0E0-4574-82E9-05E1776275E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFCB26AC-C0E0-4574-82E9-05E1776275E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCB26AC-C0E0-4574-82E9-05E1776275E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCB26AC-C0E0-4574-82E9-05E1776275E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCB26AC-C0E0-4574-82E9-05E1776275E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
