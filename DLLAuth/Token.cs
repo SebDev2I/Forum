@@ -44,6 +44,12 @@ namespace DLLAuth
             _Time = time;
             _TokenSpe = TokenManager.GenerateTokenClient(loginuser, password);
         }
+        /*public Token(int iduser, string loginuser, long time)
+        {
+            _IdUser = iduser;
+            _Time = time;
+            _TokenSpe = TokenManager.GenerateTokenWS(loginuser, password);
+        }*/
         #endregion
 
         #region Méthodes

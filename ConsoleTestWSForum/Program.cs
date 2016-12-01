@@ -1,5 +1,7 @@
 ﻿using Common;
 using ConsumeWSRest;
+using DALClientWS;
+using DLLAuth;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +19,9 @@ namespace ConsoleTestWSForum
         private const string HTTP = @"http://localhost:5000/";
         private const string SERVICE = "ServiceForum.svc/";
         private static CancellationTokenSource _CancellationAsync;
+        private static DALClient d;
+        private static RegisteredDTO reg = null;
+        public Token tok = null;
 
         static void Main(string[] args)
         {
@@ -25,15 +30,48 @@ namespace ConsoleTestWSForum
             Console.ForegroundColor = ConsoleColor.Magenta;
 
             WSR_Param p = new WSR_Param();
-            MessageDTO m = new MessageDTO();
-            m.IdMessage = 15;
-            m.IdTopic = 0;
-            m.IdUser = 0;
-            m.DateMessage = DateTime.Now;
-            m.ContentMessage = "essai update";
-            p.Add("save", m);
-            Response<RegisteredDTO>(p, "Users", "GET", 0);
+            Token t = new Token(1, "Snosjean", "admin", DateTime.UtcNow.Ticks);
+            //Response<RegisteredDTO>(p, "Users", "GET", 1);
+            //reg.KeywordUser = "Mablue mon chien";
+            p.Add("save", reg);
+            p.Add("token", t);
+            //Console.WriteLine("param : " + t);
+
+            d = new DALClient();
+            //essai(t, CancellationToken.None);
+            essai<StatusDTO>(CancellationToken.None);
             Console.ReadKey();
+        }
+        
+        private static async void essai(Token t, CancellationToken cancel)
+        {
+            //DALClient d = new DALClient();
+            DALWSR_Result r = await d.LoginAsync(t, cancel);
+            t = (Token)r.Data;
+            Console.WriteLine("retour : " + t);
+        }
+
+        private static async void essai<T>(CancellationToken cancel)
+        {
+            DALWSR_Result r = await d.GetListStatus(cancel);
+            List<T> list = (List<T>)r.Data;
+            foreach (T item in list)
+            {
+                Console.WriteLine(item.ToString());
+            }
+                
+            
+        }
+        public static async void ResponseToken<Token>(WSR_Param p, string resource, string method)
+        {
+            _CancellationAsync = new CancellationTokenSource();
+            WSR_Result r;
+            string path;
+            path = ConstructResource(resource);
+            r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
+            Token obj = (Token)r.Data;
+            
+            Console.WriteLine(obj.ToString());
         }
 
         public static async void Response<T>(WSR_Param p, string resource, string method, int id)
@@ -49,6 +87,7 @@ namespace ConsoleTestWSForum
                     path = ConstructResource(resource, id);
                     r = await ConsumeWSR.Call(path, method, p, TypeSerializer.Json, _CancellationAsync.Token);
                     T obj = (T)r.Data;
+                    T reg = (T)r.Data; 
                     Console.WriteLine(obj.ToString());
                 }
                 else

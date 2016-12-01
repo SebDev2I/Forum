@@ -69,6 +69,12 @@ namespace DLLAuth
             Parts = key.Split(new char[] { ':' });
             return Parts;
         }
+
+        public static string GetPwd(string str)
+        {
+            string[] tab = str.Split(new char[] { ':' });
+            return tab[2];
+        }
         #endregion
     }
 }

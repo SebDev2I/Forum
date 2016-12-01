@@ -11,9 +11,9 @@ namespace DALForum
 {
     public class TokenDb : DALBase
     {
-        private const int ID_USER = 0;
-        private const int LOGIN = 1;
-        private const int PASSWORD = 2;
+        private int ID_USER;
+        private int LOGIN;
+        private int PASSWORD;
         public Token GetAuh(Token token)
         {
             SqlCommand command = GetDbSprocCommand("GETAUTH");
@@ -22,19 +22,23 @@ namespace DALForum
             command.Parameters.Add(CreateParameter("@PWD", body[0], 1024));
             command.Connection.Open();
             SqlDataReader reader = command.ExecuteReader();
+            GetIndexField(reader);
             if (reader.HasRows)
             {
+                reader.Read();
                 int iduser = Convert.ToInt32(reader.GetDecimal(ID_USER));
                 string login = reader.GetString(LOGIN);
                 string pwd = reader.GetString(PASSWORD);
+                pwd = Encoding.UTF8.GetString(Convert.FromBase64String(pwd), 0, Convert.FromBase64String(pwd).Length);
+                pwd = TokenManager.GetPwd(pwd);
                 long time = DateTime.UtcNow.Ticks;
-                token = new Token(iduser, login, pwd, time);
+                token = new Token(1, login, pwd, time);
                 reader.Close();
                 return token;
             }
             else
             {
-                token = null;
+                //token = null;
                 return token;
             }
 
@@ -44,6 +48,13 @@ namespace DALForum
             SqlCommand command = GetDbSprocCommand("GETINFOAUTH");
             command.Parameters.Add(CreateParameter("@ID", token.IdUser));
             return GetSingleDTO<RegisteredDTO>(ref command);
+        }
+
+        private void GetIndexField(SqlDataReader r)
+        {
+            ID_USER = r.GetOrdinal("ID_USER");
+            LOGIN = r.GetOrdinal("LOGIN");
+            PASSWORD = r.GetOrdinal("PASSWORD");
         }
     }
 }
