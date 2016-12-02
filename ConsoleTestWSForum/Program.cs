@@ -1,7 +1,9 @@
 ﻿using Common;
 using ConsumeWSRest;
 using DALClientWS;
+using DALForum;
 using DLLAuth;
+using DLLForum;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,6 +24,7 @@ namespace ConsoleTestWSForum
         private static DALClient d;
         private static RegisteredDTO reg = null;
         public Token tok = null;
+       
 
         static void Main(string[] args)
         {
@@ -29,7 +32,7 @@ namespace ConsoleTestWSForum
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
 
-            WSR_Param p = new WSR_Param();
+            /*WSR_Param p = new WSR_Param();
             Token t = new Token(1, "Snosjean", "admin", DateTime.UtcNow.Ticks);
             //Response<RegisteredDTO>(p, "Users", "GET", 1);
             //reg.KeywordUser = "Mablue mon chien";
@@ -37,12 +40,31 @@ namespace ConsoleTestWSForum
             p.Add("token", t);
             //Console.WriteLine("param : " + t);
 
-            d = new DALClient();
+            
             //essai(t, CancellationToken.None);
-            essai<StatusDTO>(CancellationToken.None);
+            essai<StatusDTO>(CancellationToken.None);*/
+            d = new DALClient();
+            essai(4, CancellationToken.None);
+            
+            //Console.WriteLine(s.Data.IdStatus);// + " " + s.Data.NameStatus);
             Console.ReadKey();
         }
-        
+
+        private static async void essai(int id, CancellationToken cancel)
+        {
+            //DALWSR_Result r = new DALWSR_Result();
+
+            DALWSR_Result r = await d.GetUserById(id, CancellationToken.None);
+            RegisteredDTO reg = (RegisteredDTO)r.Data;
+            DALWSR_Result r1 = await d.GetStatusById(reg.StatusUser, CancellationToken.None);
+            StatusDTO s = (StatusDTO)r1.Data;
+            DALWSR_Result r2 = await d.GetTrainingById(reg.TrainingUser, CancellationToken.None);
+            TrainingDTO t = (TrainingDTO)r2.Data;
+            Registered regis = new Registered(reg, new Status(s), new Training(t));
+            
+            Console.WriteLine(regis);
+            //Console.WriteLine()
+        }
         private static async void essai(Token t, CancellationToken cancel)
         {
             //DALClient d = new DALClient();

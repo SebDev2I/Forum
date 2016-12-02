@@ -63,9 +63,17 @@
       <Project>{23D4C220-5474-437B-A3AC-23DEDB8C96B6}</Project>
       <Name>DALClientWS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DALForum\DALForum.csproj">
+      <Project>{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}</Project>
+      <Name>DALForum</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DLLAuth\DLLAuth.csproj">
       <Project>{AFCB26AC-C0E0-4574-82E9-05E1776275E9}</Project>
       <Name>DLLAuth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DLLForum\DLLForum.csproj">
+      <Project>{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}</Project>
+      <Name>DLLForum</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

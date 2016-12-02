@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{A2EFE586-8CFD-4D74-AABC-41F8CA02E789}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DLLForum</RootNamespace>
-    <AssemblyName>DLLForum</AssemblyName>
+    <RootNamespace>ConsoleTestClient</RootNamespace>
+    <AssemblyName>ConsoleTestClient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,7 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,26 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditTool.cs" />
-    <Compile Include="Forum.cs" />
-    <Compile Include="ForumBase.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Registered.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rubric.cs" />
-    <Compile Include="Status.cs" />
-    <Compile Include="Topic.cs" />
-    <Compile Include="Training.cs" />
-    <Compile Include="ValidationError.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{9DA87557-2B8A-4DB7-881E-17CACD5B9660}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DALClientWS\DALClientWS.csproj">
-      <Project>{23D4C220-5474-437B-A3AC-23DEDB8C96B6}</Project>
-      <Name>DALClientWS</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DLLForum\DLLForum.csproj">
+      <Project>{29e3fb3c-3dd3-4e6a-ad6a-6f9f74f3b082}</Project>
+      <Name>DLLForum</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

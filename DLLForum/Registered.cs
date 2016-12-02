@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,13 +8,88 @@ using System.Threading.Tasks;
 
 namespace DLLForum
 {
-    [DataContract]
     /// <summary>
     /// Personne enregistrée dans la base de données
     /// </summary>
-    public class Registered
+    public class Registered : ForumBase
     {
-        #region Attributs et propriétés
+        public RegisteredDTO Data { get; set; }
+        public Status DataStatus { get; set; }
+        public Training DataTraining { get; set; }
+        public Registered()
+        {
+            this.Data = new RegisteredDTO();
+            this.DataStatus = new Status();
+        }
+        public Registered(RegisteredDTO dto, Status status, Training training)
+        {
+            this.Data = dto;
+            this.DataStatus = status;
+            this.DataTraining = training;
+        }
+
+        public override List<ValidationError> Validate()
+        {
+            Val_Name();
+            return this.ValidationErrors;
+        }
+
+        private bool Val_Name()
+        {
+            int i = 0;
+            if (Data.NameUser == DTOBase.String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> est requis"));
+                i++;
+            }
+            else if (Data.NameUser.Length > 50)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> doit contenir 50 caractères au maximum"));
+                i++;
+            }
+            else if (!AuditTool.IsAlpha(Data.NameUser))
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> ne peut contenir de chiffres"));
+                i++;
+            }
+            else if (Data.FirstnameUser == DTOBase.String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> est requis"));
+                i++;
+            }
+            else if (Data.FirstnameUser.Length > 50)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> doit contenir 50 caractères au maximum"));
+                i++;
+            }
+            else if (!AuditTool.IsAlpha(Data.FirstnameUser))
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> ne peut contenir de chiffres"));
+                i++;
+            }
+            if(i > 0)
+            {
+                return false;
+            }
+            else return true;
+        }
+
+        private bool Val_Email()
+        {
+            if (!AuditTool.IsEmail(Data.EmailUser))
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "<EMAIL> ne correspond pas au format email"));
+                return false;
+            }
+            else if (Data.EmailUser.Length > 100)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "<EMAIL> doit contenir 100 caractères au maximum"));
+                return false;
+            }
+            else return true;
+        }
+
+        /*#region Attributs et propriétés
         private int _IdUser;
         [DataMember(Order = 1)]
         public int IdUser
@@ -184,14 +260,20 @@ namespace DLLForum
         {
 
         }
-        #endregion
+        #endregion*/
 
         #region "Méthodes redéfinies"
         public override string ToString()
         {
-            return " Id : " + _IdUser + " Statut : " + _StatusUser + " Training : " + _TrainingUser +
-                " Nom : " + _NameUser + " Prénom : " + _FirstnameUser + " Email : " + _EmailUser
-                + " Login : " + _LoginUser + " Pwd : " + _PwdUser + " Mot-clé : " + _KeywordUser;
+            return "Id : " + Data.IdUser 
+                + " Statut : " + DataStatus.Data.NameStatus 
+                + " Training : " + DataTraining.Data.NameTraining 
+                + " Nom : " + Data.NameUser 
+                + " Prénom : " + Data.FirstnameUser 
+                + " Email : " + Data.EmailUser
+                + " Login : " + Data.LoginUser 
+                + " Pwd : " + Data.PwdUser 
+                + " Mot-clé : " + Data.KeywordUser;
         }
         #endregion
     }
