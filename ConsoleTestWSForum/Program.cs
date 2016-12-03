@@ -3,7 +3,6 @@ using ConsumeWSRest;
 using DALClientWS;
 using DALForum;
 using DLLAuth;
-using DLLForum;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +49,7 @@ namespace ConsoleTestWSForum
             Console.ReadKey();
         }
 
-        private static async void essai(int id, CancellationToken cancel)
+        /*private static async void essai(int id, CancellationToken cancel)
         {
             //DALWSR_Result r = new DALWSR_Result();
 
@@ -174,5 +173,5 @@ namespace ConsoleTestWSForum
         {
             return string.Format("{0}{1}{2}/{3}", HTTP, SERVICE, resource, id.ToString());
         }
-    }
+    }*/
 }

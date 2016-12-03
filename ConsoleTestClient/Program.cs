@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DLLForum;
 using System.Threading;
+using DLLForumV2;
 
 namespace ConsoleTestClient
 {
@@ -16,15 +16,19 @@ namespace ConsoleTestClient
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
 
-
-            Rubric rubric = new Rubric();
-            List<Training> l = a
-            foreach (Rubric item in rubric.GetListTrainings())
-            {
-
-            }
-            Console.WriteLine(rubric);
+            essai();
+            
             Console.ReadKey();
+        }
+        private static async void essai()
+        {
+            Rubric r = new Rubric(2, "réseau");
+            List<Topic> l = new List<Topic>();
+            l = await r.GetListTopicsByRubric();
+            foreach (Topic item in l)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

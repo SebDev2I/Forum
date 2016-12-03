@@ -20,7 +20,8 @@ namespace Common
 
         public override string ToString()
         {
-            return " Id : " + IdRubric + " Nom : " + NameRubric;
+            return "Id : " + IdRubric
+                + " Nom : " + NameRubric;
         }
     }
 }

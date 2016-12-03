@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DLLForum\DLLForum.csproj">
-      <Project>{29e3fb3c-3dd3-4e6a-ad6a-6f9f74f3b082}</Project>
-      <Name>DLLForum</Name>
+    <ProjectReference Include="..\DLLForumV2\DLLForumV2.csproj">
+      <Project>{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}</Project>
+      <Name>DLLForumV2</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

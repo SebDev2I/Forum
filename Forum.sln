@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSForum", "WSForum\WSForum.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumeWSRest", "ConsumeWSRest\ConsumeWSRest.csproj", "{40415DC9-6833-4C59-B885-D39530B8BE13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestWSForum", "ConsoleTestWSForum\ConsoleTestWSForum.csproj", "{7CC48EF2-43D0-4F56-B5BE-8C612CEF10AE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLLForum", "DLLForum\DLLForum.csproj", "{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9DA87557-2B8A-4DB7-881E-17CACD5B9660}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALForum", "DALForum\DALForum.csproj", "{A103CCEF-24F4-4BE2-820B-87FBAA9DEE7F}"
@@ -22,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALClientWS", "DALClientWS\DALClientWS.csproj", "{23D4C220-5474-437B-A3AC-23DEDB8C96B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTestClient", "ConsoleTestClient\ConsoleTestClient.csproj", "{A2EFE586-8CFD-4D74-AABC-41F8CA02E789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLLForumV2", "DLLForumV2\DLLForumV2.csproj", "{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,14 +39,6 @@ Global
 		{40415DC9-6833-4C59-B885-D39530B8BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40415DC9-6833-4C59-B885-D39530B8BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40415DC9-6833-4C59-B885-D39530B8BE13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CC48EF2-43D0-4F56-B5BE-8C612CEF10AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CC48EF2-43D0-4F56-B5BE-8C612CEF10AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CC48EF2-43D0-4F56-B5BE-8C612CEF10AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CC48EF2-43D0-4F56-B5BE-8C612CEF10AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29E3FB3C-3DD3-4E6A-AD6A-6F9F74F3B082}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DA87557-2B8A-4DB7-881E-17CACD5B9660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DA87557-2B8A-4DB7-881E-17CACD5B9660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DA87557-2B8A-4DB7-881E-17CACD5B9660}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +59,10 @@ Global
 		{A2EFE586-8CFD-4D74-AABC-41F8CA02E789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2EFE586-8CFD-4D74-AABC-41F8CA02E789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2EFE586-8CFD-4D74-AABC-41F8CA02E789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

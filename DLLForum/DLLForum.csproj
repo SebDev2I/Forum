@@ -63,6 +63,10 @@
       <Project>{23D4C220-5474-437B-A3AC-23DEDB8C96B6}</Project>
       <Name>DALClientWS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DLLForumV2\DLLForumV2.csproj">
+      <Project>{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}</Project>
+      <Name>DLLForumV2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
