@@ -49,6 +49,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{9DA87557-2B8A-4DB7-881E-17CACD5B9660}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DALClientWS\DALClientWS.csproj">
+      <Project>{23D4C220-5474-437B-A3AC-23DEDB8C96B6}</Project>
+      <Name>DALClientWS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DLLForumV2\DLLForumV2.csproj">
       <Project>{776DE3AD-5B81-4C69-A14A-729EB34EA2F9}</Project>
       <Name>DLLForumV2</Name>

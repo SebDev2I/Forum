@@ -35,6 +35,16 @@ namespace DLLForumV2
             DTO = new RegisteredDTO();
         }
 
+        public Registered(int iduser, int statususer, int traininguser, string nameuser, string firstnameuser, string emailuser)
+        {
+            IdUser = iduser;
+            StatusUser = statususer;
+            TrainingUser = traininguser;
+            NameUser = nameuser;
+            FirstnameUser = firstnameuser;
+            EmailUser = emailuser;
+        }
+
         public Registered(RegisteredDTO dto)
         {
             IdUser = dto.IdUser;
@@ -171,7 +181,7 @@ namespace DLLForumV2
         /*private bool Val_Pwd()
         {
 
-        }
+        }*/
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DLLForumV2;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace FIISA
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            Forum f = new Forum();
+            dataGridView1.DataSource = await f.GetListRubrics();
+            dataGridView2.DataSource = await f.GetListTopics();
         }
     }
 }

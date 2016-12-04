@@ -24,6 +24,7 @@ namespace DALForum
             if (!reader.IsDBNull(Ord_IdUser)) { t.IdUser = Convert.ToInt32(reader.GetDecimal(Ord_IdUser)); }
             if (!reader.IsDBNull(Ord_IdRubric)) { t.IdRubric = Convert.ToInt32(reader.GetDecimal(Ord_IdRubric)); }
             if (!reader.IsDBNull(Ord_DateTopic)) { t.DateTopic = reader.GetDateTime(Ord_DateTopic); }
+            if (!reader.IsDBNull(Ord_TitleTopic)) { t.TitleTopic = reader.GetString(Ord_TitleTopic); }
             if (!reader.IsDBNull(Ord_DescTopic)) { t.DescTopic = reader.GetString(Ord_DescTopic); }
 
             t.IsNew = true;

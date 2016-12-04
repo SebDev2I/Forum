@@ -1,8 +1,10 @@
 ﻿using Common;
+using DALClientWS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DLLForumV2
@@ -10,55 +12,64 @@ namespace DLLForumV2
     public class Topic : ForumBase
     {
         public int IdTopic { get; set; }
-        public int IdUser { get; set; }
-        public int IdRubric { get; set; }
+        public Registered ObjUser { get; set; }
+        public Rubric ObjRubric { get; set; }
         public DateTime DateTopic { get; set; }
         public string TitleTopic { get; set; }
         public string DescTopic { get; set; }
         public TopicDTO DTO { get; set; }
+        public DALClient dal { get; set; }
         public Topic()
         {
             IdTopic = Int_NullValue;
-            IdUser = Int_NullValue;
-            IdRubric = Int_NullValue;
+            ObjUser = new Registered();
+            ObjRubric = new Rubric();
             DateTopic = DateTime_NullValue;
             TitleTopic = String_NullValue;
             DescTopic = String_NullValue;
             DTO = new TopicDTO(); 
         }
 
-        public Topic(TopicDTO dto)
+        public Topic(TopicDTO dto, Registered objuser, Rubric objrubric)
         {
             IdTopic = dto.IdTopic;
-            IdUser = dto.IdUser;
-            IdRubric = dto.IdRubric;
+            ObjUser = objuser;
+            ObjRubric = objrubric;
             DateTopic = dto.DateTopic;
             TitleTopic = dto.TitleTopic;
             DescTopic = dto.DescTopic;
+            DTO = dto;
         }
 
-        public Topic(int idtopic, int iduser, int idrubric, DateTime datetopic, string titletopic, string desctopic)
+        public Topic(int idtopic, Registered objuser, Rubric objrubric, DateTime datetopic, string titletopic, string desctopic)
         {
             IdTopic = idtopic;
-            IdUser = iduser;
-            IdRubric = idrubric;
+            ObjUser = objuser;
+            ObjRubric = objrubric;
             DateTopic = datetopic;
             TitleTopic = titletopic;
             DescTopic = desctopic;
             DTO = new TopicDTO();
             DTO.IdTopic = idtopic;
-            DTO.IdUser = iduser;
-            DTO.IdRubric = idrubric;
+            DTO.IdUser = objuser.IdUser;
+            DTO.IdRubric = objrubric.IdRubric;
             DTO.DateTopic = datetopic;
             DTO.TitleTopic = titletopic;
             DTO.DescTopic = desctopic;
         }
 
+        /*private async void GetRubric(int idrubric)
+        {
+            dal = new DALClient();
+            DALWSR_Result r1 = await dal.GetRubricById(idrubric, CancellationToken.None);
+            RubricDTO t = (RubricDTO)r1.Data;
+            ObjRubric = new Rubric(t);
+        }*/
         public override string ToString()
         {
             return " Id : " + IdTopic
-                + " IdUser = " + IdUser
-                + " IdRubric = " + IdRubric
+                + " User = " + ObjUser
+                + " Rubric = " + ObjRubric
                 + " Date : " + DateTopic
                 + " Titre : " + TitleTopic
                 + " Description : " + DescTopic;

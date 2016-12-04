@@ -25,6 +25,7 @@ namespace DLLForumV2
         {
             IdRubric = dto.IdRubric;
             NameRubric = dto.NameRubric;
+            DTO = dto;
         }
 
         public Rubric(int idrubric, string namerubric)
@@ -36,7 +37,7 @@ namespace DLLForumV2
             DTO.NameRubric = namerubric;
         }
 
-        public async Task<List<Topic>> GetListTopicsByRubric()
+        /*public async Task<List<Topic>> GetListTopicsByRubric()
         {
             DALClient dal = new DALClient();
             DALWSR_Result r = await dal.GetListTopicByRubric(IdRubric, CancellationToken.None);
@@ -47,7 +48,7 @@ namespace DLLForumV2
                 lsttopic.Add(new Topic(item));
             }
             return lsttopic;
-        }
+        }*/
         public override List<ValidationError> Validate()
         {
             Val_Name();
