@@ -88,27 +88,87 @@ namespace DLLForumV2
         {
             Val_Name();
             Val_Email();
-            Val_Login();
-            Val_Pwd();
+            //Val_Login();
+            //Val_Pwd();
             return this.ValidationErrors;
         }
 
         private bool Val_Name()
         {
-
+            int i = 0;
+            if (NameUser == String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> est requis"));
+                i++;
+            }
+            if (NameUser.Length > 50)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> doit contenir 50 caractères au maximum"));
+                i++;
+            }
+            if (!AuditTool.IsAlpha(NameUser))
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> ne peut contenir de chiffres"));
+                i++;
+            }
+            if (FirstnameUser == DTOBase.String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> est requis"));
+                i++;
+            }
+            if (FirstnameUser.Length > 50)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> doit contenir 50 caractères au maximum"));
+                i++;
+            }
+            if (!AuditTool.IsAlpha(FirstnameUser))
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> ne peut contenir de chiffres"));
+                i++;
+            }
+            if (LoginUser == String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.LoginUser", "<LOGIN> est requis"));
+                i++;
+            }
+            if (PwdUser == String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.PwdUser", "<PASSWORD> est requis"));
+                i++;
+            }
+            if (KeywordUser == String_NullValue)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.KeywordUser", "<KEYWORD> est requis"));
+                i++;
+            }
+            if (i > 0)
+            {
+                return false;
+            }
+            else return true;
         }
 
         private bool Val_Email()
         {
-
+            if (!AuditTool.IsEmail(EmailUser))
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "<EMAIL> ne correspond pas au format email"));
+                return false;
+            }
+            else if (EmailUser.Length > 100)
+            {
+                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "<EMAIL> doit contenir 100 caractères au maximum"));
+                return false;
+            }
+            else return true;
         }
 
-        private bool Val_Login()
+        /*private bool Val_Login()
         {
 
-        }
+        }*/
 
-        private bool Val_Pwd()
+        /*private bool Val_Pwd()
         {
 
         }

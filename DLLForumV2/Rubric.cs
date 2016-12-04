@@ -63,19 +63,24 @@ namespace DLLForumV2
 
         private bool Val_Name()
         {
+            int i = 0;
             if (NameRubric == ForumBase.String_NullValue)
             {
                 this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "<NAME_RUBRIC> est requis"));
-                return false;
+                i++;
             }
-            else if (NameRubric.Length > 50)
+            if (NameRubric.Length > 50)
             {
                 this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "<NAME_RUBRIC> doit contenir 50 caractères au maximum"));
-                return false;
+                i++;
             }
-            else if (!AuditTool.IsAlpha(NameRubric))
+            if (!AuditTool.IsAlpha(NameRubric))
             {
                 this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "<NAME_RUBRIC> ne peut contenir de chiffres"));
+                i++;
+            }
+            if (i > 0)
+            {
                 return false;
             }
             else return true;
