@@ -18,7 +18,7 @@ namespace ConsoleTestClient
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
 
-            Forum f = new Forum();
+            /*Forum f = new Forum();
             f.GetListRubrics();
             f.GetListTopics();
             Console.WriteLine(f.ListRubric.Count);
@@ -32,9 +32,9 @@ namespace ConsoleTestClient
             }
             Console.WriteLine("essai");
             essai();
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
-        private static async void essai()
+        /*private static async void essai()
         {
             DALClient dal = new DALClient();
             DALWSR_Result r1 = await dal.GetListUsers(CancellationToken.None);
@@ -45,6 +45,6 @@ namespace ConsoleTestClient
                 Console.WriteLine(item);
             }
 
-        }
+        }*/
     }
 }

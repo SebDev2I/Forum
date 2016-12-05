@@ -1,4 +1,5 @@
 ﻿using Common;
+using DALClientWS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,41 +12,44 @@ namespace DLLForumV2
     {
         public int IdMessage { get; set; }
         public int IdTopic { get; set; }
-        public int IdUser { get; set; }
+        public Registered ObjUser { get; set; }
         public DateTime DateMessage { get; set; }
         public string ContentMessage { get; set; }
         public MessageDTO DTO { get; set; }
+        private DALClient dal { get; set; }
 
         public Message()
         {
+            dal = new DALClient();
             IdMessage = Int_NullValue;
             IdTopic = Int_NullValue;
-            IdUser = Int_NullValue;
+            ObjUser = null;
             DateMessage = DateTime_NullValue;
             ContentMessage = String_NullValue;
             DTO = new MessageDTO();
         }
 
-        public Message(MessageDTO dto)
+        public Message(MessageDTO dto, Registered objuser) : this()
         {
             IdMessage = dto.IdMessage;
             IdTopic = dto.IdTopic;
-            IdUser = dto.IdUser;
+            ObjUser = objuser;
             DateMessage = dto.DateMessage;
             ContentMessage = dto.ContentMessage;
+            DTO = dto;
         }
 
-        public Message(int idmessage, int idtopic, int iduser, DateTime datemessage, string contentmessage)
+        public Message(int idmessage, int idtopic, Registered objuser, DateTime datemessage, string contentmessage) : this()
         {
             IdMessage = idmessage;
             IdTopic = idtopic;
-            IdUser = iduser;
+            ObjUser = objuser;
             DateMessage = datemessage;
             ContentMessage = contentmessage;
             DTO = new MessageDTO();
             DTO.IdMessage = idmessage;
             DTO.IdTopic = idtopic;
-            DTO.IdUser = iduser;
+            DTO.IdUser = objuser.IdUser;
             DTO.DateMessage = datemessage;
             DTO.ContentMessage = contentmessage;
         }
@@ -54,7 +58,7 @@ namespace DLLForumV2
         {
             return "Idmessage : " + IdMessage
                 + " Idtopic : " + IdTopic 
-                + " Iduser : " + IdUser
+                + " User : " + ObjUser
                 + " Date : " + DateMessage 
                 + " Contenu : " + ContentMessage;
         }

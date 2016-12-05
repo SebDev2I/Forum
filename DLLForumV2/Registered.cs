@@ -1,9 +1,11 @@
 ﻿using Common;
+using DALClientWS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DLLForumV2
@@ -11,8 +13,10 @@ namespace DLLForumV2
     public class Registered : ForumBase
     {
         public int IdUser { get; set; }
-        public int StatusUser { get; set; }
-        public int TrainingUser { get; set; }
+        //public int StatusUser { get; set; }
+        public Status ObjStatus { get; set; }
+        //public int TrainingUser { get; set; }
+        public Training ObjTraining { get; set; }
         public string NameUser { get; set; }
         public string FirstnameUser { get; set; }
         public string EmailUser { get; set; }
@@ -20,13 +24,19 @@ namespace DLLForumV2
         public string PwdUser { get; set; }
         public string KeywordUser { get; set; }
         public RegisteredDTO DTO { get; set; }
+        public List<Registered> ListRegistered { get; set; }
+        private DALClient dal { get; set; }
 
         public Registered()
         {
+            dal = new DALClient();
+            ListRegistered = new List<Registered>();
             IdUser = Int_NullValue;
-            StatusUser = Int_NullValue;
-            TrainingUser = Int_NullValue;
+            //StatusUser = Int_NullValue;
+            ObjStatus = null;
+            //TrainingUser = Int_NullValue;
             NameUser = String_NullValue;
+            ObjTraining = null;
             FirstnameUser = String_NullValue;
             EmailUser = String_NullValue;
             LoginUser = String_NullValue;
@@ -35,7 +45,7 @@ namespace DLLForumV2
             DTO = new RegisteredDTO();
         }
 
-        public Registered(int iduser, int statususer, int traininguser, string nameuser, string firstnameuser, string emailuser)
+        /*public Registered(int iduser, int statususer, int traininguser, string nameuser, string firstnameuser, string emailuser)
         {
             IdUser = iduser;
             StatusUser = statususer;
@@ -43,27 +53,43 @@ namespace DLLForumV2
             NameUser = nameuser;
             FirstnameUser = firstnameuser;
             EmailUser = emailuser;
-        }
+        }*/
 
-        public Registered(RegisteredDTO dto)
+        /*public Registered(RegisteredDTO dto)
         {
             IdUser = dto.IdUser;
-            StatusUser = dto.StatusUser;
-            TrainingUser = dto.TrainingUser;
+            //StatusUser = dto.StatusUser;
+            //TrainingUser = dto.TrainingUser;
             NameUser = dto.NameUser;
             FirstnameUser = dto.FirstnameUser;
             EmailUser = dto.EmailUser;
             LoginUser = dto.LoginUser;
             PwdUser = dto.PwdUser;
             KeywordUser = dto.KeywordUser;
+            DTO = dto;
+        }*/
+
+        public Registered(RegisteredDTO dto, Status objstatus, Training objtraining) : this()
+        {
+            IdUser = dto.IdUser;
+            ObjStatus = objstatus;
+            ObjTraining = objtraining;
+            NameUser = dto.NameUser;
+            FirstnameUser = dto.FirstnameUser;
+            EmailUser = dto.EmailUser;
+            LoginUser = dto.LoginUser;
+            //PwdUser = dto.PwdUser;
+            //KeywordUser = dto.KeywordUser;
+            DTO = dto;
         }
 
-        public Registered(int iduser, int idstatus, int idtraining, string nameuser, string firstnameuser, 
-            string emailuser, string loginuser, string pwduser, string keyworduser)
+        public Registered(int iduser, Status objstatus, Training objtraining, string nameuser, string firstnameuser, 
+            string emailuser, string loginuser, string pwduser, string keyworduser) : this()
         {
             IdUser = iduser;
-            StatusUser = idstatus;
-            TrainingUser = idtraining;
+            //StatusUser = idstatus;
+            ObjStatus = objstatus;
+            //TrainingUser = idtraining;
             NameUser = nameuser;
             FirstnameUser = firstnameuser;
             EmailUser = emailuser;
@@ -72,8 +98,8 @@ namespace DLLForumV2
             KeywordUser = keyworduser;
             DTO = new RegisteredDTO();
             DTO.IdUser = iduser;
-            DTO.StatusUser = idstatus;
-            DTO.TrainingUser = idtraining;
+            DTO.StatusUser = objstatus.IdStatus;
+            DTO.TrainingUser = objtraining.IdTraining;
             DTO.NameUser = nameuser;
             DTO.FirstnameUser = firstnameuser;
             DTO.EmailUser = emailuser;
@@ -81,11 +107,41 @@ namespace DLLForumV2
             DTO.PwdUser = pwduser;
             DTO.KeywordUser = keyworduser;
         }
+
+        public async Task<Registered> GetInfoUser(int iduser)
+        {
+            DALWSR_Result r1 = await dal.GetUserById(iduser, CancellationToken.None);
+            RegisteredDTO regDto = (RegisteredDTO)r1.Data;
+            return new Registered(regDto, await GetStatus(regDto.StatusUser), await GetTraining(regDto.TrainingUser));
+        }
+
+        public async Task<List<Registered>> GetListUsers()
+        {
+            DALWSR_Result r1 = await dal.GetUsers(CancellationToken.None);
+            foreach (RegisteredDTO item in (List<RegisteredDTO>)r1.Data)
+            {
+                ListRegistered.Add(new Registered(item, await GetStatus(item.StatusUser), await GetTraining(item.TrainingUser)));
+            }
+            return ListRegistered;
+        }
+
+        public async Task<Training> GetTraining(int idtraining)
+        {
+            DALWSR_Result r3 = await dal.GetTrainingById(idtraining, CancellationToken.None);
+            TrainingDTO trainingDto = (TrainingDTO)r3.Data;
+            return new Training(trainingDto);
+        }
+        public async Task<Status> GetStatus(int idstatus)
+        {
+            DALWSR_Result r1 = await dal.GetStatusById(idstatus, CancellationToken.None);
+            StatusDTO statusDto = (StatusDTO)r1.Data;
+            return new Status(statusDto);
+        }
         public override string ToString()
         {
             return "Id : " + IdUser 
-                + " Statut : " + StatusUser 
-                + " Training : " + TrainingUser 
+                + " Statut : " + ObjStatus 
+                + " Training : " + ObjTraining 
                 + " Nom : " + NameUser 
                 + " Prénom : " + FirstnameUser 
                 + " Email : " + EmailUser

@@ -18,9 +18,12 @@ namespace DLLForumV2
         public string TitleTopic { get; set; }
         public string DescTopic { get; set; }
         public TopicDTO DTO { get; set; }
-        public DALClient dal { get; set; }
+        public List<Message> ListMessagesByTopic { get; set; }
+        private DALClient dal { get; set; }
         public Topic()
         {
+            dal = new DALClient();
+            ListMessagesByTopic = new List<Message>();
             IdTopic = Int_NullValue;
             ObjUser = new Registered();
             ObjRubric = new Rubric();
@@ -30,7 +33,7 @@ namespace DLLForumV2
             DTO = new TopicDTO(); 
         }
 
-        public Topic(TopicDTO dto, Registered objuser, Rubric objrubric)
+        public Topic(TopicDTO dto, Registered objuser, Rubric objrubric) : this()
         {
             IdTopic = dto.IdTopic;
             ObjUser = objuser;
@@ -41,7 +44,7 @@ namespace DLLForumV2
             DTO = dto;
         }
 
-        public Topic(int idtopic, Registered objuser, Rubric objrubric, DateTime datetopic, string titletopic, string desctopic)
+        public Topic(int idtopic, Registered objuser, Rubric objrubric, DateTime datetopic, string titletopic, string desctopic) : this()
         {
             IdTopic = idtopic;
             ObjUser = objuser;
@@ -58,13 +61,23 @@ namespace DLLForumV2
             DTO.DescTopic = desctopic;
         }
 
-        /*private async void GetRubric(int idrubric)
+        public async Task<List<Message>> GetListMessagesByTopic(int idtopic)
         {
-            dal = new DALClient();
-            DALWSR_Result r1 = await dal.GetRubricById(idrubric, CancellationToken.None);
-            RubricDTO t = (RubricDTO)r1.Data;
-            ObjRubric = new Rubric(t);
-        }*/
+            DALWSR_Result r1 = await dal.GetMessagesByTopic(idtopic, CancellationToken.None);
+            Registered reg;
+            foreach (MessageDTO item in (List<MessageDTO>)r1.Data)
+            {
+                DALWSR_Result r2 = await dal.GetTopicById(item.IdTopic, CancellationToken.None);
+                TopicDTO topicDto = (TopicDTO)r2.Data;
+                DALWSR_Result r3 = await dal.GetUserById(item.IdUser, CancellationToken.None);
+                RegisteredDTO regDto = (RegisteredDTO)r3.Data;
+                reg = new Registered();
+                reg.ObjStatus = await reg.GetStatus(regDto.StatusUser);
+                reg.ObjTraining = await reg.GetTraining(regDto.TrainingUser);
+                ListMessagesByTopic.Add(new Message(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining)));
+            }
+            return ListMessagesByTopic;
+        }
         public override string ToString()
         {
             return " Id : " + IdTopic

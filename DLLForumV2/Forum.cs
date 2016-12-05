@@ -36,15 +36,18 @@ namespace DLLForumV2
 
         public async Task<List<Topic>> GetListTopics()
         {
-            DALWSR_Result r1 = await dal.GetListTopics(CancellationToken.None);
+            DALWSR_Result r1 = await dal.GetTopics(CancellationToken.None);
+            Registered reg;
             foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
             {
                 DALWSR_Result r2 = await dal.GetRubricById(item.IdRubric, CancellationToken.None);
                 RubricDTO rubric = (RubricDTO)r2.Data;
                 DALWSR_Result r3 = await dal.GetUserById(item.IdUser, CancellationToken.None);
                 RegisteredDTO regDto = (RegisteredDTO)r3.Data;
-                //TODO AJOUTER IDUSER 6 DANS LA TABLE USERS
-                ListTopic.Add(new Topic(item, new Registered(regDto), new Rubric(rubric)));
+                reg = new Registered();
+                reg.ObjStatus = await reg.GetStatus(regDto.StatusUser);
+                reg.ObjTraining = await reg.GetTraining(regDto.TrainingUser);
+                ListTopic.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
             }
             return ListTopic;
         }

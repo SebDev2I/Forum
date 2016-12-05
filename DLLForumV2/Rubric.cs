@@ -14,21 +14,25 @@ namespace DLLForumV2
         public int IdRubric { get; set; }
         public string NameRubric { get; set; }
         public RubricDTO DTO { get; set; }
+        public List<Topic> ListTopicsByRubric { get; set; }
+        private DALClient dal { get; set; }
         public Rubric()
         {
+            dal = new DALClient();
+            ListTopicsByRubric = new List<Topic>();
             IdRubric = Int_NullValue;
             NameRubric = String_NullValue;
             DTO = new RubricDTO();
         }
 
-        public Rubric(RubricDTO dto)
+        public Rubric(RubricDTO dto) : this()
         {
             IdRubric = dto.IdRubric;
             NameRubric = dto.NameRubric;
             DTO = dto;
         }
 
-        public Rubric(int idrubric, string namerubric)
+        public Rubric(int idrubric, string namerubric) : this()
         {
             IdRubric = idrubric;
             NameRubric = namerubric;
@@ -37,18 +41,23 @@ namespace DLLForumV2
             DTO.NameRubric = namerubric;
         }
 
-        /*public async Task<List<Topic>> GetListTopicsByRubric()
+        public async Task<List<Topic>> GetListTopicsByRubric(int idrubric)
         {
-            DALClient dal = new DALClient();
-            DALWSR_Result r = await dal.GetListTopicByRubric(IdRubric, CancellationToken.None);
-            List<TopicDTO> lst = (List<TopicDTO>)r.Data;
-            List<Topic> lsttopic = new List<Topic>();
-            foreach (TopicDTO item in lst)
+            DALWSR_Result r1 = await dal.GetTopicByRubric(idrubric, CancellationToken.None);
+            Registered reg;
+            foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
             {
-                lsttopic.Add(new Topic(item));
+                DALWSR_Result r2 = await dal.GetRubricById(item.IdRubric, CancellationToken.None);
+                RubricDTO rubric = (RubricDTO)r2.Data;
+                DALWSR_Result r3 = await dal.GetUserById(item.IdUser, CancellationToken.None);
+                RegisteredDTO regDto = (RegisteredDTO)r3.Data;
+                reg = new Registered();
+                reg.ObjStatus = await reg.GetStatus(regDto.StatusUser);
+                reg.ObjTraining = await reg.GetTraining(regDto.TrainingUser);
+                ListTopicsByRubric.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
             }
-            return lsttopic;
-        }*/
+            return ListTopicsByRubric;
+        }
         public override List<ValidationError> Validate()
         {
             Val_Name();

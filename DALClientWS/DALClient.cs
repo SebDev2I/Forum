@@ -73,7 +73,7 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListUsers(CancellationToken cancel)
+        public async Task<DALWSR_Result> GetUsers(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETUSERS);
             WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
@@ -193,7 +193,7 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListTopics(CancellationToken cancel)
+        public async Task<DALWSR_Result> GetTopics(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICS);
             WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
@@ -207,14 +207,14 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListTopicByRubric(int id, CancellationToken cancel)
+        public async Task<DALWSR_Result> GetTopicByRubric(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICSBYRUBRIC, id);
             WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListTopicByUser(int id, CancellationToken cancel)
+        public async Task<DALWSR_Result> GetTopicByUser(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICSBYUSER, id);
             WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
@@ -251,14 +251,14 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListMessagesByTopic(int id, CancellationToken cancel)
+        public async Task<DALWSR_Result> GetMessagesByTopic(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGESBYTOPIC, id);
             WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListMessagesByUser(int id, CancellationToken cancel)
+        public async Task<DALWSR_Result> GetMessagesByUser(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGESBYUSER, id);
             WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
