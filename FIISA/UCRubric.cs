@@ -27,6 +27,10 @@ namespace FIISA
             lblDate.Text = topic.DateTopic.ToString();
             lblDesc.Text = topic.DescTopic;
         }
-        
+
+        private void UCRubric_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -36,9 +36,13 @@ namespace FIISA
             //UCRubric uc = new UCRubric();
             List<Topic> lst;
             lst = await forum.GetListTopics();
+
             foreach (Topic item in lst)
             {
+                
                 tableLayoutPanel1.Controls.Add(new UCRubric(item));
+                tableLayoutPanel1.RowStyles.Add(new RowStyle());
+
             }
         }
 
