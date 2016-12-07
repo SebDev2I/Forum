@@ -13,7 +13,7 @@ namespace FIISA
 {
     public partial class frmFIISA : Form
     {
-        public Forum forum = null;
+        /*public Forum forum = null;
         public frmFIISA()
         {
             InitializeComponent();
@@ -34,23 +34,13 @@ namespace FIISA
             //Registered reg = new Registered();
             //dataGridView1.DataSource = await reg.GetListUsers();*/
             //UCRubric uc = new UCRubric();
-            List<Topic> lst;
-            lst = await forum.GetListTopics();
+            //lst = forum.GetListTopics();
 
-            foreach (Topic item in lst)
-            {
-                
-                tableLayoutPanel1.Controls.Add(new UCRubric(item));
-                tableLayoutPanel1.RowStyles.Add(new RowStyle());
-
-            }
-        }
-
-        private void frmFIISA_Load(object sender, EventArgs e)
-        {
             
         }
 
+       
+
         
     }
-}
+

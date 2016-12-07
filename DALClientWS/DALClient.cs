@@ -80,10 +80,10 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetUserById(int id, CancellationToken cancel)
+        public DALWSR_Result GetUserByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETUSERBYID, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
@@ -103,17 +103,17 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListRubrics(CancellationToken cancel)
+        public DALWSR_Result GetListRubricsAsync(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETRUBRICS);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(()=> ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetRubricById(int id, CancellationToken cancel)
+        public DALWSR_Result GetRubricByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETRUBRICBYID, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
@@ -140,10 +140,10 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetStatusById(int id, CancellationToken cancel)
+        public DALWSR_Result GetStatusByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETSTATUSBYID, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result ;
             return new DALWSR_Result(r);
         }
 
@@ -170,10 +170,10 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetTrainingById(int id, CancellationToken cancel)
+        public DALWSR_Result GetTrainingByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTRAININGBYID, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
@@ -193,24 +193,24 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetTopics(CancellationToken cancel)
+        public DALWSR_Result GetTopicsAsync(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICS);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetTopicById(int id, CancellationToken cancel)
+        public DALWSR_Result GetTopicByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICBYID, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetTopicByRubric(int id, CancellationToken cancel)
+        public DALWSR_Result GetTopicByRubricAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICSBYRUBRIC, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
@@ -251,10 +251,10 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetMessagesByTopic(int id, CancellationToken cancel)
+        public DALWSR_Result GetMessagesByTopicAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGESBYTOPIC, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 

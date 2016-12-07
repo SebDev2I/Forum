@@ -41,19 +41,19 @@ namespace DLLForumV2
             DTO.NameRubric = namerubric;
         }
 
-        public async Task<List<Topic>> GetListTopicsByRubric(int idrubric)
+        public List<Topic> GetListTopicsByRubric(int idrubric)
         {
-            DALWSR_Result r1 = await dal.GetTopicByRubric(idrubric, CancellationToken.None);
+            DALWSR_Result r1 = dal.GetTopicByRubricAsync(idrubric, CancellationToken.None);
             Registered reg;
             foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
             {
-                DALWSR_Result r2 = await dal.GetRubricById(item.IdRubric, CancellationToken.None);
+                DALWSR_Result r2 = dal.GetRubricByIdAsync(item.IdRubric, CancellationToken.None);
                 RubricDTO rubric = (RubricDTO)r2.Data;
-                DALWSR_Result r3 = await dal.GetUserById(item.IdUser, CancellationToken.None);
+                DALWSR_Result r3 = dal.GetUserByIdAsync(item.IdUser, CancellationToken.None);
                 RegisteredDTO regDto = (RegisteredDTO)r3.Data;
                 reg = new Registered();
-                reg.ObjStatus = await reg.GetStatus(regDto.StatusUser);
-                reg.ObjTraining = await reg.GetTraining(regDto.TrainingUser);
+                reg.ObjStatus = reg.GetStatus(regDto.StatusUser);
+                reg.ObjTraining = reg.GetTraining(regDto.TrainingUser);
                 ListTopicsByRubric.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
             }
             return ListTopicsByRubric;

@@ -108,11 +108,11 @@ namespace DLLForumV2
             DTO.KeywordUser = keyworduser;
         }
 
-        public async Task<Registered> GetInfoUser(int iduser)
+        public Registered GetInfoUser(int iduser)
         {
-            DALWSR_Result r1 = await dal.GetUserById(iduser, CancellationToken.None);
+            DALWSR_Result r1 = dal.GetUserByIdAsync(iduser, CancellationToken.None);
             RegisteredDTO regDto = (RegisteredDTO)r1.Data;
-            return new Registered(regDto, await GetStatus(regDto.StatusUser), await GetTraining(regDto.TrainingUser));
+            return new Registered(regDto, GetStatus(regDto.StatusUser), GetTraining(regDto.TrainingUser));
         }
 
         public async Task<List<Registered>> GetListUsers()
@@ -120,20 +120,20 @@ namespace DLLForumV2
             DALWSR_Result r1 = await dal.GetUsers(CancellationToken.None);
             foreach (RegisteredDTO item in (List<RegisteredDTO>)r1.Data)
             {
-                ListRegistered.Add(new Registered(item, await GetStatus(item.StatusUser), await GetTraining(item.TrainingUser)));
+                ListRegistered.Add(new Registered(item, GetStatus(item.StatusUser), GetTraining(item.TrainingUser)));
             }
             return ListRegistered;
         }
 
-        public async Task<Training> GetTraining(int idtraining)
+        public Training GetTraining(int idtraining)
         {
-            DALWSR_Result r3 = await dal.GetTrainingById(idtraining, CancellationToken.None);
+            DALWSR_Result r3 = dal.GetTrainingByIdAsync(idtraining, CancellationToken.None);
             TrainingDTO trainingDto = (TrainingDTO)r3.Data;
             return new Training(trainingDto);
         }
-        public async Task<Status> GetStatus(int idstatus)
+        public Status GetStatus(int idstatus)
         {
-            DALWSR_Result r1 = await dal.GetStatusById(idstatus, CancellationToken.None);
+            DALWSR_Result r1 = dal.GetStatusByIdAsync(idstatus, CancellationToken.None);
             StatusDTO statusDto = (StatusDTO)r1.Data;
             return new Status(statusDto);
         }

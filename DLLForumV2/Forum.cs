@@ -21,35 +21,36 @@ namespace DLLForumV2
             dal = new DALClient();
             User = new Registered();
             ListRubric = new List<Rubric>();
+            GetListRubrics();
             ListTopic = new List<Topic>();
+            GetListTopics();
         }
 
-        public async Task<List<Rubric>> GetListRubrics()
+        public void GetListRubrics()
         {
-            DALWSR_Result r1 = await dal.GetListRubrics(CancellationToken.None);
+            DALWSR_Result r1 = dal.GetListRubricsAsync(CancellationToken.None);
             foreach (RubricDTO item in (List<RubricDTO>)r1.Data)
             {
                 ListRubric.Add(new Rubric(item));
             }
-            return ListRubric;
         }
 
-        public async Task<List<Topic>> GetListTopics()
+        public void GetListTopics()
         {
-            DALWSR_Result r1 = await dal.GetTopics(CancellationToken.None);
+            DALWSR_Result r1 = dal.GetTopicsAsync(CancellationToken.None);
             Registered reg;
             foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
             {
-                DALWSR_Result r2 = await dal.GetRubricById(item.IdRubric, CancellationToken.None);
+                DALWSR_Result r2 = dal.GetRubricByIdAsync(item.IdRubric, CancellationToken.None);
                 RubricDTO rubric = (RubricDTO)r2.Data;
-                DALWSR_Result r3 = await dal.GetUserById(item.IdUser, CancellationToken.None);
+                DALWSR_Result r3 = dal.GetUserByIdAsync(item.IdUser, CancellationToken.None);
                 RegisteredDTO regDto = (RegisteredDTO)r3.Data;
                 reg = new Registered();
-                reg.ObjStatus = await reg.GetStatus(regDto.StatusUser);
-                reg.ObjTraining = await reg.GetTraining(regDto.TrainingUser);
+                reg.ObjStatus = reg.GetStatus(regDto.StatusUser);
+                reg.ObjTraining = reg.GetTraining(regDto.TrainingUser);
                 ListTopic.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
             }
-            return ListTopic;
+            //return ListTopic;
         }
 
         

@@ -61,19 +61,19 @@ namespace DLLForumV2
             DTO.DescTopic = desctopic;
         }
 
-        public async Task<List<Message>> GetListMessagesByTopic(int idtopic)
+        public List<Message> GetListMessagesByTopic(int idtopic)
         {
-            DALWSR_Result r1 = await dal.GetMessagesByTopic(idtopic, CancellationToken.None);
+            DALWSR_Result r1 = dal.GetMessagesByTopicAsync(idtopic, CancellationToken.None);
             Registered reg;
             foreach (MessageDTO item in (List<MessageDTO>)r1.Data)
             {
-                DALWSR_Result r2 = await dal.GetTopicById(item.IdTopic, CancellationToken.None);
+                DALWSR_Result r2 = dal.GetTopicByIdAsync(item.IdTopic, CancellationToken.None);
                 TopicDTO topicDto = (TopicDTO)r2.Data;
-                DALWSR_Result r3 = await dal.GetUserById(item.IdUser, CancellationToken.None);
+                DALWSR_Result r3 = dal.GetUserByIdAsync(item.IdUser, CancellationToken.None);
                 RegisteredDTO regDto = (RegisteredDTO)r3.Data;
                 reg = new Registered();
-                reg.ObjStatus = await reg.GetStatus(regDto.StatusUser);
-                reg.ObjTraining = await reg.GetTraining(regDto.TrainingUser);
+                reg.ObjStatus = reg.GetStatus(regDto.StatusUser);
+                reg.ObjTraining = reg.GetTraining(regDto.TrainingUser);
                 ListMessagesByTopic.Add(new Message(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining)));
             }
             return ListMessagesByTopic;
