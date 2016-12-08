@@ -27,30 +27,53 @@ namespace FIISA_Universel
         public MainPage()
         {
             this.InitializeComponent();
+            lstMessage.Visibility = Visibility.Collapsed;
             DataContext = m;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            /*lstRubric.Items.Clear();
-            List<Rubric> lst = new List<Rubric>();
-            lst = await forum.GetListRubrics();
-            foreach (Rubric item in lst)
-            {
-                lstRubric.Items.Add(item.NameRubric);
-            }*/
-            //MainViewModel m = new MainViewModel();
-
-
-            /*foreach (Rubric item in m.MyForum.ListRubric)
-            {
-                lstRubric.Items.Add(item);
-            }*/
+            
         }
         private void cmdHome_Click(object sender, RoutedEventArgs e)
         {
-            string id = lstRubric.SelectedItem.ToString();
-            //id = lstRubric.SelectedValuePath
+            lstRubric.Visibility = Visibility.Visible;
+            lstTopic.Visibility = Visibility.Visible;
+            lstMessage.Visibility = Visibility.Collapsed;
+            lstRubric.SelectionChanged -= lstRubric_SelectionChanged;
+            lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
+            lstMessage.SelectionChanged -= lstMessage_SelectionChanged;
+            m.InitializeList();
+            lstRubric.SelectionChanged += lstRubric_SelectionChanged;
+            lstRubric.SelectionChanged += lstTopic_SelectionChanged;
+            lstMessage.SelectionChanged += lstMessage_SelectionChanged;
+
+            Frame.Navigate(typeof(MessagePage));
+
+        }
+
+        private void lstRubric_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
+            Rubric item = (Rubric)lstRubric.SelectedItems[0];
+            m.Messages.Clear();
+            m.UpdateListTopic(item.IdRubric);
+            lstTopic.SelectionChanged += lstTopic_SelectionChanged;
+        }
+
+        private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lstRubric.SelectionChanged -= lstRubric_SelectionChanged;
+            Topic item = (Topic)lstTopic.SelectedItems[0];
+            m.UpdateListMessage(item.IdTopic);
+            lstRubric.Visibility = Visibility.Collapsed;
+            lstTopic.Visibility = Visibility.Collapsed;
+            lstMessage.Visibility = Visibility.Visible;
+        }
+
+        private void lstMessage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -9,6 +9,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <ListView x:Name="lstRubric" Grid.Row="1" Grid.Column="0" 
+            ItemsSource="{Binding ListeRubrics}"
+            Background="Transparent"
+            Foreground="White" BorderBrush="White"
+            Margin="0, 50, 0, 0" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding NameRubric}" Margin="20 0 0 0"/>
 
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
+    
 </Page>

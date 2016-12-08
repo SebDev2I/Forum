@@ -20,24 +20,11 @@ namespace FIISA_Universel
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MessagePage : Page
     {
-        private static MainViewModel m = new MainViewModel();
-        public MainPage()
+        public MessagePage()
         {
             this.InitializeComponent();
-            DataContext = m;
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-
-        }
-        
-
-        
-
-        
     }
 }
-

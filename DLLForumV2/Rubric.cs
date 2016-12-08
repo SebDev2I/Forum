@@ -41,22 +41,25 @@ namespace DLLForumV2
             DTO.NameRubric = namerubric;
         }
 
-        public List<Topic> GetListTopicsByRubric(int idrubric)
+        public void GetListTopicsByRubric(int idrubric)
         {
             DALWSR_Result r1 = dal.GetTopicByRubricAsync(idrubric, CancellationToken.None);
-            Registered reg;
-            foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
+            if (r1.Data != null)
             {
-                DALWSR_Result r2 = dal.GetRubricByIdAsync(item.IdRubric, CancellationToken.None);
-                RubricDTO rubric = (RubricDTO)r2.Data;
-                DALWSR_Result r3 = dal.GetUserByIdAsync(item.IdUser, CancellationToken.None);
-                RegisteredDTO regDto = (RegisteredDTO)r3.Data;
-                reg = new Registered();
-                reg.ObjStatus = reg.GetStatus(regDto.StatusUser);
-                reg.ObjTraining = reg.GetTraining(regDto.TrainingUser);
-                ListTopicsByRubric.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
+                Registered reg;
+                foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
+                {
+                    DALWSR_Result r2 = dal.GetRubricByIdAsync(item.IdRubric, CancellationToken.None);
+                    RubricDTO rubric = (RubricDTO)r2.Data;
+                    DALWSR_Result r3 = dal.GetUserByIdAsync(item.IdUser, CancellationToken.None);
+                    RegisteredDTO regDto = (RegisteredDTO)r3.Data;
+                    reg = new Registered();
+                    reg.ObjStatus = reg.GetStatus(regDto.StatusUser);
+                    reg.ObjTraining = reg.GetTraining(regDto.TrainingUser);
+                    ListTopicsByRubric.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
+                }
             }
-            return ListTopicsByRubric;
+            
         }
         public override List<ValidationError> Validate()
         {
