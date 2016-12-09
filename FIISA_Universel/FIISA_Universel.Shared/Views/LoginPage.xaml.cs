@@ -20,24 +20,36 @@ namespace FIISA_Universel
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class LoginPage : Page
     {
-        private static MainViewModel m = new MainViewModel();
-        public MainPage()
+        public LoginPage()
         {
             this.InitializeComponent();
-            DataContext = m;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
         }
-        
 
-        
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
 
-        
+        }
+
+        private void cmdContinue_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RubricPage));
+        }
+
+        private void cmdRegister_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdConnect_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
-

@@ -23,12 +23,12 @@ namespace FIISA_Universel
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private static MainViewModel m = new MainViewModel();
+        //private static MainViewModel m = new MainViewModel();
         public MainPage()
         {
             this.InitializeComponent();
             lstMessage.Visibility = Visibility.Collapsed;
-            DataContext = m;
+            //DataContext = m;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -43,7 +43,7 @@ namespace FIISA_Universel
             lstRubric.SelectionChanged -= lstRubric_SelectionChanged;
             lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
             lstMessage.SelectionChanged -= lstMessage_SelectionChanged;
-            m.InitializeList();
+            //m.InitializeList();
             lstRubric.SelectionChanged += lstRubric_SelectionChanged;
             lstRubric.SelectionChanged += lstTopic_SelectionChanged;
             lstMessage.SelectionChanged += lstMessage_SelectionChanged;
@@ -56,8 +56,8 @@ namespace FIISA_Universel
         {
             lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
             Rubric item = (Rubric)lstRubric.SelectedItems[0];
-            m.Messages.Clear();
-            m.UpdateListTopic(item.IdRubric);
+            //m.Messages.Clear();
+            //m.UpdateListTopic(item.IdRubric);
             lstTopic.SelectionChanged += lstTopic_SelectionChanged;
         }
 
@@ -65,7 +65,7 @@ namespace FIISA_Universel
         {
             lstRubric.SelectionChanged -= lstRubric_SelectionChanged;
             Topic item = (Topic)lstTopic.SelectedItems[0];
-            m.UpdateListMessage(item.IdTopic);
+            //m.UpdateListMessage(item.IdTopic);
             lstRubric.Visibility = Visibility.Collapsed;
             lstTopic.Visibility = Visibility.Collapsed;
             lstMessage.Visibility = Visibility.Visible;
