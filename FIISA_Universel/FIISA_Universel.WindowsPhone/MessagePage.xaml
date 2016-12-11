@@ -43,7 +43,8 @@
                            Margin="8 10 0 0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="12"
-                           TextWrapping="Wrap"/>
+                           TextWrapping="Wrap"
+                           Height="Auto"/>
                 </StackPanel>
 
             </Border>
@@ -67,7 +68,8 @@
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontWeight="Bold" 
-                           FontSize="14" />
+                           FontSize="14"
+                           Height="Auto"/>
                 <TextBlock Text="{Binding MyTopic.DateTopic}"
                            Margin="0 0 0 0"
                            Foreground="Black"
