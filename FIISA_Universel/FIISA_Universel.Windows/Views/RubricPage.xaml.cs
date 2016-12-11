@@ -1,11 +1,9 @@
-﻿using DALClientWS;
-using DLLAuth;
+﻿using DLLForumV2;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,48 +21,28 @@ namespace FIISA_Universel
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class LoginPage : Page
+    public sealed partial class RubricPage : Page
     {
-        RubricViewModel rubricVM = new RubricViewModel();
-        public LoginPage()
+        public RubricPage()
         {
             this.InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = rubricVM;
+            DataContext = (RubricViewModel)e.Parameter;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
 
         }
-
-        private void cmdContinue_Click(object sender, RoutedEventArgs e)
+        private void lstRubric_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Frame.Navigate(typeof(RubricPage), DataContext);
-        }
-
-        private void cmdRegister_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void cmdConnect_Click(object sender, RoutedEventArgs e)
-        {
-            Token token = new Token(0, txtLogin.Text, txtPwd.Password, 0);
-            DALClient dal = new DALClient();
-            DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
-            if(r.Data != null)
-            {
-                token = (Token)r.Data;
-            }
-            if(token.Valid != false)
-            {
-                Frame.Navigate(typeof(RubricPage), DataContext);
-            }
-
+            Rubric output = e.ClickedItem as Rubric;
+            TopicViewModel topicVM = new TopicViewModel(output); 
+            Frame.Navigate(typeof(TopicPage), topicVM);
+            //Rubric item = (Rubric)lstRubric.SelectedItems[0];
         }
     }
 }

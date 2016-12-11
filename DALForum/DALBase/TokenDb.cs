@@ -34,6 +34,7 @@ namespace DALForum
                 long time = DateTime.UtcNow.Ticks;
                 token = new Token(1, login, pwd, time);
                 reader.Close();
+                token.Valid = true;
                 return token;
             }
             else

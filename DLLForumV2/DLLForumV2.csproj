@@ -43,6 +43,10 @@
       <Project>{23D4C220-5474-437B-A3AC-23DEDB8C96B6}</Project>
       <Name>DALClientWS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DLLAuth\DLLAuth.csproj">
+      <Project>{AFCB26AC-C0E0-4574-82E9-05E1776275E9}</Project>
+      <Name>DLLAuth</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuditTool.cs" />

@@ -15,21 +15,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBoolConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\MessageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\RubricViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\TopicViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\RubricPage.xaml.cs">
-      <DependentUpon>RubricPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\RubricPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

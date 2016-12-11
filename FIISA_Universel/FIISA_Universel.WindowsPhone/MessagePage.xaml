@@ -1,0 +1,115 @@
+﻿<Page
+    x:Class="FIISA_Universel.MessagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FIISA_Universel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="MessageDataTemplate">
+            <Border BorderBrush="Gray"
+                    x:Name="messageBorder"
+                    Background="Transparent"
+                    BorderThickness="2"
+                    Margin="3"
+                    CornerRadius="0,0,15,0"
+                    Width="380"
+                    Height="100">
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ObjUser.LoginUser}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                        <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                        <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding DateMessage}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding ContentMessage}"
+                           Margin="8 10 0 0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12"
+                           TextWrapping="Wrap"/>
+                </StackPanel>
+
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding MyTopic.TitleTopic}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontWeight="Bold" 
+                           FontSize="14" />
+                <TextBlock Text="{Binding MyTopic.DateTopic}"
+                           Margin="0 0 0 0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding MyTopic.ObjUser.LoginUser}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                <TextBlock Text="{Binding MyTopic.ObjUser.ObjTraining.NameTraining}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                <TextBlock Text="{Binding MyTopic.ObjUser.ObjStatus.NameStatus}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+            </StackPanel>
+            <TextBlock Text="{Binding MyTopic.DescTopic}"
+                           Margin="8 10 0 0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12"
+                           TextWrapping="Wrap"/>
+
+        </StackPanel>
+
+
+        <GridView x:Name="lstMessage" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding ListeMessages}"
+                  ItemTemplate="{StaticResource MessageDataTemplate}"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemClick="lstMessage_ItemClick">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+    </Grid>
+</Page>

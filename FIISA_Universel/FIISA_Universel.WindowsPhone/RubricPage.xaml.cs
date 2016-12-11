@@ -1,13 +1,12 @@
-﻿using DALClientWS;
-using DLLAuth;
+﻿using DLLForumV2;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,48 +22,40 @@ namespace FIISA_Universel
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class LoginPage : Page
+    public sealed partial class RubricPage : Page
     {
-        RubricViewModel rubricVM = new RubricViewModel();
-        public LoginPage()
+        public RubricPage()
         {
             this.InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = rubricVM;
+            DataContext = (RubricViewModel)e.Parameter;
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
 
         }
 
-        private void cmdContinue_Click(object sender, RoutedEventArgs e)
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
-            Frame.Navigate(typeof(RubricPage), DataContext);
+            e.Handled = true;
         }
 
-        private void cmdRegister_Click(object sender, RoutedEventArgs e)
+        private void lstRubric_ItemClick(object sender, ItemClickEventArgs e)
         {
-
-        }
-
-        private void cmdConnect_Click(object sender, RoutedEventArgs e)
-        {
-            Token token = new Token(0, txtLogin.Text, txtPwd.Password, 0);
-            DALClient dal = new DALClient();
-            DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
-            if(r.Data != null)
-            {
-                token = (Token)r.Data;
-            }
-            if(token.Valid != false)
-            {
-                Frame.Navigate(typeof(RubricPage), DataContext);
-            }
-
+            prRubric.IsActive = true;
+            prRubric.Visibility = Visibility.Visible;
+            Rubric output = e.ClickedItem as Rubric;
+            TopicViewModel topicVM = new TopicViewModel(output);
+            //prRubric.IsActive = false;
+            //prRubric.Visibility = Visibility.Collapsed;
+            Frame.Navigate(typeof(TopicPage), topicVM);
         }
     }
 }

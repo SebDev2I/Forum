@@ -1,5 +1,6 @@
 ﻿using Common;
 using DALClientWS;
+using DLLAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,24 @@ namespace DLLForumV2
     public class Forum
     {
         public Registered User { get; set; }
+        public Token TokenUser { get; set; }
         public List<Rubric> ListRubric { get; set; }
-        public List<Topic> ListTopic { get; set; }
+        //public List<Topic> ListTopic { get; set; }
         public DALClient dal { get; set; }
 
         public Forum()
         {
             dal = new DALClient();
             User = new Registered();
+            TokenUser = new Token();
             ListRubric = new List<Rubric>();
             GetListRubrics();
-            ListTopic = new List<Topic>();
-            GetListTopics();
+        }
+
+        public Forum(Registered user, Token token) : this()
+        {
+            User = user;
+            TokenUser = token;
         }
 
         public void GetListRubrics()
@@ -35,7 +42,7 @@ namespace DLLForumV2
             }
         }
 
-        public void GetListTopics()
+        /*public void GetListTopics()
         {
             DALWSR_Result r1 = dal.GetTopicsAsync(CancellationToken.None);
             Registered reg;
@@ -51,7 +58,7 @@ namespace DLLForumV2
                 ListTopic.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
             }
             //return ListTopic;
-        }
+        }*/
 
         
 

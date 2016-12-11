@@ -41,9 +41,10 @@ namespace DLLForumV2
             DTO.NameRubric = namerubric;
         }
 
-        public void GetListTopicsByRubric(int idrubric)
+        public void GetListTopicsByRubric()
         {
-            DALWSR_Result r1 = dal.GetTopicByRubricAsync(idrubric, CancellationToken.None);
+            ListTopicsByRubric.Clear();
+            DALWSR_Result r1 = dal.GetTopicByRubricAsync(IdRubric, CancellationToken.None);
             if (r1.Data != null)
             {
                 Registered reg;

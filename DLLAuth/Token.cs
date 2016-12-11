@@ -34,6 +34,8 @@ namespace DLLAuth
             get { return _TokenSpe; }
             set { _TokenSpe = value; }
         }
+
+        public bool Valid { get; set; }
         #endregion
 
         #region Constructeurs
@@ -43,6 +45,7 @@ namespace DLLAuth
             _IdUser = iduser;
             _Time = time;
             _TokenSpe = TokenManager.GenerateTokenClient(loginuser, password);
+            Valid = false;
         }
         /*public Token(int iduser, string loginuser, long time)
         {

@@ -33,6 +33,8 @@ namespace DLLForumV2
             DTO = new TopicDTO(); 
         }
 
+        
+
         public Topic(TopicDTO dto, Registered objuser, Rubric objrubric) : this()
         {
             IdTopic = dto.IdTopic;
@@ -61,9 +63,10 @@ namespace DLLForumV2
             DTO.DescTopic = desctopic;
         }
 
-        public void GetListMessagesByTopic(int idtopic)
+        public void GetListMessagesByTopic()
         {
-            DALWSR_Result r1 = dal.GetMessagesByTopicAsync(idtopic, CancellationToken.None);
+            ListMessagesByTopic.Clear();
+            DALWSR_Result r1 = dal.GetMessagesByTopicAsync(IdTopic, CancellationToken.None);
             Registered reg;
             if(r1.Data != null)
             {

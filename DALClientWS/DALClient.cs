@@ -64,12 +64,12 @@ namespace DALClientWS
             _CnxString = string.Concat(ADRSERVER, '/', SERVICENAME, '/');
         }
 
-        public async Task<DALWSR_Result> LoginAsync(Token tokenAsk, CancellationToken cancel)
+        public DALWSR_Result LoginAsync(Token tokenAsk, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_LOGIN);
             WSR_Param p = new WSR_Param();
             p.Add("token", tokenAsk);
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 

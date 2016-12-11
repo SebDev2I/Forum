@@ -1,0 +1,107 @@
+﻿<Page
+    x:Class="FIISA_Universel.TopicPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FIISA_Universel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:FIISA_Universel"
+    mc:Ignorable="d">
+
+    
+    <Page.Resources>
+        <converter:NotBoolConverter x:Key="NotBoolConverter"/>
+
+        <DataTemplate x:Key="TopicDataTemplate">
+            <Border BorderBrush="Gray"
+                    x:Name="topicBorder"
+                    Background="Transparent"
+                    BorderThickness="2"
+                    Margin="3"
+                    CornerRadius="0,0,15,0"
+                    Width="380"
+                    Height="100">
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding TitleTopic}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontWeight="Bold" 
+                           FontSize="14" />
+                        <TextBlock Text="{Binding DateTopic}"
+                           Margin="0 0 0 0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ObjUser.LoginUser}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                        <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                        <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
+                           Margin="8,0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding DescTopic}"
+                           Margin="8 10 0 0"
+                           Foreground="Black"
+                           TextTrimming="WordEllipsis" FontSize="12"
+                           TextWrapping="Wrap"/>
+
+                </StackPanel>
+
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="{Binding MyRubric.NameRubric}" Grid.Row="0" Grid.Column="1"
+                   Foreground="Black" FontSize="20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextTrimming="WordEllipsis"/>
+        <TextBlock x:Name="lblNotTopic"  Text="Pas encore de sujet pour cette rubrique" Grid.Row="1" Grid.Column="1"
+                   Visibility="Collapsed"
+                   Foreground="Black" FontSize="16"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextTrimming="WordEllipsis"/>
+        <ProgressRing x:Name="prTopic" IsActive="true" Visibility="Collapsed" Grid.Row="1" Grid.Column="1" 
+                      Foreground="Black" FontSize="20"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Height="100" Width="100"></ProgressRing>
+        
+        <GridView x:Name="lstTopic" Grid.Row="1" Grid.Column="1" Visibility="Visible"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding ListeTopics}"
+                  ItemTemplate="{StaticResource TopicDataTemplate}"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
+                  SelectionMode="None"
+                  IsItemClickEnabled="True"
+                  ItemClick="lstTopic_ItemClick">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+    </Grid>
+</Page>
