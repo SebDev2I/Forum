@@ -23,6 +23,7 @@ namespace FIISA_Universel
     /// </summary>
     public sealed partial class RubricPage : Page
     {
+        private RubricViewModel rubricVM;
         public RubricPage()
         {
             this.InitializeComponent();
@@ -30,7 +31,8 @@ namespace FIISA_Universel
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = (RubricViewModel)e.Parameter;
+            rubricVM = (RubricViewModel)e.Parameter;
+            DataContext = rubricVM;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -39,10 +41,29 @@ namespace FIISA_Universel
         }
         private void lstRubric_ItemClick(object sender, ItemClickEventArgs e)
         {
+            
             Rubric output = e.ClickedItem as Rubric;
-            TopicViewModel topicVM = new TopicViewModel(output); 
-            Frame.Navigate(typeof(TopicPage), topicVM);
+            rubricVM.MyRubric = output;
+            rubricVM.InitializeListTopic();
+            if (rubricVM.HasTopic)
+            {
+                lstTopic.Visibility = Visibility.Visible;
+                lblNotTopic.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                lstTopic.Visibility = Visibility.Collapsed;
+                lblNotTopic.Visibility = Visibility.Visible;
+            }
+            //Frame.Navigate(typeof(TopicPage), topicVM);
             //Rubric item = (Rubric)lstRubric.SelectedItems[0];
         }
+
+        private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        
     }
 }

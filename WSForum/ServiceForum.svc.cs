@@ -81,12 +81,12 @@ namespace WSForum
             result = VerifParamType(param, "token", out token);
             if (result == null)
             {
-                token = (Token)param["token"];
-                TokenDb dbToken = new TokenDb();
-                RegisteredDTO regToken = dbToken.GetInfoAuth(token);
+                //token = (Token)param["token"];
+                //TokenDb dbToken = new TokenDb();
+                //RegisteredDTO regToken = dbToken.GetInfoAuth(token);
 
-                if (TokenManager.IsTokenValid(token, regToken))
-                {
+                //if (TokenManager.IsTokenValid(token, regToken))
+               // {
                     result = VerifParamType(param, "save", out registered);
 
                     if (result == null)
@@ -100,8 +100,8 @@ namespace WSForum
                     else return result;
                 }
                 else return result;
-            }
-            else return result;
+            //}
+            //else return result;
         }
         public WSR_Result DeleteUser(string iduser)
         {

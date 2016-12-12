@@ -107,6 +107,8 @@
       <DependentUpon>MessagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RubricViewModel.cs" />
+    <Compile Include="TopicViewModel.cs" />
     <Compile Include="Views\RubricPage.xaml.cs">
       <DependentUpon>RubricPage.xaml</DependentUpon>
     </Compile>

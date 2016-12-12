@@ -115,9 +115,9 @@ namespace DLLForumV2
             return new Registered(regDto, GetStatus(regDto.StatusUser), GetTraining(regDto.TrainingUser));
         }
 
-        public async Task<List<Registered>> GetListUsers()
+        public List<Registered> GetListUsers()
         {
-            DALWSR_Result r1 = await dal.GetUsers(CancellationToken.None);
+            DALWSR_Result r1 = dal.GetUsers(CancellationToken.None);
             foreach (RegisteredDTO item in (List<RegisteredDTO>)r1.Data)
             {
                 ListRegistered.Add(new Registered(item, GetStatus(item.StatusUser), GetTraining(item.TrainingUser)));

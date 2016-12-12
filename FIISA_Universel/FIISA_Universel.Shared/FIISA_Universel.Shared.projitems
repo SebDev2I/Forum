@@ -16,9 +16,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBoolConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\MessageViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\RubricViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\TopicViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>

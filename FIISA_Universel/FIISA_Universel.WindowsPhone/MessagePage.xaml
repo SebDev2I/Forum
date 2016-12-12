@@ -16,22 +16,21 @@
                     BorderThickness="2"
                     Margin="3"
                     CornerRadius="0,0,15,0"
-                    Width="380"
-                    Height="100">
+                    Width="380">
                 <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding ObjUser.LoginUser}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
+                           TextTrimming="WordEllipsis" FontSize="14" />
                         <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
+                           TextTrimming="WordEllipsis" FontSize="14" />
                         <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
+                           TextTrimming="WordEllipsis" FontSize="14" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding DateMessage}"
@@ -40,9 +39,9 @@
                            TextTrimming="WordEllipsis" FontSize="12" />
                     </StackPanel>
                     <TextBlock Text="{Binding ContentMessage}"
-                           Margin="8 10 0 0"
+                           Margin="8 10 0 10"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12"
+                           TextTrimming="WordEllipsis" FontSize="16"
                            TextWrapping="Wrap"
                            Height="Auto"/>
                 </StackPanel>
@@ -62,45 +61,66 @@
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding MyTopic.TitleTopic}"
+        
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Border BorderBrush="Gray"
+                    x:Name="topicBorder"
+                    Background="Transparent"
+                    BorderThickness="2"
+                    Margin="3"
+                    CornerRadius="0,0,15,0"
+                    Width="380"
+                    Height="Auto">
+            <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding MyTopic.TitleTopic}"
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontWeight="Bold" 
-                           FontSize="14"
-                           Height="Auto"/>
-                <TextBlock Text="{Binding MyTopic.DateTopic}"
+                           FontSize="16"/>
+                    <TextBlock Text="{Binding MyTopic.DateTopic}"
                            Margin="0 0 0 0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Right"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding MyTopic.ObjUser.LoginUser}"
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding MyTopic.ObjUser.LoginUser}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
-                <TextBlock Text="{Binding MyTopic.ObjUser.ObjTraining.NameTraining}"
+                           TextTrimming="WordEllipsis" FontSize="14" />
+                    <TextBlock Text="{Binding MyTopic.ObjUser.ObjTraining.NameTraining}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
-                <TextBlock Text="{Binding MyTopic.ObjUser.ObjStatus.NameStatus}"
+                           TextTrimming="WordEllipsis" FontSize="14" />
+                    <TextBlock Text="{Binding MyTopic.ObjUser.ObjStatus.NameStatus}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
-            </StackPanel>
-            <TextBlock Text="{Binding MyTopic.DescTopic}"
-                           Margin="8 10 0 0"
+                           TextTrimming="WordEllipsis" FontSize="14" />
+                </StackPanel>
+                <TextBlock Text="{Binding MyTopic.DescTopic}"
+                           Margin="8 10 0 10"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12"
+                           TextTrimming="WordEllipsis" FontSize="16"
                            TextWrapping="Wrap"/>
-
+            </StackPanel>
+        </Border>
         </StackPanel>
-
+        <TextBlock x:Name="lblNotTopic"  Text="Pas encore de message pour ce sujet" Grid.Row="1" Grid.Column="1"
+                   Visibility="Collapsed"
+                   Foreground="Black" FontSize="18"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextTrimming="WordEllipsis"/>
+        <ProgressRing x:Name="prTopic" IsActive="true" Visibility="Collapsed" Grid.Row="1" Grid.Column="1" 
+                      Foreground="Black" FontSize="20"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Height="100" Width="100"></ProgressRing>
 
         <GridView x:Name="lstMessage" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"
+                  Visibility="Visible"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding ListeMessages}"
                   ItemTemplate="{StaticResource MessageDataTemplate}"

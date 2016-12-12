@@ -20,17 +20,17 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Forum de l'Institut d'Informatique Sud Aveyron" TextAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="Black" Margin="10 50 10 0" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Text="Forum de l'Institut d'Informatique Sud Aveyron" TextAlignment="Center" FontWeight="Bold" FontSize="28" Foreground="Black" Margin="10 50 10 0" TextWrapping="Wrap"></TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBox x:Name="txtLogin" PlaceholderText="Votre identifiant" Height="50" Width="300" Foreground="Black"></TextBox>
-            <PasswordBox x:Name="txtPwd" PlaceholderText="Votre mot de passe" Height="50" Width="300" FontFamily="Black"></PasswordBox>
-            <Button x:Name="cmdConnect" Content="Se connecter" Click="cmdConnect_Click" Height="50" Width="300" Foreground="Black"></Button>
-            <Button x:Name="cmdRegister" Content="S'inscrire" Click="cmdRegister_Click" Height="50" Width="300" Foreground="Black" Margin="0 20 0 0"></Button>
-            <Button x:Name="cmdContinue" Content="Continuer sans se connecter" Click="cmdContinue_Click" Height="50" Width="300" Foreground="Black"></Button>
+            <TextBox x:Name="txtLogin" PlaceholderText="Votre identifiant" Height="50" Width="300" Foreground="Black" FontSize="16"></TextBox>
+            <PasswordBox x:Name="txtPwd" PlaceholderText="Votre mot de passe" Height="50" Width="300" FontFamily="Black" FontSize="16"></PasswordBox>
+            <Button x:Name="cmdConnect" Content="Se connecter" Click="cmdConnect_Click" Height="50" Width="300" FontSize="16" Foreground="Black" BorderThickness="1"></Button>
+            <Button x:Name="cmdRegister" Content="S'inscrire" Click="cmdRegister_Click" Height="50" Width="300" FontSize="16" Foreground="Black" BorderThickness="1" Margin="0 20 0 0"></Button>
+            <Button x:Name="cmdContinue" Content="Continuer sans se connecter" Click="cmdContinue_Click" Height="50" Width="300" FontSize="16" Foreground="Black" BorderThickness="1"></Button>
             <TextBlock Text="Attention, continuer sans se connecter ne permet que la consultation du forum"
-                       Width="300" Foreground="Black" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                       Width="300" Foreground="Black" FontSize="14" TextAlignment="Center" TextWrapping="Wrap"></TextBlock>
         </StackPanel>
 
     </Grid>

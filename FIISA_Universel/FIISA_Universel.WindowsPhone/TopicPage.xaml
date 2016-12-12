@@ -27,7 +27,7 @@
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontWeight="Bold" 
-                           FontSize="14"/>
+                           FontSize="16"/>
                         <TextBlock Text="{Binding DateTopic}"
                            Margin="0 0 0 0"
                            Foreground="Black"
@@ -39,22 +39,21 @@
                         <TextBlock Text="{Binding ObjUser.LoginUser}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
+                           TextTrimming="WordEllipsis" FontSize="14" />
                         <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
+                           TextTrimming="WordEllipsis" FontSize="14" />
                         <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
                            Margin="8,0"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12" />
+                           TextTrimming="WordEllipsis" FontSize="14" />
                     </StackPanel>
                     <TextBlock Text="{Binding DescTopic}"
-                           Margin="8 10 0 0"
+                           Margin="8 10 0 10"
                            Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="12"
+                           TextTrimming="WordEllipsis" FontSize="16"
                            TextWrapping="Wrap"/>
-
                 </StackPanel>
 
             </Border>
@@ -76,10 +75,11 @@
                    Foreground="Black" FontSize="20"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   TextTrimming="WordEllipsis"/>
+                   TextTrimming="WordEllipsis"
+                   Margin="0 0 0 20"/>
         <TextBlock x:Name="lblNotTopic"  Text="Pas encore de sujet pour cette rubrique" Grid.Row="1" Grid.Column="1"
                    Visibility="Collapsed"
-                   Foreground="Black" FontSize="16"
+                   Foreground="Black" FontSize="18"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextTrimming="WordEllipsis"/>

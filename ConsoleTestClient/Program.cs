@@ -18,21 +18,21 @@ namespace ConsoleTestClient
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
 
-            /*Forum f = new Forum();
-            f.GetListRubrics();
-            f.GetListTopics();
-            Console.WriteLine(f.ListRubric.Count);
-            foreach (Rubric item in f.ListRubric)
+            DALClient dal = new DALClient();
+            List<RegisteredDTO> lst = (List<RegisteredDTO>)dal.GetUsers(CancellationToken.None).Data;
+            foreach (RegisteredDTO item in lst)
             {
-                Console.WriteLine(item);
+                string hash = string.Join(":", new string[] { item.LoginUser, "2isaMillau%2016" });
+                string hashLeft = "";
+                string hashRight = "";
+
+                hashLeft = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Join(":", hash, item.PwdUser)));
+                item.PwdUser = hashLeft;
+                DALWSR_Result r = dal.SaveUser(item, null, CancellationToken.None);
+                Console.WriteLine(item.PwdUser);
             }
-            foreach (Topic item in f.ListTopic)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine("essai");
-            essai();
-            Console.ReadKey();*/
+            
+            Console.ReadKey();
         }
         /*private static async void essai()
         {

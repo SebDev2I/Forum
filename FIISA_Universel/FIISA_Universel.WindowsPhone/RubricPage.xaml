@@ -18,9 +18,12 @@
                     <TextBlock Text="{Binding NameRubric}"
                            Margin="8,0"
                            Foreground="Black"
+                           FontSize="16"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           TextTrimming="WordEllipsis" />
+                           TextTrimming="WordEllipsis"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"/>
                 
             </Border>
         </DataTemplate>
@@ -42,7 +45,8 @@
                    Foreground="Black" FontSize="20"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   TextTrimming="WordEllipsis"/>
+                   TextTrimming="WordEllipsis"
+                   Margin="0 0 0 20"/>
         <ProgressRing x:Name="prRubric" IsActive="False" Grid.Row="1" Grid.Column="1" 
                       Foreground="Black" FontSize="20"
                       VerticalAlignment="Center"

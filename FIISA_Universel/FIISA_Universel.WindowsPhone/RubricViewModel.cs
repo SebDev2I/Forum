@@ -15,6 +15,7 @@ namespace FIISA_Universel
             get { return _Rubrics; }
             set { _Rubrics = value; }
         }
+
         
         public RubricViewModel()
         {

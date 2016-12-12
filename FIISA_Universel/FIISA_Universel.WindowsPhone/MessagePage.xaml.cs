@@ -23,6 +23,7 @@ namespace FIISA_Universel
     /// </summary>
     public sealed partial class MessagePage : Page
     {
+        private MessageViewModel messageVM;
         public MessagePage()
         {
             this.InitializeComponent();
@@ -35,7 +36,19 @@ namespace FIISA_Universel
         /// Ce paramètre est généralement utilisé pour configurer la page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            messageVM = (MessageViewModel)e.Parameter;
             DataContext = (MessageViewModel)e.Parameter;
+            if (messageVM.HasTopic)
+            {
+                lstMessage.Visibility = Visibility.Visible;
+                lblNotTopic.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                lstMessage.Visibility = Visibility.Collapsed;
+                lblNotTopic.Visibility = Visibility.Visible;
+            }
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 

@@ -73,10 +73,10 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetUsers(CancellationToken cancel)
+        public DALWSR_Result GetUsers(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETUSERS);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 
@@ -87,11 +87,11 @@ namespace DALClientWS
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> SaveUser(RegisteredDTO registered, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result SaveUser(RegisteredDTO registered, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_SAVEUSER);
             WSR_Param p = new WSR_Param() { { "save", registered }, { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel)).Result;
             return new DALWSR_Result(r);
         }
 

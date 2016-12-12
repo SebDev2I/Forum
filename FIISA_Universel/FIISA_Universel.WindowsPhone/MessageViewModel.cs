@@ -12,6 +12,7 @@ namespace FIISA_Universel
     {
         
         public Topic MyTopic { get; set; }
+        public bool HasTopic { get; set; }
         private ObservableCollection<Message> _Messages;
         public ObservableCollection<Message> Messages
         {
@@ -35,10 +36,16 @@ namespace FIISA_Universel
         public void InitializeList()
         {
             _Messages.Clear();
+            if (MyTopic.ListMessagesByTopic.Count == 0)
+            {
+                HasTopic = false;
+            }
+            else HasTopic = true;
             foreach (Message item in MyTopic.ListMessagesByTopic)
             {
                 _Messages.Add(item);
             }
+            
         }
     }
 }
