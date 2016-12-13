@@ -43,7 +43,7 @@ namespace FIISA_Universel
 
         private void cmdContinue_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RubricPage), DataContext);
+            Frame.Navigate(typeof(MainPage), DataContext);
         }
 
         private void cmdRegister_Click(object sender, RoutedEventArgs e)
@@ -62,7 +62,7 @@ namespace FIISA_Universel
             }
             if(token.Valid != false)
             {
-                Frame.Navigate(typeof(RubricPage), DataContext);
+                Frame.Navigate(typeof(MainPage), DataContext);
             }
 
         }
