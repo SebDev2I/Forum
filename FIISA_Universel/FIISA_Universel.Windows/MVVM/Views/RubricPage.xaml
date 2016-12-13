@@ -93,9 +93,7 @@
                   ItemsSource="{Binding ListeRubrics}"
                   ItemTemplate="{StaticResource RubricDataTemplate}"
                   VirtualizingStackPanel.VirtualizationMode="Recycling"
-                  SelectionMode="Single"
-                  IsItemClickEnabled="True"
-                  ItemClick="lstRubric_ItemClick">
+                  >
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="2"/>
