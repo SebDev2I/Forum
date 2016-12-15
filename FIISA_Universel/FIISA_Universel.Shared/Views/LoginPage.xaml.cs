@@ -25,7 +25,7 @@ namespace FIISA_Universel
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        RubricViewModel rubricVM = new RubricViewModel();
+        MainViewModel rubricVM = new MainViewModel();
         public LoginPage()
         {
             this.InitializeComponent();

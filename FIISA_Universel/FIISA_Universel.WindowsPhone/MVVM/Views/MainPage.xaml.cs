@@ -15,23 +15,23 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// Pour en savoir plus sur le modèle d'élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkId=234238
+// Pour en savoir plus sur le modèle d’élément Page vierge, consultez la page http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace FIISA_Universel
 {
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class RubricPage : Page
+    public sealed partial class MainPage : Page
     {
-        public RubricPage()
+        public MainPage()
         {
             this.InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = (RubricViewModel)e.Parameter;
+            DataContext = (MainViewModel)e.Parameter;
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
         }
@@ -53,8 +53,6 @@ namespace FIISA_Universel
             prRubric.Visibility = Visibility.Visible;
             Rubric output = e.ClickedItem as Rubric;
             TopicViewModel topicVM = new TopicViewModel(output);
-            //prRubric.IsActive = false;
-            //prRubric.Visibility = Visibility.Collapsed;
             Frame.Navigate(typeof(TopicPage), topicVM);
         }
     }

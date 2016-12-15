@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FIISA_Universel
 {
-    public class RubricViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         public Forum MyForum { get; set; }
         private ObservableCollection<Rubric> _Rubrics;
@@ -16,8 +18,8 @@ namespace FIISA_Universel
             set { _Rubrics = value; }
         }
 
-        
-        public RubricViewModel()
+
+        public MainViewModel()
         {
             MyForum = new Forum();
             _Rubrics = new ObservableCollection<Rubric>();
@@ -29,7 +31,7 @@ namespace FIISA_Universel
             get { return new ReadOnlyObservableCollection<Rubric>(_Rubrics); }
         }
 
-        
+
         public void InitializeList()
         {
             _Rubrics.Clear();
