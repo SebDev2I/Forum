@@ -69,21 +69,21 @@ namespace DALClientWS
             string str = string.Concat(CnxString, ADR_LOGIN);
             WSR_Param p = new WSR_Param();
             p.Add("token", tokenAsk);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetUsers(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETUSERS);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetUserByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETUSERBYID, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
@@ -91,193 +91,193 @@ namespace DALClientWS
         {
             string str = string.Concat(CnxString, ADR_SAVEUSER);
             WSR_Param p = new WSR_Param() { { "save", registered }, { "token", tokenSend } };
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> DeleteUser(int id, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result DeleteUser(int id, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_DELETEUSER, id);
             WSR_Param p = new WSR_Param() { { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
+            WSR_Result r =  ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetListRubricsAsync(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETRUBRICS);
-            WSR_Result r = Task.Run(()=> ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetRubricByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETRUBRICBYID, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> SaveRubric(RubricDTO rubric, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result SaveRubric(RubricDTO rubric, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_SAVERUBRIC);
             WSR_Param p = new WSR_Param() { { "save", rubric }, { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r =  ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> DeleteRubric(int id, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result DeleteRubric(int id, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_DELETERUBRIC, id);
             WSR_Param p = new WSR_Param() { { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListStatus(CancellationToken cancel)
+        public DALWSR_Result GetListStatus(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETSTATUS);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetStatusByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETSTATUSBYID, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result ;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> SaveStatus(StatusDTO status, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result SaveStatus(StatusDTO status, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_SAVESTATUS);
             WSR_Param p = new WSR_Param() { { "save", status }, { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r =  ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> DeleteStatus(int id, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result DeleteStatus(int id, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_DELETESTATUS, id);
             WSR_Param p = new WSR_Param() { { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
+            WSR_Result r =  ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListTrainings(CancellationToken cancel)
+        public DALWSR_Result GetListTrainings(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTRAININGS);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r =  ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetTrainingByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTRAININGBYID, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> SaveTraining(TrainingDTO training, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result SaveTraining(TrainingDTO training, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_SAVETRAINING);
             WSR_Param p = new WSR_Param() { { "save", training }, { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> DeleteTraining(int id, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result DeleteTraining(int id, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_DELETETRAINING, id);
             WSR_Param p = new WSR_Param() { { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetTopicsAsync(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICS);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetTopicByIdAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICBYID, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetTopicByRubricAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICSBYRUBRIC, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetTopicByUser(int id, CancellationToken cancel)
+        public DALWSR_Result GetTopicByUser(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETTOPICSBYUSER, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> SaveTopic(TopicDTO topic, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result SaveTopic(TopicDTO topic, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_SAVETOPIC);
             WSR_Param p = new WSR_Param() { { "save", topic }, { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> DeleteTopic(int id, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result DeleteTopic(int id, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_DELETETOPIC, id);
             WSR_Param p = new WSR_Param() { { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetListMessages(CancellationToken cancel)
+        public DALWSR_Result GetListMessages(CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGES);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetMessagesById(int id, CancellationToken cancel)
+        public DALWSR_Result GetMessagesById(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGEBYID, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
         public DALWSR_Result GetMessagesByTopicAsync(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGESBYTOPIC, id);
-            WSR_Result r = Task.Run(() => ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel)).Result;
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> GetMessagesByUser(int id, CancellationToken cancel)
+        public DALWSR_Result GetMessagesByUser(int id, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_GETMESSAGESBYUSER, id);
-            WSR_Result r = await ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "GET", null, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> SaveMessage(MessageDTO message, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result SaveMessage(MessageDTO message, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_SAVEMESSAGE);
             WSR_Param p = new WSR_Param() { { "save", message }, { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
+            WSR_Result r = ConsumeWSR.Call(str, "POST", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
 
-        public async Task<DALWSR_Result> DeleteMessage(int id, Token tokenSend, CancellationToken cancel)
+        public DALWSR_Result DeleteMessage(int id, Token tokenSend, CancellationToken cancel)
         {
             string str = string.Concat(CnxString, ADR_DELETEMESSAGE, id);
             WSR_Param p = new WSR_Param() { { "token", tokenSend } };
-            WSR_Result r = await ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
+            WSR_Result r =  ConsumeWSR.Call(str, "DELETE", p, TypeSerializer.Json, cancel);
             return new DALWSR_Result(r);
         }
     }

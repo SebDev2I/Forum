@@ -58,13 +58,6 @@ namespace FIISA_Universel
             }
         }
 
-        private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Topic output = e.ClickedItem as Topic;
-            mainVM.MyTopic = output;
-            mainVM.InitializeListMessage();
-        }
-
         private void lstRubric_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(mainVM.MyTopic != null)
@@ -118,11 +111,6 @@ namespace FIISA_Universel
             cmdAddMessage.Visibility = Visibility.Visible;
         }
 
-        private void cmdHideTopic_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void cmdAddTopic_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Visible;
@@ -135,9 +123,16 @@ namespace FIISA_Universel
             
         }
 
-        private void monclick(object sender, RoutedEventArgs e)
+        private void cmdValidTopic_Click(object sender, RoutedEventArgs e)
         {
-            AddTopic.Visibility = Visibility.Visible;
+            mainVM.MyTopic = new Topic(0, mainVM.MyForum.User, mainVM.MyRubric, DateTime.Now, txtTitleTopic.Text, txtDescTopic.Text);
+            
+            mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum);
+        }
+
+        private void cmdCancelTopic_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

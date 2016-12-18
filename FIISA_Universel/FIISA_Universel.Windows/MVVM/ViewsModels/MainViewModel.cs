@@ -57,6 +57,7 @@ namespace FIISA_Universel
         {
             get { return new ReadOnlyObservableCollection<Message>(_Messages); }
         }
+
         public void InitializeListRubric()
         {
             _Rubrics.Clear();
@@ -65,7 +66,6 @@ namespace FIISA_Universel
                 _Rubrics.Add(item);
             }
         }
-
         public void InitializeListTopic()
         {
             _Topics.Clear();

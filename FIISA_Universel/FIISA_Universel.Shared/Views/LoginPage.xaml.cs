@@ -1,5 +1,6 @@
 ﻿using DALClientWS;
 using DLLAuth;
+using DLLForumV2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,7 @@ namespace FIISA_Universel
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        MainViewModel rubricVM = new MainViewModel();
+        MainViewModel mainVM = new MainViewModel();
         public LoginPage()
         {
             this.InitializeComponent();
@@ -33,7 +34,7 @@ namespace FIISA_Universel
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = rubricVM;
+            DataContext = mainVM;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -54,6 +55,7 @@ namespace FIISA_Universel
         private void cmdConnect_Click(object sender, RoutedEventArgs e)
         {
             Token token = new Token(0, txtLogin.Text, txtPwd.Password, 0);
+            
             DALClient dal = new DALClient();
             DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
             if(r.Data != null)
@@ -62,6 +64,8 @@ namespace FIISA_Universel
             }
             if(token.Valid != false)
             {
+                mainVM.MyForum.TokenUser = token;
+                mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
                 Frame.Navigate(typeof(MainPage), DataContext);
             }
 

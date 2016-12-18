@@ -32,7 +32,7 @@ namespace ConsumeWSRest
         /// <param name="typeSerializer">Type de sérialisation (Xml/Json)</param>
         /// <param name="cancel">Jeton permettant d'annuler l'appel en cours</param>
         /// <returns>Objet retourné par le service ou Erreur, de type WSR_Result</returns>
-        public static async Task<WSR_Result> Call(string adresseService, string method, WSR_Param param, TypeSerializer typeSerializer, CancellationToken cancel)
+        public static  WSR_Result Call(string adresseService, string method, WSR_Param param, TypeSerializer typeSerializer, CancellationToken cancel)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace ConsumeWSRest
                         // Appel du service Rest (en asynchrone)
                         if (method == "GET")
                         {
-                            using (HttpResponseMessage wcfResponse = await client.GetAsync(adresseService, cancel))
+                            using (HttpResponseMessage wcfResponse = Task.Run(() => client.GetAsync(adresseService, cancel)).Result)
                             {
                                 if (wcfResponse.IsSuccessStatusCode)
                                 {
@@ -66,7 +66,7 @@ namespace ConsumeWSRest
                         }
                         else if(method == "POST")
                         {
-                            using (HttpResponseMessage wcfResponse = await client.PostAsync(adresseService, contentParam, cancel))
+                            using (HttpResponseMessage wcfResponse = Task.Run(() => client.PostAsync(adresseService, contentParam, cancel)).Result)
                             {
                                 if (wcfResponse.IsSuccessStatusCode)
                                 {
@@ -82,7 +82,7 @@ namespace ConsumeWSRest
                         }
                         else if(method == "PUT")
                         {
-                            using (HttpResponseMessage wcfResponse = await client.PutAsync(adresseService, contentParam, cancel))
+                            using (HttpResponseMessage wcfResponse = Task.Run(() => client.PutAsync(adresseService, contentParam, cancel)).Result)
                             {
                                 if (wcfResponse.IsSuccessStatusCode)
                                 {
@@ -98,7 +98,7 @@ namespace ConsumeWSRest
                         }
                         else if(method == "DELETE")
                         {
-                            using (HttpResponseMessage wcfResponse = await client.DeleteAsync(adresseService, cancel))
+                            using (HttpResponseMessage wcfResponse = Task.Run(() => client.DeleteAsync(adresseService, cancel)).Result)
                             {
                                 if (wcfResponse.IsSuccessStatusCode)
                                 {

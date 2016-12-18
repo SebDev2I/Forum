@@ -32,9 +32,7 @@ namespace DLLForumV2
             dal = new DALClient();
             ListRegistered = new List<Registered>();
             IdUser = Int_NullValue;
-            //StatusUser = Int_NullValue;
             ObjStatus = null;
-            //TrainingUser = Int_NullValue;
             NameUser = String_NullValue;
             ObjTraining = null;
             FirstnameUser = String_NullValue;
@@ -137,6 +135,13 @@ namespace DLLForumV2
             StatusDTO statusDto = (StatusDTO)r1.Data;
             return new Status(statusDto);
         }
+
+        public bool SaveTopic(Topic topic, Forum forum)
+        {
+            DALWSR_Result r1 = dal.SaveTopic(topic.DTO, forum.TokenUser, CancellationToken.None);
+            return r1.IsSuccess;
+        }
+
         public override string ToString()
         {
             return "Id : " + IdUser 
