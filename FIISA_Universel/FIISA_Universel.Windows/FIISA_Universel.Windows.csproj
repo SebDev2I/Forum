@@ -115,6 +115,7 @@
     <Compile Include="MVVM\Views\TopicPage.xaml.cs">
       <DependentUpon>TopicPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RichEditBoxExtended.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

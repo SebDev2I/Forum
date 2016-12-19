@@ -66,6 +66,7 @@ namespace FIISA_Universel
             {
                 mainVM.MyForum.TokenUser = token;
                 mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
+                mainVM.MyRegistered = mainVM.MyForum.User;
                 Frame.Navigate(typeof(MainPage), DataContext);
             }
 

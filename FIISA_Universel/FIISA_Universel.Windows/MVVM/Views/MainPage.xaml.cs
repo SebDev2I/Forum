@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -125,14 +127,70 @@ namespace FIISA_Universel
 
         private void cmdValidTopic_Click(object sender, RoutedEventArgs e)
         {
-            mainVM.MyTopic = new Topic(0, mainVM.MyForum.User, mainVM.MyRubric, DateTime.Now, txtTitleTopic.Text, txtDescTopic.Text);
+            string str = string.Empty;
+            txtDescTopic.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
+            str = RtfToString(str);
+            mainVM.MyTopic = new Topic(int.MinValue, mainVM.MyForum.User, mainVM.MyRubric, DateTime.Now, txtTitleTopic.Text, str);
             
-            mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum);
+            if(mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum.TokenUser))
+            {
+                AddTopic.Visibility = Visibility.Collapsed;
+                txtTitleTopic.Text = string.Empty;
+                txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+                MessageDialog essai = new MessageDialog("Le sujet a bien été créé!");
+                essai.ShowAsync();
+            }
         }
 
         private void cmdCancelTopic_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void essai_Click(object sender, RoutedEventArgs e)
+        {
+            string str = string.Empty;
+            reb.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
+            /*Windows.Storage.Pickers.FileSavePicker savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+
+            // Dropdown of file types the user can save the file as
+            savePicker.FileTypeChoices.Add("Rich Text", new List<string>() { ".rtf" });
+
+            // Default file name if the user does not type one in or select a file to replace
+            savePicker.SuggestedFileName = "New Document";
+
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+            {
+                // Prevent updates to the remote version of the file until we
+                // finish making changes and call CompleteUpdatesAsync.
+                Windows.Storage.CachedFileManager.DeferUpdates(file);
+                // write to file
+                Windows.Storage.Streams.IRandomAccessStream randAccStream =
+                    await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite);
+
+                reb.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
+
+                // Let Windows know that we're finished changing the file so the
+                // other app can update the remote version of the file.
+                Windows.Storage.Provider.FileUpdateStatus status = await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                if (status != Windows.Storage.Provider.FileUpdateStatus.Complete)
+                {
+                    Windows.UI.Popups.MessageDialog errorBox =
+                        new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
+                    await errorBox.ShowAsync();
+                }
+            }*/
+           
+        }
+        private string RtfToString(string rtf)
+        {
+            if (rtf != null)
+            {
+                return Convert.ToBase64String(Encoding.UTF8.GetBytes(rtf));
+            }
+            return null;
         }
     }
 }

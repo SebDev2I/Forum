@@ -1,5 +1,6 @@
 ﻿using Common;
 using DALClientWS;
+using DLLAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,9 +137,9 @@ namespace DLLForumV2
             return new Status(statusDto);
         }
 
-        public bool SaveTopic(Topic topic, Forum forum)
+        public bool SaveTopic(Topic topic, Token token)
         {
-            DALWSR_Result r1 = dal.SaveTopic(topic.DTO, forum.TokenUser, CancellationToken.None);
+            DALWSR_Result r1 = dal.SaveTopic(topic.DTO, token, CancellationToken.None);
             return r1.IsSuccess;
         }
 

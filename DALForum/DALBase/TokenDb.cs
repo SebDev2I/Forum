@@ -32,7 +32,7 @@ namespace DALForum
                 pwd = Encoding.UTF8.GetString(Convert.FromBase64String(pwd), 0, Convert.FromBase64String(pwd).Length);
                 pwd = TokenManager.GetPwd(pwd);
                 long time = DateTime.UtcNow.Ticks;
-                token = new Token(1, login, pwd, time);
+                token = new Token(iduser, login, pwd, time);
                 reader.Close();
                 token.Valid = true;
                 return token;

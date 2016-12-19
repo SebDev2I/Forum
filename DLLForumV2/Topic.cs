@@ -17,6 +17,13 @@ namespace DLLForumV2
         public DateTime DateTopic { get; set; }
         public string TitleTopic { get; set; }
         public string DescTopic { get; set; }
+        /*private string _DescTopic;
+        public string DescTopic
+        {
+            get { return AuditTool.StringToRtf(_DescTopic); }
+            set { _DescTopic = AuditTool.RtfToString(value); }
+        }*/
+
         public TopicDTO DTO { get; set; }
         public List<Message> ListMessagesByTopic { get; set; }
         private DALClient dal { get; set; }
@@ -42,7 +49,7 @@ namespace DLLForumV2
             ObjRubric = objrubric;
             DateTopic = dto.DateTopic;
             TitleTopic = dto.TitleTopic;
-            DescTopic = dto.DescTopic;
+            DescTopic = AuditTool.StringToRtf(dto.DescTopic);
             DTO = dto;
         }
 
@@ -53,14 +60,14 @@ namespace DLLForumV2
             ObjRubric = objrubric;
             DateTopic = datetopic;
             TitleTopic = titletopic;
-            DescTopic = desctopic;
+            DescTopic = AuditTool.RtfToString(desctopic);
             DTO = new TopicDTO();
             DTO.IdTopic = idtopic;
             DTO.IdUser = objuser.IdUser;
             DTO.IdRubric = objrubric.IdRubric;
             DTO.DateTopic = datetopic;
             DTO.TitleTopic = titletopic;
-            DTO.DescTopic = desctopic;
+            DTO.DescTopic = DescTopic;
         }
 
         public void GetListMessagesByTopic()

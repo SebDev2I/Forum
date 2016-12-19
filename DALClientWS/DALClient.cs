@@ -12,8 +12,8 @@ namespace DALClientWS
 {
     public class DALClient
     {
-        //private const string ADRSERVER = @"http://localhost:5000";
-        private const string ADRSERVER = @"http://user16.2isa.org";
+        private const string ADRSERVER = @"http://localhost:5000";
+        //private const string ADRSERVER = @"http://user16.2isa.org";
         private const string SERVICENAME = "ServiceForum.svc";
         private const string ADR_LOGIN = "Login";
         private const string ADR_GETUSERS = "Users";

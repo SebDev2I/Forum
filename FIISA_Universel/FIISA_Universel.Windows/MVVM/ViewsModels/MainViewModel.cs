@@ -12,6 +12,7 @@ namespace FIISA_Universel
         public Forum MyForum { get; set; }
         public Rubric MyRubric { get; set; }
         public Topic MyTopic { get; set; }
+        public Registered MyRegistered { get; set; }
         public bool HasTopic { get; set; }
         public bool HasMessage { get; set; }
         

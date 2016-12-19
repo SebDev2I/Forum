@@ -81,11 +81,11 @@
                                    FontSize="14" 
                                    Margin="8, 0"/>
                     </StackPanel>
-                    <TextBlock Text="{Binding DescTopic}"
-                               Foreground="Black"
+                    <local:RichEditBoxExtended Foreground="Black"
                                FontSize="16"
                                TextWrapping="Wrap"
-                               Margin="8 10 8 10"/>
+                               Margin="8 10 8 10" RtfText="{Binding DescTopic}" >
+                    </local:RichEditBoxExtended>
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -139,7 +139,20 @@
             <ColumnDefinition x:Name="col3" Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-
+        <StackPanel Grid.Row="2" Grid.Column="3">
+            <RichEditBox x:Name="reb" Foreground="Black"></RichEditBox>
+        <Button x:Name="essai" Foreground="Black" Content="essai" Click="essai_Click"></Button>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                    Visibility="Visible">
+            <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">
+                <Run Text="{Binding MyRegistered.FirstnameUser}"/>
+                <Run Text="{Binding MyRegistered.NameUser}"/>
+            </TextBlock>
+            <Button Foreground="Black" Content="Se déconnecter"
+                    VerticalAlignment="Center"></Button>
+        </StackPanel>
 
         <StackPanel x:Name="AddTopic" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
                 <Border BorderBrush="Black" BorderThickness="2" Height="300">
@@ -147,7 +160,7 @@
                         <TextBlock Text="Ajout d'un sujet" Foreground="Black" FontSize="18" 
                            VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <TextBox x:Name="txtTitleTopic" PlaceholderText="Titre du sujet"/>
-                        <TextBox x:Name="txtDescTopic" PlaceholderText="Description du sujet" ScrollViewer.VerticalScrollMode="Auto"
+                        <RichEditBox x:Name="txtDescTopic" PlaceholderText="Description du sujet" ScrollViewer.VerticalScrollMode="Auto"
                                      TextWrapping="Wrap" Height="200"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom">

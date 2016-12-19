@@ -11,6 +11,7 @@ namespace FIISA_Universel
     public class MainViewModel : ViewModelBase
     {
         public Forum MyForum { get; set; }
+        public Registered MyRegistered { get; set; }
         private ObservableCollection<Rubric> _Rubrics;
         public ObservableCollection<Rubric> Rubrics
         {
