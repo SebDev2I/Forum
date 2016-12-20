@@ -59,7 +59,7 @@ namespace DALForum
             command.Parameters.Add(CreateParameter("@IDTOPIC", message.IdTopic));
             command.Parameters.Add(CreateParameter("@IDUSER", message.IdUser));
             command.Parameters.Add(CreateParameter("@DATEMESSAGE", message.DateMessage));
-            command.Parameters.Add(CreateParameter("@CONTENTMESSAGE", message.ContentMessage, 1024));
+            command.Parameters.Add(CreateParameter("@CONTENTMESSAGE", message.ContentMessage, int.MaxValue));
 
             // Exécute la commande.
             command.Connection.Open();

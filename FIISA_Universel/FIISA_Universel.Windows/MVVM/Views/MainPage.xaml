@@ -33,19 +33,16 @@
             <Border BorderBrush="Gray"
                     Background="Transparent"
                     BorderThickness="2"
-                    Margin="3"
-                    CornerRadius="0,0,15,0">
-                <StackPanel Width="125" Height="125" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    CornerRadius="0,0,15,0"
+                    Width="125" Height="125">
                     <TextBlock Text="{Binding NameRubric}"
                            Margin="8,0"
                            Foreground="Black"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
                            TextTrimming="WordEllipsis"
                            TextWrapping="WrapWholeWords"
-                           FontSize="16"
-                           TextAlignment="Center"/>
-                </StackPanel>
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                           FontSize="16"/>
             </Border>
         </DataTemplate>
        
@@ -82,9 +79,10 @@
                                    Margin="8, 0"/>
                     </StackPanel>
                     <local:RichEditBoxExtended Foreground="Black"
-                               FontSize="16"
-                               TextWrapping="Wrap"
-                               Margin="8 10 8 10" RtfText="{Binding DescTopic}" >
+                                               IsEnabled="False"
+                                               FontSize="16"
+                                               TextWrapping="Wrap"
+                                               RtfText="{Binding DescTopic}" >
                     </local:RichEditBoxExtended>
                 </StackPanel>
             </Border>
@@ -116,12 +114,13 @@
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="12" />
-                        <TextBlock Text="{Binding ContentMessage}"
-                           Margin="8 10 8 10"
-                           Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="16"
-                           TextWrapping="Wrap"/>
-                    </StackPanel>
+                    <local:RichEditBoxExtended Foreground="Black"
+                                               IsEnabled="False"
+                                               FontSize="16"
+                                               TextWrapping="Wrap"
+                                               RtfText="{Binding ContentMessage}" >
+                    </local:RichEditBoxExtended>
+                </StackPanel>
                 </Border>
             </DataTemplate>
     </Page.Resources>
@@ -139,26 +138,23 @@
             <ColumnDefinition x:Name="col3" Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="2" Grid.Column="3">
-            <RichEditBox x:Name="reb" Foreground="Black"></RichEditBox>
-        <Button x:Name="essai" Foreground="Black" Content="essai" Click="essai_Click"></Button>
-        </StackPanel>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                    Visibility="Visible">
-            <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="18">
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3"
+                    Visibility="Visible" HorizontalAlignment="Right">
+            <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="20">
                 <Run Text="{Binding MyRegistered.FirstnameUser}"/>
                 <Run Text="{Binding MyRegistered.NameUser}"/>
             </TextBlock>
             <Button Foreground="Black" Content="Se déconnecter"
-                    VerticalAlignment="Center"></Button>
+                    VerticalAlignment="Center" FontSize="16"></Button>
         </StackPanel>
 
         <StackPanel x:Name="AddTopic" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-                <Border BorderBrush="Black" BorderThickness="2" Height="300">
+                <Border BorderBrush="Black" BorderThickness="2" Height="325">
                     <StackPanel>
                         <TextBlock Text="Ajout d'un sujet" Foreground="Black" FontSize="18" 
-                           VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
                         <TextBox x:Name="txtTitleTopic" PlaceholderText="Titre du sujet"/>
                         <RichEditBox x:Name="txtDescTopic" PlaceholderText="Description du sujet" ScrollViewer.VerticalScrollMode="Auto"
                                      TextWrapping="Wrap" Height="200"/>
@@ -171,6 +167,23 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
+        </StackPanel>
+        <StackPanel x:Name="AddMessage" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+            <Border BorderBrush="Black" BorderThickness="2" Height="325">
+                <StackPanel>
+                    <TextBlock Text="Ajout d'un message" Foreground="Black" FontSize="18" 
+                           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
+                    <RichEditBox x:Name="txtContentMessage" PlaceholderText="Message" ScrollViewer.VerticalScrollMode="Auto"
+                                     TextWrapping="Wrap" Height="200"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom">
+                        <Button x:Name="cmdValidMessage" Click="cmdValidMessage_Click"
+                                Foreground="Black" Content="Valider"></Button>
+                        <Button x:Name="cmdCancelMessage" Click="cmdCancelMessage_Click"
+                                Foreground="Black" Content="Annuler"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
 
         <TextBlock Text="Rubriques" 
@@ -187,12 +200,12 @@
                   ItemsSource="{Binding ListeRubrics}"
                   ItemTemplate="{StaticResource RubricDataTemplate}"
                   SelectionChanged="lstRubric_SelectionChanged">
-                <GridView.ItemContainerStyle>
+              <!--  <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                 </Style>
-                </GridView.ItemContainerStyle>
+                </GridView.ItemContainerStyle>-->
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                     <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="2"/>

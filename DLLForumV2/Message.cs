@@ -35,7 +35,7 @@ namespace DLLForumV2
             IdTopic = dto.IdTopic;
             ObjUser = objuser;
             DateMessage = dto.DateMessage;
-            ContentMessage = dto.ContentMessage;
+            ContentMessage = AuditTool.StringToRtf(dto.ContentMessage);
             DTO = dto;
         }
 
@@ -45,13 +45,13 @@ namespace DLLForumV2
             IdTopic = idtopic;
             ObjUser = objuser;
             DateMessage = datemessage;
-            ContentMessage = contentmessage;
+            ContentMessage = AuditTool.RtfToString(contentmessage);
             DTO = new MessageDTO();
             DTO.IdMessage = idmessage;
             DTO.IdTopic = idtopic;
             DTO.IdUser = objuser.IdUser;
             DTO.DateMessage = datemessage;
-            DTO.ContentMessage = contentmessage;
+            DTO.ContentMessage = ContentMessage;
         }
 
         public override string ToString()
@@ -75,11 +75,6 @@ namespace DLLForumV2
             if (ContentMessage == String_NullValue)
             {
                 this.ValidationErrors.Add(new ValidationError("Message.ContentMessage", "<CONTENT_MESSAGE> est requis"));
-                i++;
-            }
-            if (ContentMessage.Length > 1024)
-            {
-                this.ValidationErrors.Add(new ValidationError("Message.ContentMessage", "<CONTENT_MESSAGE> doit contenir 1024 caractères au maximum"));
                 i++;
             }
             if (i > 0)

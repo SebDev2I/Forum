@@ -143,6 +143,12 @@ namespace DLLForumV2
             return r1.IsSuccess;
         }
 
+        public bool SaveMessage(Message message, Token token)
+        {
+            DALWSR_Result r1 = dal.SaveMessage(message.DTO, token, CancellationToken.None);
+            return r1.IsSuccess;
+        }
+
         public override string ToString()
         {
             return "Id : " + IdUser 

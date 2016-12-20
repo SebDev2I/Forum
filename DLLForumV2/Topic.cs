@@ -125,11 +125,6 @@ namespace DLLForumV2
                 this.ValidationErrors.Add(new ValidationError("Topic.DescTopic", "<DESC_TOPIC> est requis"));
                 i++;
             }
-            if (TitleTopic.Length > 50)
-            {
-                this.ValidationErrors.Add(new ValidationError("Topic.DescTopic", "<DESC_TOPIC> doit contenir 1024 caractères au maximum"));
-                i++;
-            }
             if ( i== 0)
             {
                 return true;

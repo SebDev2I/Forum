@@ -60,7 +60,7 @@ namespace DALForum
             command.Parameters.Add(CreateParameter("@IDRUBRIC", topic.IdRubric));
             command.Parameters.Add(CreateParameter("@DATETOPIC", topic.DateTopic));
             command.Parameters.Add(CreateParameter("@TITLETOPIC", topic.TitleTopic, 50));
-            command.Parameters.Add(CreateParameter("@DESCTOPIC", topic.DescTopic, 1024));
+            command.Parameters.Add(CreateParameter("@DESCTOPIC", topic.DescTopic, 200000));
 
             // Exécute la commande.
             command.Connection.Open();

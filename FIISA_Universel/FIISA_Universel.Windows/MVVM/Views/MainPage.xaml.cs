@@ -122,14 +122,16 @@ namespace FIISA_Universel
 
         private void cmdAddMessage_Click(object sender, RoutedEventArgs e)
         {
-            
+            AddMessage.Visibility = Visibility.Visible;
+            cmdAddMessage.Visibility = Visibility.Collapsed;
+            cmdAddTopic.Visibility = Visibility.Collapsed;
         }
 
         private void cmdValidTopic_Click(object sender, RoutedEventArgs e)
         {
             string str = string.Empty;
             txtDescTopic.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
-            str = RtfToString(str);
+            //str = RtfToString(str);
             mainVM.MyTopic = new Topic(int.MinValue, mainVM.MyForum.User, mainVM.MyRubric, DateTime.Now, txtTitleTopic.Text, str);
             
             if(mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum.TokenUser))
@@ -138,59 +140,49 @@ namespace FIISA_Universel
                 txtTitleTopic.Text = string.Empty;
                 txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
                 MessageDialog essai = new MessageDialog("Le sujet a bien été créé!");
+                mainVM.InitializeListTopic();
                 essai.ShowAsync();
             }
+            cmdAddTopic.Visibility = Visibility.Visible;
         }
 
         private void cmdCancelTopic_Click(object sender, RoutedEventArgs e)
         {
-
+            AddTopic.Visibility = Visibility.Collapsed;
+            cmdAddTopic.Visibility = Visibility.Visible;
+            txtTitleTopic.Text = string.Empty;
+            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
 
-        private void essai_Click(object sender, RoutedEventArgs e)
+       
+           
+        
+        
+
+        private void cmdValidMessage_Click(object sender, RoutedEventArgs e)
         {
             string str = string.Empty;
-            reb.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
-            /*Windows.Storage.Pickers.FileSavePicker savePicker = new Windows.Storage.Pickers.FileSavePicker();
-            savePicker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
+            txtContentMessage.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
+            //str = RtfToString(str);
+            mainVM.MyMessage = new Message(int.MinValue, mainVM.MyTopic.IdTopic, mainVM.MyForum.User, DateTime.Now, str);
 
-            // Dropdown of file types the user can save the file as
-            savePicker.FileTypeChoices.Add("Rich Text", new List<string>() { ".rtf" });
-
-            // Default file name if the user does not type one in or select a file to replace
-            savePicker.SuggestedFileName = "New Document";
-
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-            if (file != null)
+            if (mainVM.MyForum.User.SaveMessage(mainVM.MyMessage, mainVM.MyForum.TokenUser))
             {
-                // Prevent updates to the remote version of the file until we
-                // finish making changes and call CompleteUpdatesAsync.
-                Windows.Storage.CachedFileManager.DeferUpdates(file);
-                // write to file
-                Windows.Storage.Streams.IRandomAccessStream randAccStream =
-                    await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite);
-
-                reb.Document.SaveToStream(Windows.UI.Text.TextGetOptions.FormatRtf, randAccStream);
-
-                // Let Windows know that we're finished changing the file so the
-                // other app can update the remote version of the file.
-                Windows.Storage.Provider.FileUpdateStatus status = await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
-                if (status != Windows.Storage.Provider.FileUpdateStatus.Complete)
-                {
-                    Windows.UI.Popups.MessageDialog errorBox =
-                        new Windows.UI.Popups.MessageDialog("File " + file.Name + " couldn't be saved.");
-                    await errorBox.ShowAsync();
-                }
-            }*/
-           
-        }
-        private string RtfToString(string rtf)
-        {
-            if (rtf != null)
-            {
-                return Convert.ToBase64String(Encoding.UTF8.GetBytes(rtf));
+                AddMessage.Visibility = Visibility.Collapsed;
+                txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+                MessageDialog essai = new MessageDialog("Le message a bien été créé!");
+                mainVM.InitializeListMessage();
+                essai.ShowAsync();
             }
-            return null;
+            cmdAddMessage.Visibility = Visibility.Visible;
+        }
+
+        private void cmdCancelMessage_Click(object sender, RoutedEventArgs e)
+        {
+            AddMessage.Visibility = Visibility.Collapsed;
+            cmdAddMessage.Visibility = Visibility.Visible;
+            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            cmdAddTopic.Visibility = Visibility.Visible;
         }
     }
 }
