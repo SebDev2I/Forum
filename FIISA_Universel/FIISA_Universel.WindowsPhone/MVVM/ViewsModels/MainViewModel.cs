@@ -12,6 +12,20 @@ namespace FIISA_Universel
     {
         public Forum MyForum { get; set; }
         public Registered MyRegistered { get; set; }
+        private bool _IsLogged;
+
+        public bool IsLogged
+        {
+            get { return _IsLogged; }
+            set
+            {
+                if (_IsLogged != value)
+                {
+                    _IsLogged = value;
+                }
+                RaisePropertyChanged();
+            }
+        }
         private ObservableCollection<Rubric> _Rubrics;
         public ObservableCollection<Rubric> Rubrics
         {

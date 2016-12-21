@@ -4,5 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FIISA_Universel">
 
+    <Application.Resources>
+     <!--    <ResourceDictionary>
+            <SolidColorBrush x:Key="ListViewItemPointerOverBackgroundThemeBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ListViewItemSelectedBackgroundThemeBrush" Color="Blue" />
+            <SolidColorBrush x:Key="ListViewItemSelectedForegroundThemeBrush" Color="White" />
+            <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBackgroundThemeBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBorderThemeBrush" Color="Blue" />
+            <SolidColorBrush x:Key="ListViewItemCheckThemeBrush" Color="White" />
+        </ResourceDictionary>-->
+    </Application.Resources>
     
 </Application>

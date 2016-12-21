@@ -1,13 +1,17 @@
-﻿using DLLForumV2;
+﻿using DALClientWS;
+using DLLAuth;
+using DLLForumV2;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,6 +35,7 @@ namespace FIISA_Universel
         {
             this.InitializeComponent();
             Application.Current.DebugSettings.EnableFrameRateCounter = false;
+            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -62,7 +67,7 @@ namespace FIISA_Universel
 
         private void lstRubric_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(mainVM.MyTopic != null)
+            if (mainVM.MyTopic != null)
             {
                 mainVM.MyTopic.IdTopic = 0;
                 mainVM.InitializeListMessage();
@@ -183,6 +188,31 @@ namespace FIISA_Universel
             cmdAddMessage.Visibility = Visibility.Visible;
             txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
             cmdAddTopic.Visibility = Visibility.Visible;
+        }
+
+        private void cmdLogin_Click(object sender, RoutedEventArgs e)
+        {
+            /*/Token token = new Token(0, txtLogin.Text, txtPwd.Password, 0);
+
+            DALClient dal = new DALClient();
+            DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
+            if (r.Data != null)
+            {
+                token = (Token)r.Data;
+            }
+            if (token.Valid != false)
+            {
+                mainVM.MyForum.TokenUser = token;
+                mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
+                mainVM.MyRegistered = mainVM.MyForum.User;
+                mainVM.IsLogged = true;
+            }
+            else
+            {
+                mainVM.MyForum.TokenUser = null;
+                mainVM.IsLogged = false;
+                //todo montrer message comme quoi le login/mdp est incorrect
+            }*/
         }
     }
 }

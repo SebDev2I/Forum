@@ -14,6 +14,20 @@ namespace FIISA_Universel
         public Topic MyTopic { get; set; }
         public Message MyMessage { get; set; }
         public Registered MyRegistered { get; set; }
+        private bool _IsLogged;
+        public bool IsLogged
+        {
+            get { return _IsLogged; }
+            set
+            {
+                if(_IsLogged != value)
+                {
+                    _IsLogged = value;
+                }
+                RaisePropertyChanged();
+            }
+        }
+
         public bool HasTopic { get; set; }
         public bool HasMessage { get; set; }
         

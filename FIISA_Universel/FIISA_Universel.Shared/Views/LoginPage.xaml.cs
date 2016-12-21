@@ -44,6 +44,8 @@ namespace FIISA_Universel
 
         private void cmdContinue_Click(object sender, RoutedEventArgs e)
         {
+            mainVM.MyForum.TokenUser = null;
+            mainVM.IsLogged = false;
             Frame.Navigate(typeof(MainPage), DataContext);
         }
 
@@ -67,7 +69,14 @@ namespace FIISA_Universel
                 mainVM.MyForum.TokenUser = token;
                 mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
                 mainVM.MyRegistered = mainVM.MyForum.User;
+                mainVM.IsLogged = true;
                 Frame.Navigate(typeof(MainPage), DataContext);
+            }
+            else
+            {
+                mainVM.MyForum.TokenUser = null;
+                mainVM.IsLogged = false;
+                //todo montrer message comme quoi le login/mdp est incorrect
             }
 
         }
