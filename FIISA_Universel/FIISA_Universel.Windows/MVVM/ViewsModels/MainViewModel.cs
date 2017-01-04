@@ -13,7 +13,21 @@ namespace FIISA_Universel
         public Rubric MyRubric { get; set; }
         public Topic MyTopic { get; set; }
         public Message MyMessage { get; set; }
-        public Registered MyRegistered { get; set; }
+
+        private Registered _MyRegistered;
+        public Registered MyRegistered
+        {
+            get { return _MyRegistered; }
+            set
+            {
+                if(_MyRegistered != value)
+                {
+                    _MyRegistered = value;
+                }
+                RaisePropertyChanged();
+            }
+        }
+
         private bool _IsLogged;
         public bool IsLogged
         {

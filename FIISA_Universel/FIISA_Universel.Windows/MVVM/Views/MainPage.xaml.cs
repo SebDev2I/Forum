@@ -155,6 +155,7 @@ namespace FIISA_Universel
         {
             AddTopic.Visibility = Visibility.Collapsed;
             cmdAddTopic.Visibility = Visibility.Visible;
+            cmdAddMessage.Visibility = Visibility.Visible;
             txtTitleTopic.Text = string.Empty;
             txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
@@ -192,27 +193,45 @@ namespace FIISA_Universel
 
         private void cmdLogin_Click(object sender, RoutedEventArgs e)
         {
-            /*/Token token = new Token(0, txtLogin.Text, txtPwd.Password, 0);
+            if (mainVM.MyForum.TokenUser == null)
+            {
+                Token token = new Token(0, txtLogin.Text, txtPwd.Password, 0);
 
-            DALClient dal = new DALClient();
-            DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
-            if (r.Data != null)
-            {
-                token = (Token)r.Data;
-            }
-            if (token.Valid != false)
-            {
-                mainVM.MyForum.TokenUser = token;
-                mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
-                mainVM.MyRegistered = mainVM.MyForum.User;
-                mainVM.IsLogged = true;
+                DALClient dal = new DALClient();
+                DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
+                if (r.Data != null)
+                {
+                    token = (Token)r.Data;
+                }
+                if (token.Valid != false)
+                {
+                    mainVM.MyForum.TokenUser = token;
+                    mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
+                    mainVM.MyRegistered = mainVM.MyForum.User;
+                    mainVM.IsLogged = true;
+                }
+                else
+                {
+                    mainVM.MyForum.TokenUser = null;
+                    mainVM.IsLogged = false;
+
+                    //todo montrer message comme quoi le login/mdp est incorrect
+                }
             }
             else
             {
                 mainVM.MyForum.TokenUser = null;
+                txtLogin.Text = string.Empty;
+                txtPwd.Password = string.Empty;
+                mainVM.MyRegistered = null;
                 mainVM.IsLogged = false;
-                //todo montrer message comme quoi le login/mdp est incorrect
-            }*/
+            }
+            
+        }
+
+        private void cmdUpdateMessage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -6,7 +6,7 @@
     xmlns:converter="using:FIISA_Universel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    >
 
     
     <Page.Resources>
@@ -14,7 +14,11 @@
             x:Key="BooleanToVisibilityConverter"
             True="Visible"
             False="Collapsed"/>
-        
+        <converter:BooleanToVisibilityConverter
+            x:Key="NotBooleanToVisibilityConverter"
+            True="Collapsed"
+            False="Visible"/>
+
         <Style x:Key="roundButtonAdd" TargetType="Button">
             <Setter Property="Width" Value="50"/>
             <Setter Property="Height" Value="50"/>
@@ -94,28 +98,28 @@
         </DataTemplate>
 
         <DataTemplate x:Key="MessageDataTemplate">
-                <Border BorderBrush="Gray"
+            <Border BorderBrush="Gray"
                     x:Name="messageBorder"
                     Background="Transparent"
                     BorderThickness="2"
                     Margin="3"
                     CornerRadius="0,0,15,0">
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding ObjUser.LoginUser}"
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ObjUser.LoginUser}"
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="14" />
-                            <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
+                        <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="14" />
-                            <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
+                        <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="14" />
-                        </StackPanel>
-                        <TextBlock Text="{Binding DateMessage}"
+                    </StackPanel>
+                    <TextBlock Text="{Binding DateMessage}"
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="12" />
@@ -126,8 +130,8 @@
                                                RtfText="{Binding ContentMessage}">
                     </local:RichEditBoxExtended>
                 </StackPanel>
-                </Border>
-            </DataTemplate>
+            </Border>
+        </DataTemplate>
     </Page.Resources>
     
     <Grid x:Name="mainGrid" Background="White">
@@ -147,13 +151,32 @@
 
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3"
-                    Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
-            <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="20">
+                    HorizontalAlignment="Right"
+                    Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="20"
+                       Margin="0 0 10 0">
                 <Run Text="{Binding MyRegistered.FirstnameUser}"/>
                 <Run Text="{Binding MyRegistered.NameUser}"/>
             </TextBlock>
-            <Button x:Name="cmdLogin" Foreground="Black" Content="Se déconnecter"
-                    VerticalAlignment="Center" FontSize="16" Click="cmdLogin_Click"></Button>
+            <Button x:Name="cmdLogout" Foreground="Black" Content="Se déconnecter"
+                    VerticalAlignment="Center" FontSize="16" Click="cmdLogin_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3"
+                    HorizontalAlignment="Right"
+                    Visibility="{Binding IsLogged, Converter={StaticResource NotBooleanToVisibilityConverter}}">
+            <TextBox x:Name="txtLogin" PlaceholderText="Votre identifiant" Width="200" 
+                     Foreground="Black" FontSize="16" VerticalAlignment="Center"
+                     BorderBrush="Gray" BorderThickness="1" 
+                     Margin="0 0 10 0"/>
+            <PasswordBox x:Name="txtPwd" PlaceholderText="Votre mot de passe" Width="200" 
+                         FontFamily="Black" FontSize="16" VerticalAlignment="Center"
+                         VerticalContentAlignment="Bottom"
+                         BorderBrush="Gray" BorderThickness="1"
+                         Margin="0 0 10 0"/>
+            <Button x:Name="cmdLogin" Foreground="Black" Content="Se connecter"
+                    VerticalAlignment="Center" FontSize="16" Click="cmdLogin_Click"
+                    BorderBrush="Gray" BorderThickness="2"/>
         </StackPanel>
 
         <StackPanel x:Name="AddTopic" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
@@ -219,22 +242,26 @@
                 </GridView.ItemsPanel>
             </GridView>
         </ScrollViewer>
-        
 
- 
-            <TextBlock Text="Sujets" 
-                       Grid.Row="1" Grid.Column="1"
+
+        <TextBlock Text="Sujets" 
+                   Grid.Row="1" Grid.Column="1"
                    Foreground="Black" FontSize="18"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextTrimming="WordEllipsis"/>
-        <Button x:Name="cmdAddTopic" Click="cmdAddTopic_Click"
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="0 0 25 25"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" Canvas.ZIndex="1">
+            <Button x:Name="cmdAddTopic" Click="cmdAddTopic_Click"
                 Visibility="Collapsed"
                 Grid.Row="2" Grid.Column="1"
                 Style="{StaticResource roundButtonAdd}"
-                Margin="0 0 25 25"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" Canvas.ZIndex="1"/>
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" Canvas.ZIndex="1"/>
+        </StackPanel>
         <ListView x:Name="lstTopic" Grid.Row="2" Grid.Column="1"
                       Visibility="Visible"
                   ItemsSource="{Binding ListeTopics}"
@@ -257,13 +284,18 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextTrimming="WordEllipsis"/>
-        <Button x:Name="cmdAddMessage" Click="cmdAddMessage_Click"
+        <StackPanel Grid.Row="2" Grid.Column="2"
+                    Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Margin="0 0 25 25"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" Canvas.ZIndex="1">
+            <Button x:Name="cmdAddMessage" Click="cmdAddMessage_Click"
                 Visibility="Collapsed"
                 Style="{StaticResource roundButtonAdd}"
                 Grid.Row="2" Grid.Column="2"
-                Margin="0 0 25 25"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" Canvas.ZIndex="1"/>
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" Canvas.ZIndex="1"/>
+        </StackPanel>
         <ListView x:Name="lstMessage" Grid.Row="2" Grid.Column="2"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Top"
