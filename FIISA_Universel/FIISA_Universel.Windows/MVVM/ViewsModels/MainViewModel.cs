@@ -27,7 +27,7 @@ namespace FIISA_Universel
                 RaisePropertyChanged();
             }
         }
-
+       
         private bool _IsLogged;
         public bool IsLogged
         {

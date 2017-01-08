@@ -30,4 +30,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\corbeille.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\edition.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\Effacer-64.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\Modifier-64.png" />
+  </ItemGroup>
 </Project>

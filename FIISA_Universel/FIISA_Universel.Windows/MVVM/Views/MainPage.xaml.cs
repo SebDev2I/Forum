@@ -98,6 +98,7 @@ namespace FIISA_Universel
 
         private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             prTopic.IsActive = true;
             prTopic.Visibility = Visibility.Visible;
             Topic output = (Topic)lstTopic.SelectedItem;

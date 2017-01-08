@@ -5,14 +5,14 @@
     xmlns:local="using:FIISA_Universel">
 
     <Application.Resources>
-     <!--    <ResourceDictionary>
+        <ResourceDictionary>
             <SolidColorBrush x:Key="ListViewItemPointerOverBackgroundThemeBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ListViewItemSelectedBackgroundThemeBrush" Color="Blue" />
-            <SolidColorBrush x:Key="ListViewItemSelectedForegroundThemeBrush" Color="White" />
+            <SolidColorBrush x:Key="ListViewItemSelectedBackgroundThemeBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ListViewItemSelectedForegroundThemeBrush" Color="Transparent" />
             <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBackgroundThemeBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBorderThemeBrush" Color="Blue" />
-            <SolidColorBrush x:Key="ListViewItemCheckThemeBrush" Color="White" />
-        </ResourceDictionary>-->
+            <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBorderThemeBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ListViewItemCheckThemeBrush" Color="Black" />
+        </ResourceDictionary>
     </Application.Resources>
     
 </Application>
