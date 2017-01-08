@@ -10,8 +10,32 @@ namespace FIISA_Universel
     public class MainViewModel : ViewModelBase
     {
         public Forum MyForum { get; set; }
-        public Rubric MyRubric { get; set; }
-        public Topic MyTopic { get; set; }
+        private Rubric _MyRubric;
+        public Rubric MyRubric
+        {
+            get { return _MyRubric; }
+            set
+            {
+                if (_MyRubric != value)
+                {
+                    _MyRubric = value;
+                }
+                RaisePropertyChanged();
+            }
+        }
+        private Topic _MyTopic;
+        public Topic MyTopic
+        {
+            get { return _MyTopic; }
+            set
+            {
+                if (_MyTopic != value)
+                {
+                    _MyTopic = value;
+                }
+                RaisePropertyChanged();
+            }
+        }
         public Message MyMessage { get; set; }
 
         private Registered _MyRegistered;

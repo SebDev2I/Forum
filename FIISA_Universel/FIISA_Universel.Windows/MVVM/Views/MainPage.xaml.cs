@@ -74,6 +74,11 @@ namespace FIISA_Universel
             }
             lblNotMessage.Visibility = Visibility.Collapsed;
             cmdAddMessage.Visibility = Visibility.Collapsed;
+            AddTopic.Visibility = Visibility.Collapsed;
+            AddMessage.Visibility = Visibility.Collapsed;
+            txtTitleTopic.Text = string.Empty;
+            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
             lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
             prRubric.IsActive = true;
             prRubric.Visibility = Visibility.Visible;
@@ -98,7 +103,13 @@ namespace FIISA_Universel
 
         private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            AddTopic.Visibility = Visibility.Collapsed;
+            AddMessage.Visibility = Visibility.Collapsed;
+            txtTitleTopic.Text = string.Empty;
+            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            txtTitleTopic.Text = string.Empty;
+            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
             prTopic.IsActive = true;
             prTopic.Visibility = Visibility.Visible;
             Topic output = (Topic)lstTopic.SelectedItem;
@@ -155,8 +166,14 @@ namespace FIISA_Universel
         private void cmdCancelTopic_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Collapsed;
-            cmdAddTopic.Visibility = Visibility.Visible;
-            cmdAddMessage.Visibility = Visibility.Visible;
+            if (mainVM.HasTopic)
+            {
+                cmdAddTopic.Visibility = Visibility.Visible;
+            }
+            if (mainVM.HasMessage)
+            {
+                cmdAddMessage.Visibility = Visibility.Visible;
+            }
             txtTitleTopic.Text = string.Empty;
             txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
@@ -233,6 +250,43 @@ namespace FIISA_Universel
         private void cmdUpdateMessage_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void cmdUser_Click(object sender, RoutedEventArgs e)
+        {
+            AddTopic.Visibility = Visibility.Visible;
+        }
+
+        private void cmdEditTopic_Click(object sender, RoutedEventArgs e)
+        {
+            
+            EditTopic.Visibility = Visibility.Visible;
+
+        }
+
+        private void cmdDeleteTopic_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdValidTopicEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cmdCancelTopicEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditTopic.Visibility = Visibility.Collapsed;
+            if (mainVM.HasTopic)
+            {
+                cmdAddTopic.Visibility = Visibility.Visible;
+            }
+            if (mainVM.HasMessage)
+            {
+                cmdAddMessage.Visibility = Visibility.Visible;
+            }
+            //txtTitleTopicEdit.Text = string.Empty;
+            //txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
     }
 }
