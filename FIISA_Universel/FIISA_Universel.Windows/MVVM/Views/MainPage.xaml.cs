@@ -82,7 +82,7 @@ namespace FIISA_Universel
             EditTopic.Visibility = Visibility.Collapsed;
             txtTitleTopicEdit.Text = string.Empty;
             txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            //lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
+            lstTopic.SelectionChanged -= lstTopic_SelectionChanged;
             prRubric.IsActive = true;
             prRubric.Visibility = Visibility.Visible;
             Rubric output = (Rubric)lstRubric.SelectedItem;
@@ -101,7 +101,7 @@ namespace FIISA_Universel
                 lblNotTopic.Visibility = Visibility.Visible;
             }
             cmdAddTopic.Visibility = Visibility.Visible;
-            //lstTopic.SelectionChanged += lstTopic_SelectionChanged;
+            lstTopic.SelectionChanged += lstTopic_SelectionChanged;
         }
 
         private void TopicItem_Click(object sender, RoutedEventArgs e)
@@ -141,8 +141,9 @@ namespace FIISA_Universel
             p.Visibility = Visibility.Visible;
         }
 
-        /*private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int essai = lstTopic.SelectedIndex;
             AddTopic.Visibility = Visibility.Collapsed;
             AddMessage.Visibility = Visibility.Collapsed;
             txtTitleTopic.Text = string.Empty;
@@ -169,18 +170,69 @@ namespace FIISA_Universel
             }
             txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
             txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
-            cmdAddMessage.Visibility = Visibility.Visible;
+            if (EditTopic.Visibility == Visibility.Visible)
+            {
+                cmdAddMessage.Visibility = Visibility.Collapsed;
+            }
+            else cmdAddMessage.Visibility = Visibility.Visible;
 
-            ListView c = (ListView)sender;
+            /*ListView lstView;
+            StackPanel sp1, sp2, sp3;
+            ListViewItem lstViewItem;
+            Border b;
+            Grid g;
+            foreach (var item in lstTopic.Items)
+            {
+                if(lstTopic.Items.IndexOf(item) == essai)
+                {
+                    lstView = (ListView)sender;
+                    sp1 = (StackPanel)lstView.ItemsPanelRoot;
+                    lstViewItem = (ListViewItem)sp1.Children[0];
+                    b = (Border)lstViewItem.ContentTemplateRoot;
+                    sp2 = (StackPanel)b.Child;
+                    g = (Grid)sp2.Children[0];
+                    sp3 = (StackPanel)g.Children[1];
+                    sp3.Visibility = Visibility.Visible;
+                }
+                
+            }*/
+
+            /*ListView c = (ListView)sender;
+            c.SelectedIndex = essai;
             StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
             ListViewItem lvi = (ListViewItem)ipt.Children[0];
             Border b = (Border)lvi.ContentTemplateRoot;
             StackPanel sp = (StackPanel)b.Child;
             Grid g = (Grid)sp.Children[0];
             StackPanel sp1 = (StackPanel)g.Children[1];
-            sp1.Visibility = Visibility.Visible;
-        }*/
+            sp1.Visibility = Visibility.Visible;*/
+            if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
+            {
+                    foreach (var stackpanel in FindVisualChildren<StackPanel>(this))
+                    {
+                        if (stackpanel.Name == "EditDelete")
+                        {
+                            stackpanel.Visibility = Visibility.Visible;
+                        }
+                    }
+            }
+        }
+        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
 
+                    if (child != null && child is T)
+                        yield return (T)child;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
+        }
         /*private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
         {
             AddTopic.Visibility = Visibility.Collapsed;
@@ -267,12 +319,7 @@ namespace FIISA_Universel
             txtTitleTopic.Text = string.Empty;
             txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
-
-       
-           
         
-        
-
         private void cmdValidMessage_Click(object sender, RoutedEventArgs e)
         {
             string str = string.Empty;
@@ -384,10 +431,8 @@ namespace FIISA_Universel
             {
                 cmdAddTopic.Visibility = Visibility.Visible;
             }
-            if (mainVM.HasMessage)
-            {
-                cmdAddMessage.Visibility = Visibility.Visible;
-            }
+            cmdAddMessage.Visibility = Visibility.Visible;
+            
             //txtTitleTopicEdit.Text = string.Empty;
             //txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
