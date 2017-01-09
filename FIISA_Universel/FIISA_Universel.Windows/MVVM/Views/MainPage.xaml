@@ -133,7 +133,75 @@
                                    Margin="8, 0"
                                    TextWrapping="Wrap"
                                    Grid.Row="0" Grid.Column="0"/>
-                        <StackPanel Orientation="Horizontal" Canvas.ZIndex="1"
+                        <StackPanel x:Name="EditDelete" Visibility="Collapsed"
+                                    Orientation="Horizontal" Canvas.ZIndex="1"
+                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Grid.Row="0" Grid.Column="1"
+                                    Margin="0 0 17 0">
+                            <Button x:Name="cmdEditTopic"
+                                    Click="cmdEditTopic_Click"
+                                    Visibility="Visible"
+                                    Style="{StaticResource roundButtonEdit}"
+                                    Margin="2 2 2 2"/>
+                            <Button x:Name="cmdDeleteTopic"
+                                    Click="cmdDeleteTopic_Click"
+                                    Visibility="Visible"
+                                    Style="{StaticResource roundButtonDelete}"
+                                    Margin="2 2 2 2"/>
+                        </StackPanel>
+                    </Grid>
+                    <TextBlock Text="{Binding DateTopic}"
+                                   Foreground="Black"
+                                   VerticalAlignment="Bottom"
+                                   Margin="8, 0"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ObjUser.LoginUser}"
+                                   Foreground="Black"
+                                   FontSize="14"
+                                   Margin="8, 0"
+                                   />
+                        <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
+                                   Foreground="Black"
+                                   FontSize="14"
+                                   Margin="8, 0"/>
+                        <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
+                                   Foreground="Black"
+                                   FontSize="14" 
+                                   Margin="8, 0"/>
+                    </StackPanel>
+                    <local:RichEditBoxExtended Foreground="Black"
+                                               IsEnabled="False"
+                                               FontSize="16"
+                                               TextWrapping="Wrap"
+                                               RtfText="{Binding DescTopic}">
+                    </local:RichEditBoxExtended>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="TopicDataTemplateLogged">
+            <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Click="TopicItem_Click"
+                    Padding="0"
+                    Margin="0">
+                <Button.Content>
+                    <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="line1" Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="col1" Width="*"></ColumnDefinition>
+                            <ColumnDefinition x:Name="col2" Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding TitleTopic}"
+                                   Foreground="Black"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Margin="8, 0"
+                                   TextWrapping="Wrap"
+                                   Grid.Row="0" Grid.Column="0"/>
+                        <StackPanel x:Name="EditDelete"
+                                    Visibility="Collapsed"
+                                    Orientation="Horizontal" Canvas.ZIndex="1"
                                     VerticalAlignment="Top" HorizontalAlignment="Right"
                                     Grid.Row="0" Grid.Column="1"
                                     Margin="0 0 17 0">
@@ -174,7 +242,8 @@
                                                RtfText="{Binding DescTopic}" >
                     </local:RichEditBoxExtended>
                 </StackPanel>
-            </Border>
+                    </Button.Content>
+            </Button>
         </DataTemplate>
 
         <DataTemplate x:Key="MessageDataTemplate">
@@ -185,7 +254,37 @@
                     Margin="3"
                     CornerRadius="0,0,15,0">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition x:Name="line1" Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="col1" Width="*"></ColumnDefinition>
+                            <ColumnDefinition x:Name="col2" Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding ObjUser.LoginUser}"
+                                   Margin="8,0"
+                                   Foreground="Black"
+                                   TextTrimming="WordEllipsis" FontSize="14"
+                                   TextWrapping="Wrap"
+                                   Grid.Row="0" Grid.Column="0"/>
+                        <StackPanel Orientation="Horizontal" Canvas.ZIndex="1"
+                                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Grid.Row="0" Grid.Column="1"
+                                    Margin="0 0 17 0">
+                            <Button x:Name="cmdEditMessage"
+                                    Click="cmdEditMessage_Click"
+                                    Visibility="Visible"
+                                    Style="{StaticResource roundButtonEdit}"
+                                    Margin="2 2 2 2"/>
+                            <Button x:Name="cmdDeleteMessage"
+                                    Click="cmdDeleteMessage_Click"
+                                    Visibility="Visible"
+                                    Style="{StaticResource roundButtonDelete}"
+                                    Margin="2 2 2 2"/>
+                        </StackPanel>
+                    </Grid>
+                   <!-- <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding ObjUser.LoginUser}"
                            Margin="8,0"
                            Foreground="Black"
@@ -198,7 +297,7 @@
                            Margin="8,0"
                            Foreground="Black"
                            TextTrimming="WordEllipsis" FontSize="14" />
-                    </StackPanel>
+                    </StackPanel>-->
                     <TextBlock Text="{Binding DateMessage}"
                            Margin="8,0"
                            Foreground="Black"
@@ -227,7 +326,41 @@
             <ColumnDefinition x:Name="col3" Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        
+       <!-- <ListView x:Name="lstEssai" Grid.Row="0" ItemsSource="{Binding ListeTopics}" Background="Transparent" Margin="10,50,10,60" VerticalAlignment="Top" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemContainerTransitions>
+                <TransitionCollection>
+                    <AddDeleteThemeTransition/>
+                </TransitionCollection>
+            </ListView.ItemContainerTransitions>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Click="ListView_Click">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal"
+                                        Visibility="Visible">
+                                <TextBlock Foreground="Black" Text="{Binding TitleTopic}" 
+                                           VerticalAlignment="Center"/>
+                                <Button x:Name="cmdEditTopic"
+                                    Click="cmdEditTopic_Click"
+                                    Visibility="Collapsed"
+                                    Style="{StaticResource roundButtonEdit}"
+                                    Margin="2 2 2 2"/>
+                                <Button x:Name="cmdDeleteTopic"
+                                    Click="cmdDeleteTopic_Click"
+                                    Visibility="Visible"
+                                    Style="{StaticResource roundButtonDelete}"
+                                    Margin="2 2 2 2"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
         <!--<Image Source="{StaticResource ResourceKey=corbeille}" Grid.Row="0" Grid.Column="0"
                Width="100" Height="100"></Image>-->
 
@@ -300,8 +433,7 @@
                 <StackPanel>
                     <TextBlock Text="Modification du sujet" Foreground="Black" FontSize="18" 
                            VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <ComboBox x:Name="cmbRubric" ItemsSource="{Binding ListeRubrics}"
-                              SelectedValuePath="{Binding MyTopic.ObjRubric.NameRubric}">
+                    <ComboBox x:Name="cmbRubric" ItemsSource="{Binding ListeRubrics}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                     <TextBlock Foreground="Black" Text="{Binding NameRubric}" />
@@ -375,10 +507,42 @@
         <ListView x:Name="lstTopic" Grid.Row="2" Grid.Column="1"
                   Visibility="Visible"
                   ItemsSource="{Binding ListeTopics}"
-                  ItemTemplate="{StaticResource TopicDataTemplate}">
+                  ItemTemplate="{StaticResource TopicDataTemplateLogged}">
+                  <!--IsItemClickEnabled="True"
+                  ItemClick="lstTopic_ItemClick"-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <!--<Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="SelectionStates">
+                                            <VisualState x:Name="Unselected">
+                                                <Storyboard>
+                                                    <ColorAnimation Duration="0" Storyboard.TargetName="myback" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="Transparent"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SelectedUnfocused">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="myback" Storyboard.TargetProperty="Visibility" Duration="0">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Border x:Name="myback" Background="Red">
+                                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>-->
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
