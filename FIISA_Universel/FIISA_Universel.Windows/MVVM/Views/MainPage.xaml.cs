@@ -148,17 +148,17 @@ namespace FIISA_Universel
             AddTopic.Visibility = Visibility.Collapsed;
             AddMessage.Visibility = Visibility.Collapsed;
             txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            prTopic.IsActive = true;
-            prTopic.Visibility = Visibility.Visible;
+            //txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            //txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            //txtTitleTopic.Text = string.Empty;
+            //txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            //prTopic.IsActive = true;
+            //prTopic.Visibility = Visibility.Visible;
             Topic output = (Topic)lstTopic.SelectedItem;
             mainVM.MyTopic = output;
             mainVM.InitializeListMessage();
-            prTopic.Visibility = Visibility.Collapsed;
-            prTopic.IsActive = false;
+            //prTopic.Visibility = Visibility.Collapsed;
+            //prTopic.IsActive = false;
             if (mainVM.HasMessage)
             {
                 lstMessage.Visibility = Visibility.Visible;
@@ -169,6 +169,7 @@ namespace FIISA_Universel
                 lstMessage.Visibility = Visibility.Collapsed;
                 lblNotMessage.Visibility = Visibility.Visible;
             }
+            //TODO binding topic (ne fonctionne pas, je suis obligé d'affecter les variables aux composants
             if(mainVM.MyTopic != null)
             {
                 txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
@@ -181,54 +182,18 @@ namespace FIISA_Universel
             }
             else cmdAddMessage.Visibility = Visibility.Visible;
 
-            ShowEditDelete("EditDelete");
+            ShowEditDeleteTopic("EditDelete");
         }
-        private void ShowEditDelete(string ctrlname)
-        {
-            if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
-            {
-                foreach (var stackpanel in FindVisualChildren<StackPanel>(lstTopic))
-                {
-                    if (stackpanel.Name == ctrlname)
-                    {
-                        stackpanel.Visibility = Visibility.Visible;
-                    }
-                }
-            }
-        }
-        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
 
-                    if (child != null && child is T)
-                        yield return (T)child;
-
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                        yield return childOfChild;
-                }
-            }
-        }
-        /*private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
+        private void lstMessage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            int essai = lstMessage.SelectedIndex;
             AddTopic.Visibility = Visibility.Collapsed;
             AddMessage.Visibility = Visibility.Collapsed;
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
             txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            prTopic.IsActive = true;
-            prTopic.Visibility = Visibility.Visible;
-            Topic output = e.ClickedItem as Topic; ;
-            mainVM.MyTopic = output;
-            mainVM.InitializeListMessage();
-            prTopic.Visibility = Visibility.Collapsed;
-            prTopic.IsActive = false;
-            if (mainVM.HasMessage)
+            Message output = (Message)lstMessage.SelectedItem;
+            mainVM.MyMessage = output;
+            /*if (mainVM.HasMessage)
             {
                 lstMessage.Visibility = Visibility.Visible;
                 lblNotMessage.Visibility = Visibility.Collapsed;
@@ -237,20 +202,21 @@ namespace FIISA_Universel
             {
                 lstMessage.Visibility = Visibility.Collapsed;
                 lblNotMessage.Visibility = Visibility.Visible;
+            }*/
+            if (mainVM.MyMessage != null)
+            {
+                txtContentMessageEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyMessage.ContentMessage);
             }
-            txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
-            txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
-            cmdAddMessage.Visibility = Visibility.Visible;
 
-            ListView c = (ListView)sender;
-            StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
-            ListViewItem lvi = (ListViewItem)ipt.Children[0];
-            Border b = (Border)lvi.ContentTemplateRoot;
-            StackPanel sp = (StackPanel)b.Child;
-            Grid g = (Grid)sp.Children[0];
-            StackPanel sp1 = (StackPanel)g.Children[1];
-            sp1.Visibility = Visibility.Visible;
-        }*/
+            if (EditMessage.Visibility == Visibility.Visible)
+            {
+                cmdAddMessage.Visibility = Visibility.Collapsed;
+            }
+            else cmdAddMessage.Visibility = Visibility.Visible;
+
+            ShowEditDeleteMessage("EditDelete");
+        }
+        
         private void cmdAddTopic_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Visible;
@@ -364,11 +330,6 @@ namespace FIISA_Universel
             
         }
 
-        private void cmdUpdateMessage_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void cmdUser_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Visible;
@@ -436,26 +397,26 @@ namespace FIISA_Universel
 
         private void cmdEditMessage_Click(object sender, RoutedEventArgs e)
         {
-
+            cmdAddMessage.Visibility = Visibility.Collapsed;
+            cmdAddTopic.Visibility = Visibility.Collapsed;
+            EditMessage.Visibility = Visibility.Visible;
         }
 
         private void cmdDeleteMessage_Click(object sender, RoutedEventArgs e)
         {
-
+            if (mainVM.MyForum.User.DeleteMessage((Message)lstMessage.SelectedItem, mainVM.MyForum.TokenUser))
+            {
+                MessageDialog essai = new MessageDialog("Le message a bien été supprimé!");
+                mainVM.InitializeListMessage();
+                essai.ShowAsync();
+            }
         }
 
         
 
         
 
-        private void ListView_Click(object sender, RoutedEventArgs e)
-        {
-            Button c = (Button)sender;
-            StackPanel panel = (StackPanel)c.Content;
-            StackPanel p = (StackPanel)panel.Children[0];
-            p.Children[1].Visibility = Visibility.Visible;
-
-        }
+        
 
         private void cmdUnlock_Click(object sender, RoutedEventArgs e)
         {
@@ -469,5 +430,117 @@ namespace FIISA_Universel
         {
             mainVM.MyTopic.ObjRubric = (Rubric)cmbRubric.SelectedItem;
         }
+
+        private void cmdValidMessageEdit_Click(object sender, RoutedEventArgs e)
+        {
+            string str = string.Empty;
+            txtContentMessageEdit.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
+            mainVM.MyMessage = new Message(mainVM.MyMessage.IdMessage, mainVM.MyTopic.IdTopic, mainVM.MyMessage.ObjUser, mainVM.MyMessage.DateMessage, str);
+            if (mainVM.MyForum.User.SaveMessage(mainVM.MyMessage, mainVM.MyForum.TokenUser))
+            {
+                EditMessage.Visibility = Visibility.Collapsed;
+                txtContentMessageEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+                MessageDialog essai = new MessageDialog("Le message a bien été modifié!");
+                mainVM.InitializeListMessage();
+                essai.ShowAsync();
+            }
+            cmdAddMessage.Visibility = Visibility.Visible;
+            cmdAddTopic.Visibility = Visibility.Visible;
+        }
+
+        private void cmdCancelMessageEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ShowEditDeleteTopic(string ctrlname)
+        {
+            if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
+            {
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(lstTopic))
+                {
+                    if (stackpanel.Name == ctrlname)
+                    {
+                        stackpanel.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
+        private void ShowEditDeleteMessage(string ctrlname)
+        {
+            if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
+            {
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(lstMessage))
+                {
+                    if (stackpanel.Name == ctrlname)
+                    {
+                        stackpanel.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
+        public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+
+                    if (child != null && child is T)
+                        yield return (T)child;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
+        }
+        /*private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            AddTopic.Visibility = Visibility.Collapsed;
+            AddMessage.Visibility = Visibility.Collapsed;
+            txtTitleTopic.Text = string.Empty;
+            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            txtTitleTopic.Text = string.Empty;
+            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            prTopic.IsActive = true;
+            prTopic.Visibility = Visibility.Visible;
+            Topic output = e.ClickedItem as Topic; ;
+            mainVM.MyTopic = output;
+            mainVM.InitializeListMessage();
+            prTopic.Visibility = Visibility.Collapsed;
+            prTopic.IsActive = false;
+            if (mainVM.HasMessage)
+            {
+                lstMessage.Visibility = Visibility.Visible;
+                lblNotMessage.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                lstMessage.Visibility = Visibility.Collapsed;
+                lblNotMessage.Visibility = Visibility.Visible;
+            }
+            txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
+            txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
+            cmdAddMessage.Visibility = Visibility.Visible;
+
+            ListView c = (ListView)sender;
+            StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
+            ListViewItem lvi = (ListViewItem)ipt.Children[0];
+            Border b = (Border)lvi.ContentTemplateRoot;
+            StackPanel sp = (StackPanel)b.Child;
+            Grid g = (Grid)sp.Children[0];
+            StackPanel sp1 = (StackPanel)g.Children[1];
+            sp1.Visibility = Visibility.Visible;
+        }*/
+        /*private void ListView_Click(object sender, RoutedEventArgs e)
+        {
+            Button c = (Button)sender;
+            StackPanel panel = (StackPanel)c.Content;
+            StackPanel p = (StackPanel)panel.Children[0];
+            p.Children[1].Visibility = Visibility.Visible;
+
+        }*/
     }
 }

@@ -155,6 +155,12 @@ namespace DLLForumV2
             return r1.IsSuccess;
         }
 
+        public bool DeleteMessage(Message message, Token token)
+        {
+            DALWSR_Result r1 = dal.DeleteMessage(message.IdMessage, token, CancellationToken.None);
+            return r1.IsSuccess;
+        }
+
         public override string ToString()
         {
             return "Id : " + IdUser 

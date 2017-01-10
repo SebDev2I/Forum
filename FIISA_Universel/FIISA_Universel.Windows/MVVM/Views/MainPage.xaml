@@ -239,7 +239,8 @@
                                    TextTrimming="WordEllipsis" FontSize="14"
                                    TextWrapping="Wrap"
                                    Grid.Row="0" Grid.Column="0"/>
-                        <StackPanel Orientation="Horizontal" Canvas.ZIndex="1"
+                        <StackPanel x:Name="EditDelete" Visibility="Collapsed"
+                                    Orientation="Horizontal" Canvas.ZIndex="1"
                                     VerticalAlignment="Top" HorizontalAlignment="Right"
                                     Grid.Row="0" Grid.Column="1"
                                     Margin="0 0 17 0">
@@ -255,20 +256,6 @@
                                     Margin="2 2 2 2"/>
                         </StackPanel>
                     </Grid>
-                   <!-- <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding ObjUser.LoginUser}"
-                           Margin="8,0"
-                           Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="14" />
-                        <TextBlock Text="{Binding ObjUser.ObjTraining.NameTraining}"
-                           Margin="8,0"
-                           Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="14" />
-                        <TextBlock Text="{Binding ObjUser.ObjStatus.NameStatus}"
-                           Margin="8,0"
-                           Foreground="Black"
-                           TextTrimming="WordEllipsis" FontSize="14" />
-                    </StackPanel>-->
                     <TextBlock Text="{Binding DateMessage}"
                            Margin="8,0"
                            Foreground="Black"
@@ -366,25 +353,53 @@
                 <StackPanel>
                     <TextBlock Text="Modification du sujet" Foreground="Black" FontSize="18" 
                            VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <ComboBox x:Name="cmbRubric" ItemsSource="{Binding ListeRubrics}"
-                              SelectionChanged="cmbRubric_SelectionChanged">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                Margin="11 0 0 0">
+                        <TextBlock Foreground="Black" Text="Rubrique : "
+                                   VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"/>
+                        <ComboBox x:Name="cmbRubric" ItemsSource="{Binding ListeRubrics}"
+                              SelectionChanged="cmbRubric_SelectionChanged"
+                                  Width="100">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
                                     <TextBlock Foreground="Black" Text="{Binding NameRubric}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
                     <TextBox x:Name="txtTitleTopicEdit" PlaceholderText="Titre du sujet"
                              Text="{Binding MyTopic.TitleTopic}"/>
                     <local:RichEditBoxExtended x:Name="txtDescTopicEdit" PlaceholderText="Description du sujet" ScrollViewer.VerticalScrollMode="Auto"
                                                TextWrapping="Wrap" Height="200"
-                                               RtfText="{Binding MyTopic.DescTopic}" >
+                                               RtfText="{Binding MyTopic.DescTopic}">
                     </local:RichEditBoxExtended>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom">
                         <Button x:Name="cmdValidTopicEdit" Click="cmdValidTopicEdit_Click"
                                 Foreground="Black" Content="Valider"></Button>
                         <Button x:Name="cmdCancelTopicEdit" Click="cmdCancelTopicEdit_Click"
+                                Foreground="Black" Content="Annuler"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <StackPanel x:Name="EditMessage" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+            <Border BorderBrush="Black" BorderThickness="2" Height="325">
+                <StackPanel>
+                    <TextBlock Text="Modification du message" Foreground="Black" FontSize="18" 
+                           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
+                    <local:RichEditBoxExtended x:Name="txtContentMessageEdit" PlaceholderText="Message" 
+                                               ScrollViewer.VerticalScrollMode="Auto"
+                                               Height="200"
+                                               TextWrapping="Wrap"
+                                               RtfText="{Binding ContentMessage}">
+                    </local:RichEditBoxExtended>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom">
+                        <Button x:Name="cmdValidMessageEdit" Click="cmdValidMessageEdit_Click"
+                                Foreground="Black" Content="Valider"></Button>
+                        <Button x:Name="cmdCancelMessageEdit" Click="cmdCancelMessageEdit_Click"
                                 Foreground="Black" Content="Annuler"></Button>
                     </StackPanel>
                 </StackPanel>
@@ -508,7 +523,8 @@
                   VerticalAlignment="Top"
                   ItemsSource="{Binding ListeMessages}"
                   ItemTemplate="{StaticResource MessageDataTemplate}"
-                  SelectionMode="None">
+                  SelectionMode="Single"
+                  SelectionChanged="lstMessage_SelectionChanged">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />

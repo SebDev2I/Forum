@@ -24,7 +24,8 @@ namespace FIISA_Universel
             }
         }
         private Topic _MyTopic;
-        public Topic MyTopic
+        public Topic MyTopic { get; set; }
+        /*public Topic MyTopic
         {
             get { return _MyTopic; }
             set
@@ -35,7 +36,7 @@ namespace FIISA_Universel
                 }
                 RaisePropertyChanged();
             }
-        }
+        }*/
         public Message MyMessage { get; set; }
 
         private Registered _MyRegistered;
