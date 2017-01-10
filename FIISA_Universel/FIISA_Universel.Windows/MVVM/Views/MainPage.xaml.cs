@@ -214,7 +214,9 @@ namespace FIISA_Universel
             }
             else cmdAddMessage.Visibility = Visibility.Visible;
 
-            ShowEditDeleteMessage("EditDelete");
+            ListViewItem l = ((sender as ListView).SelectedItem as ListViewItem);
+
+            ShowEditDeleteMessage("EditDelete", lstMessage);
         }
         
         private void cmdAddTopic_Click(object sender, RoutedEventArgs e)
@@ -450,7 +452,10 @@ namespace FIISA_Universel
 
         private void cmdCancelMessageEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            EditMessage.Visibility = Visibility.Collapsed;
+            cmdAddMessage.Visibility = Visibility.Visible;
+            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+            cmdAddTopic.Visibility = Visibility.Visible;
         }
 
         private void ShowEditDeleteTopic(string ctrlname)
@@ -466,11 +471,11 @@ namespace FIISA_Universel
                 }
             }
         }
-        private void ShowEditDeleteMessage(string ctrlname)
+        private void ShowEditDeleteMessage(string ctrlname, DependencyObject dobject)
         {
             if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
             {
-                foreach (var stackpanel in FindVisualChildren<StackPanel>(lstMessage))
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(dobject))
                 {
                     if (stackpanel.Name == ctrlname)
                     {
