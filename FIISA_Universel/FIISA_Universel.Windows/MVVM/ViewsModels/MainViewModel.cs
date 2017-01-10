@@ -123,30 +123,39 @@ namespace FIISA_Universel
         public void InitializeListTopic()
         {
             _Topics.Clear();
-            MyRubric.GetListTopicsByRubric();
-            if (MyRubric.ListTopicsByRubric.Count == 0)
+            if(MyRubric != null)
             {
-                HasTopic = false;
+                MyRubric.GetListTopicsByRubric();
+                if (MyRubric.ListTopicsByRubric.Count == 0)
+                {
+                    HasTopic = false;
+                }
+                else HasTopic = true;
+                foreach (Topic item in MyRubric.ListTopicsByRubric)
+                {
+                    _Topics.Add(item);
+                }
             }
-            else HasTopic = true;
-            foreach (Topic item in MyRubric.ListTopicsByRubric)
-            {
-                _Topics.Add(item);
-            }
+            
         }
         public void InitializeListMessage()
         {
             _Messages.Clear();
-            MyTopic.GetListMessagesByTopic();
-            if (MyTopic.ListMessagesByTopic.Count == 0)
+            if(MyTopic != null)
             {
-                HasMessage = false;
+                MyTopic.GetListMessagesByTopic();
+                if (MyTopic.ListMessagesByTopic.Count == 0)
+                {
+                    HasMessage = false;
+                }
+                else HasMessage = true;
+                foreach (Message item in MyTopic.ListMessagesByTopic)
+                {
+                    _Messages.Add(item);
+                }
             }
-            else HasMessage = true;
-            foreach (Message item in MyTopic.ListMessagesByTopic)
-            {
-                _Messages.Add(item);
-            }
+            
+            
         }
     }
 }

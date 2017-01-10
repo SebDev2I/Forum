@@ -12,6 +12,8 @@
     <Page.Resources>
         <BitmapImage x:Key="Corbeille" UriSource="/Ressources/Effacer-64.png"/>
         <BitmapImage x:Key="Edition" UriSource="/Ressources/Modifier-64.png"/>
+        <BitmapImage x:Key="Lock" UriSource="/Ressources/Lock-64.png"/>
+        <BitmapImage x:Key="Unlock" UriSource="/Ressources/Unlock-64.png"/>
         <converter:BooleanToVisibilityConverter
             x:Key="BooleanToVisibilityConverter"
             True="Visible"
@@ -88,6 +90,42 @@
                                 <Run Text="{Binding MyRegistered.FirstnameUser}"/>
                                 <Run Text="{Binding MyRegistered.NameUser}"/>
                             </TextBlock>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonLock" TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}">
+                            <Rectangle>
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{StaticResource ResourceKey=Lock}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonUnLock" TargetType="Button">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}">
+                            <Rectangle>
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{StaticResource ResourceKey=UnLock}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -259,44 +297,6 @@
             <ColumnDefinition x:Name="col3" Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-       <!-- <ListView x:Name="lstEssai" Grid.Row="0" ItemsSource="{Binding ListeTopics}" Background="Transparent" Margin="10,50,10,60" VerticalAlignment="Top" >
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemContainerTransitions>
-                <TransitionCollection>
-                    <AddDeleteThemeTransition/>
-                </TransitionCollection>
-            </ListView.ItemContainerTransitions>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Click="ListView_Click">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal"
-                                        Visibility="Visible">
-                                <TextBlock Foreground="Black" Text="{Binding TitleTopic}" 
-                                           VerticalAlignment="Center"/>
-                                <Button x:Name="cmdEditTopic"
-                                    Click="cmdEditTopic_Click"
-                                    Visibility="Collapsed"
-                                    Style="{StaticResource roundButtonEdit}"
-                                    Margin="2 2 2 2"/>
-                                <Button x:Name="cmdDeleteTopic"
-                                    Click="cmdDeleteTopic_Click"
-                                    Visibility="Visible"
-                                    Style="{StaticResource roundButtonDelete}"
-                                    Margin="2 2 2 2"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-        <!--<Image Source="{StaticResource ResourceKey=corbeille}" Grid.Row="0" Grid.Column="0"
-               Width="100" Height="100"></Image>-->
-
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3"
                     HorizontalAlignment="Right"
                     Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -366,7 +366,8 @@
                 <StackPanel>
                     <TextBlock Text="Modification du sujet" Foreground="Black" FontSize="18" 
                            VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                    <ComboBox x:Name="cmbRubric" ItemsSource="{Binding ListeRubrics}">
+                    <ComboBox x:Name="cmbRubric" ItemsSource="{Binding ListeRubrics}"
+                              SelectionChanged="cmbRubric_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                     <TextBlock Foreground="Black" Text="{Binding NameRubric}" />
@@ -418,13 +419,41 @@
             </GridView>
         </ScrollViewer>
 
-
-        <TextBlock Text="Sujets" 
-                   Grid.Row="1" Grid.Column="1"
-                   Foreground="Black" FontSize="18"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   TextTrimming="WordEllipsis"/>
+        <Grid Background="White"
+              Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Sujets" 
+                       Grid.Row="0" Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Foreground="Black" FontSize="18"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextTrimming="WordEllipsis"/>
+            <StackPanel Grid.Row="0" Grid.Column="1"
+                        Visibility="Collapsed">
+                <Button x:Name="cmdUnlock"
+                    Click="cmdUnlock_Click"
+                    Visibility="Visible"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ButtonUnLock}"
+                    Margin="0 0 20 0"/>
+            <Button x:Name="cmdLock"
+                    Click="cmdLock_Click"
+                    Visibility="Visible"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource ButtonLock}"
+                    Margin="0 0 20 0"/>
+            </StackPanel>
+            
+        </Grid>
         <StackPanel Grid.Row="2" Grid.Column="1"
                     Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Margin="0 0 25 25"

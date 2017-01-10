@@ -34,6 +34,8 @@
     <Content Include="$(MSBuildThisFileDirectory)Ressources\corbeille.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\edition.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Effacer-64.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\Lock-64.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Modifier-64.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\Unlock-64.png" />
   </ItemGroup>
 </Project>

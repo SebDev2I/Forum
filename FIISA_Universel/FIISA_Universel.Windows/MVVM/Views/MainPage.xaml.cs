@@ -101,6 +101,7 @@ namespace FIISA_Universel
                 lblNotTopic.Visibility = Visibility.Visible;
             }
             cmdAddTopic.Visibility = Visibility.Visible;
+            
             lstTopic.SelectionChanged += lstTopic_SelectionChanged;
         }
 
@@ -168,53 +169,31 @@ namespace FIISA_Universel
                 lstMessage.Visibility = Visibility.Collapsed;
                 lblNotMessage.Visibility = Visibility.Visible;
             }
-            txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
-            txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
+            if(mainVM.MyTopic != null)
+            {
+                txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
+                txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
+            }
+            
             if (EditTopic.Visibility == Visibility.Visible)
             {
                 cmdAddMessage.Visibility = Visibility.Collapsed;
             }
             else cmdAddMessage.Visibility = Visibility.Visible;
 
-            /*ListView lstView;
-            StackPanel sp1, sp2, sp3;
-            ListViewItem lstViewItem;
-            Border b;
-            Grid g;
-            foreach (var item in lstTopic.Items)
-            {
-                if(lstTopic.Items.IndexOf(item) == essai)
-                {
-                    lstView = (ListView)sender;
-                    sp1 = (StackPanel)lstView.ItemsPanelRoot;
-                    lstViewItem = (ListViewItem)sp1.Children[0];
-                    b = (Border)lstViewItem.ContentTemplateRoot;
-                    sp2 = (StackPanel)b.Child;
-                    g = (Grid)sp2.Children[0];
-                    sp3 = (StackPanel)g.Children[1];
-                    sp3.Visibility = Visibility.Visible;
-                }
-                
-            }*/
-
-            /*ListView c = (ListView)sender;
-            c.SelectedIndex = essai;
-            StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
-            ListViewItem lvi = (ListViewItem)ipt.Children[0];
-            Border b = (Border)lvi.ContentTemplateRoot;
-            StackPanel sp = (StackPanel)b.Child;
-            Grid g = (Grid)sp.Children[0];
-            StackPanel sp1 = (StackPanel)g.Children[1];
-            sp1.Visibility = Visibility.Visible;*/
+            ShowEditDelete("EditDelete");
+        }
+        private void ShowEditDelete(string ctrlname)
+        {
             if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
             {
-                    foreach (var stackpanel in FindVisualChildren<StackPanel>(this))
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(lstTopic))
+                {
+                    if (stackpanel.Name == ctrlname)
                     {
-                        if (stackpanel.Name == "EditDelete")
-                        {
-                            stackpanel.Visibility = Visibility.Visible;
-                        }
+                        stackpanel.Visibility = Visibility.Visible;
                     }
+                }
             }
         }
         public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
@@ -302,6 +281,7 @@ namespace FIISA_Universel
                 mainVM.InitializeListTopic();
                 essai.ShowAsync();
             }
+            cmdAddMessage.Visibility = Visibility.Visible;
             cmdAddTopic.Visibility = Visibility.Visible;
         }
 
@@ -391,7 +371,6 @@ namespace FIISA_Universel
 
         private void cmdUser_Click(object sender, RoutedEventArgs e)
         {
-            test();
             AddTopic.Visibility = Visibility.Visible;
         }
 
@@ -416,12 +395,30 @@ namespace FIISA_Universel
 
         private void cmdDeleteTopic_Click(object sender, RoutedEventArgs e)
         {
-
+            if (mainVM.MyForum.User.DeleteTopic((Topic)lstTopic.SelectedItem, mainVM.MyForum.TokenUser))
+            {
+                MessageDialog essai = new MessageDialog("Le sujet a bien été supprimé!");
+                mainVM.InitializeListTopic();
+                essai.ShowAsync();
+            }
         }
 
         private void cmdValidTopicEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            string str = string.Empty;
+            txtDescTopicEdit.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
+            mainVM.MyTopic = new Topic(mainVM.MyTopic.IdTopic, mainVM.MyTopic.ObjUser, (Rubric)cmbRubric.SelectedItem, mainVM.MyTopic.DateTopic, txtTitleTopicEdit.Text, str);
+            if (mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum.TokenUser))
+            {
+                EditTopic.Visibility = Visibility.Collapsed;
+                txtTitleTopicEdit.Text = string.Empty;
+                txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+                MessageDialog essai = new MessageDialog("Le sujet a bien été modifié!");
+                mainVM.InitializeListTopic();
+                essai.ShowAsync();
+            }
+            cmdAddMessage.Visibility = Visibility.Visible;
+            cmdAddTopic.Visibility = Visibility.Visible;
         }
 
         private void cmdCancelTopicEdit_Click(object sender, RoutedEventArgs e)
@@ -447,31 +444,9 @@ namespace FIISA_Universel
 
         }
 
-        public List<Control> AllChildren(DependencyObject parent)
-        {
-            var _List = new List<Control> { };
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-            {
-                var _Child = VisualTreeHelper.GetChild(parent, i);
-                if(_Child is Control)
-                {
-                    _List.Add(_Child as Control);
-                    _List.AddRange(AllChildren(_Child));
-                }
-            }
-            return _List;
-        }
+        
 
-        public void test()
-        {
-            foreach (var item in lstTopic.Items)
-            {
-                var _Container = lstTopic.ItemContainerGenerator.ContainerFromItem(item);
-                var _Children = AllChildren(_Container);
-                var _Essai = _Children.OfType<StackPanel>().First(x => x.Name.Equals("EditDelete"));
-                _Essai.Visibility = Visibility.Visible;
-            }
-        }
+        
 
         private void ListView_Click(object sender, RoutedEventArgs e)
         {
@@ -482,8 +457,17 @@ namespace FIISA_Universel
 
         }
 
-        
+        private void cmdUnlock_Click(object sender, RoutedEventArgs e)
+        {
+        }
 
-        
+        private void cmdLock_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void cmbRubric_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mainVM.MyTopic.ObjRubric = (Rubric)cmbRubric.SelectedItem;
+        }
     }
 }
