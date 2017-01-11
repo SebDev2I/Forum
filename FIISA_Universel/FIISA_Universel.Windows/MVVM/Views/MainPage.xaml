@@ -14,6 +14,7 @@
         <BitmapImage x:Key="Edition" UriSource="/Ressources/Modifier-64.png"/>
         <BitmapImage x:Key="Lock" UriSource="/Ressources/Lock-64.png"/>
         <BitmapImage x:Key="Unlock" UriSource="/Ressources/Unlock-64.png"/>
+        <BitmapImage x:Key="Logo" UriSource="/Ressources/Logo.scale-100.png"/>
         <converter:BooleanToVisibilityConverter
             x:Key="BooleanToVisibilityConverter"
             True="Visible"
@@ -114,9 +115,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ButtonUnLock" TargetType="Button">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
+        <Style x:Key="ButtonUnlock" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="100"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -124,7 +125,25 @@
                               Height="{TemplateBinding Height}">
                             <Rectangle>
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{StaticResource ResourceKey=UnLock}"/>
+                                    <ImageBrush ImageSource="{StaticResource ResourceKey=Unlock}"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonLogo" TargetType="Button">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}"
+                              Height="{TemplateBinding Height}">
+                            <Rectangle>
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{StaticResource ResourceKey=Unlock}"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -286,6 +305,11 @@
             <ColumnDefinition x:Name="col3" Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <Button Grid.Row="0" Grid.Column="0"
+                Style="{StaticResource ButtonLogo}">
+            <ImageBrush  ImageSource="{StaticResource ResourceKey=Logo}"/>
+        </Button>
+        
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3"
                     HorizontalAlignment="Right"
                     Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}">
