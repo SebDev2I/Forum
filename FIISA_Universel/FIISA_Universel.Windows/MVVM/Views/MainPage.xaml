@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     >
 
-    
+
     <Page.Resources>
         <BitmapImage x:Key="Corbeille" UriSource="/Ressources/Effacer-64.png"/>
         <BitmapImage x:Key="Edition" UriSource="/Ressources/Modifier-64.png"/>
@@ -133,8 +133,8 @@
             </Setter>
         </Style>
         <Style x:Key="ButtonLogo" TargetType="Button">
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Height" Value="100"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -142,7 +142,7 @@
                               Height="{TemplateBinding Height}">
                             <Rectangle>
                                 <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{StaticResource ResourceKey=Unlock}"/>
+                                    <ImageBrush ImageSource="{StaticResource ResourceKey=Logo}"/>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Grid>
@@ -150,7 +150,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <DataTemplate x:Key="RubricDataTemplate">
             <Border BorderBrush="Gray"
                             Background="Transparent"
@@ -167,7 +167,7 @@
                                FontSize="16"/>
             </Border>
         </DataTemplate>
-       
+
         <DataTemplate x:Key="TopicDataTemplate">
             <Border BorderBrush="Gray"
                     x:Name="topicBorder"
@@ -194,7 +194,7 @@
                                     Orientation="Horizontal" Canvas.ZIndex="1"
                                     VerticalAlignment="Top" HorizontalAlignment="Right"
                                     Grid.Row="0" Grid.Column="1"
-                                    Margin="0 0 17 0">
+                                    Margin="0 0 25 0">
                             <Button x:Name="cmdEditTopic"
                                     Click="cmdEditTopic_Click"
                                     Visibility="Visible"
@@ -288,8 +288,10 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
+        
+        
     </Page.Resources>
-    
+
     <Grid x:Name="mainGrid" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="line1" Height="Auto"></RowDefinition>
@@ -304,10 +306,11 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Row="0" Grid.Column="0"
+                Margin="3"
                 Style="{StaticResource ButtonLogo}">
             <ImageBrush  ImageSource="{StaticResource ResourceKey=Logo}"/>
         </Button>
-        
+
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3"
                     HorizontalAlignment="Right"
                     Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -315,7 +318,7 @@
                 Style="{StaticResource userButton}"
                 Click="cmdUser_Click">
             </Button>
-            
+
             <Button x:Name="cmdLogout" Foreground="Black" Content="Se déconnecter"
                     VerticalAlignment="Center" FontSize="16" Click="cmdLogin_Click"/>
         </StackPanel>
@@ -327,7 +330,8 @@
                      Foreground="Black" FontSize="16" VerticalAlignment="Center"
                      BorderBrush="Gray" BorderThickness="1" 
                      Margin="0 0 10 0"/>
-            <PasswordBox x:Name="txtPwd" PlaceholderText="Votre mot de passe" Width="200" 
+            <PasswordBox x:Name="txtPwd" PlaceholderText="Votre mot de passe" Width="200"
+                         IsPasswordRevealButtonEnabled="True"
                          FontFamily="Black" FontSize="16" VerticalAlignment="Center"
                          VerticalContentAlignment="Bottom"
                          BorderBrush="Gray" BorderThickness="1"
@@ -338,22 +342,22 @@
         </StackPanel>
 
         <StackPanel x:Name="AddTopic" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-                <Border BorderBrush="Black" BorderThickness="2" Height="325">
-                    <StackPanel>
-                        <TextBlock Text="Ajout d'un sujet" Foreground="Black" FontSize="18" 
+            <Border BorderBrush="Black" BorderThickness="2" Height="325">
+                <StackPanel>
+                    <TextBlock Text="Ajout d'un sujet" Foreground="Black" FontSize="18" 
                            VerticalAlignment="Top" HorizontalAlignment="Left" Margin="8"/>
-                        <TextBox x:Name="txtTitleTopic" PlaceholderText="Titre du sujet"/>
-                        <RichEditBox x:Name="txtDescTopic" PlaceholderText="Description du sujet" ScrollViewer.VerticalScrollMode="Auto"
+                    <TextBox x:Name="txtTitleTopic" PlaceholderText="Titre du sujet"/>
+                    <RichEditBox x:Name="txtDescTopic" PlaceholderText="Description du sujet" ScrollViewer.VerticalScrollMode="Auto"
                                      TextWrapping="Wrap" Height="200"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom">
-                            <Button x:Name="cmdValidTopic" Click="cmdValidTopic_Click"
+                        <Button x:Name="cmdValidTopic" Click="cmdValidTopic_Click"
                                 Foreground="Black" Content="Valider"></Button>
-                            <Button x:Name="cmdCancelTopic" Click="cmdCancelTopic_Click"
+                        <Button x:Name="cmdCancelTopic" Click="cmdCancelTopic_Click"
                                 Foreground="Black" Content="Annuler"></Button>
-                        </StackPanel>
                     </StackPanel>
-                </Border>
+                </StackPanel>
+            </Border>
         </StackPanel>
         <StackPanel x:Name="AddMessage" Visibility="Collapsed" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
             <Border BorderBrush="Black" BorderThickness="2" Height="325">
@@ -429,7 +433,7 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-        
+
         <TextBlock Text="Rubriques" 
                    Grid.Row="1" Grid.Column="0"
                    Foreground="Black" FontSize="18"
@@ -444,7 +448,7 @@
                   ItemsSource="{Binding ListeRubrics}"
                   ItemTemplate="{StaticResource RubricDataTemplate}"
                   SelectionChanged="lstRubric_SelectionChanged">
-              <!--  <GridView.ItemContainerStyle>
+                <!--  <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -452,8 +456,8 @@
                 </GridView.ItemContainerStyle>-->
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
-                    <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="2"/>
-                </ItemsPanelTemplate>
+                        <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="2"/>
+                    </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
             </GridView>
         </ScrollViewer>
@@ -476,22 +480,9 @@
                        TextTrimming="WordEllipsis"/>
             <StackPanel Grid.Row="0" Grid.Column="1"
                         Visibility="Collapsed">
-                <Button x:Name="cmdUnlock"
-                    Click="cmdUnlock_Click"
-                    Visibility="Visible"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ButtonUnLock}"
-                    Margin="0 0 20 0"/>
-            <Button x:Name="cmdLock"
-                    Click="cmdLock_Click"
-                    Visibility="Visible"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource ButtonLock}"
-                    Margin="0 0 20 0"/>
+
             </StackPanel>
-            
+
         </Grid>
         <StackPanel Grid.Row="2" Grid.Column="1"
                     Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -510,7 +501,7 @@
                   ItemsSource="{Binding ListeTopics}"
                   ItemTemplate="{StaticResource TopicDataTemplate}"
                   SelectionChanged="lstTopic_SelectionChanged">
-                  <!--IsItemClickEnabled="True"
+            <!--IsItemClickEnabled="True"
                   ItemClick="lstTopic_ItemClick"-->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -518,10 +509,10 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
+                <ItemsPanelTemplate>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
 
 
         <TextBlock Text="Messages" 
@@ -588,5 +579,7 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       Height="200" Width="200"></ProgressRing>
+
+
     </Grid>
 </Page>

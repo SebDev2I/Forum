@@ -23,9 +23,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\UserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -35,6 +42,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Ressources\edition.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Effacer-64.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Lock-64.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Ressources\Logo.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Modifier-64.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Unlock-64.png" />
   </ItemGroup>

@@ -25,7 +25,7 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBox x:Name="txtLogin" PlaceholderText="Votre identifiant" Height="50" Width="300" Foreground="Black" FontSize="16"></TextBox>
-            <PasswordBox x:Name="txtPwd" PlaceholderText="Votre mot de passe" Height="50" Width="300" FontFamily="Black" FontSize="16"></PasswordBox>
+            <PasswordBox x:Name="txtPwd" IsPasswordRevealButtonEnabled="True" PlaceholderText="Votre mot de passe" Height="50" Width="300" FontFamily="Black" FontSize="16"></PasswordBox>
             <Button x:Name="cmdConnect" Content="Se connecter" Click="cmdConnect_Click" Height="50" Width="300" FontSize="16" Foreground="Black" BorderThickness="1"></Button>
             <Button x:Name="cmdRegister" Content="S'inscrire" Click="cmdRegister_Click" Height="50" Width="300" FontSize="16" Foreground="Black" BorderThickness="1" Margin="0 20 0 0"></Button>
             <Button x:Name="cmdContinue" Content="Continuer sans se connecter" Click="cmdContinue_Click" Height="50" Width="300" FontSize="16" Foreground="Black" BorderThickness="1"></Button>

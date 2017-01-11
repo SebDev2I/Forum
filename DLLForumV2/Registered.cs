@@ -77,8 +77,8 @@ namespace DLLForumV2
             FirstnameUser = dto.FirstnameUser;
             EmailUser = dto.EmailUser;
             LoginUser = dto.LoginUser;
-            //PwdUser = dto.PwdUser;
-            //KeywordUser = dto.KeywordUser;
+            PwdUser = TokenManager.GetPwd(Encoding.UTF8.GetString(Convert.FromBase64String(dto.PwdUser), 0, Convert.FromBase64String(dto.PwdUser).Length));
+            KeywordUser = dto.KeywordUser;
             DTO = dto;
         }
 

@@ -1,6 +1,7 @@
 ﻿using DALClientWS;
 using DLLAuth;
 using DLLForumV2;
+using FIISA_Universel.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -333,6 +334,7 @@ namespace FIISA_Universel
         private void cmdUser_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Visible;
+            Frame.Navigate(typeof(UserPage), DataContext);
         }
 
         private void cmdEditTopic_Click(object sender, RoutedEventArgs e)
@@ -462,6 +464,7 @@ namespace FIISA_Universel
                     if (stackpanel.Name == ctrlname)
                     {
                         stackpanel.Visibility = Visibility.Visible;
+                        //stackpanel.IsHitTestVisible = true;
                     }
                 }
             }

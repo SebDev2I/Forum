@@ -13,6 +13,7 @@
             <SolidColorBrush x:Key="ListViewItemSelectedPointerOverBorderThemeBrush" Color="Transparent" />
             <SolidColorBrush x:Key="ListViewItemCheckThemeBrush" Color="Black" />
         </ResourceDictionary>
+
     </Application.Resources>
-    
+
 </Application>
