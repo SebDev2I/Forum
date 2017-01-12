@@ -371,7 +371,21 @@ namespace FIISA_Universel
                 }
                 mainVM.InfoUser = true;
             }
-            
+        }
+        private void cmdSaveUser_Click(object sender, RoutedEventArgs e)
+        {
+            mainVM.MyRegistered = new Registered(mainVM.MyForum.User.IdUser, (Status)cmbStatus.SelectedItem, (Training)cmbTraining.SelectedItem, txtName.Text,
+                txtFirstname.Text, txtEmail.Text, txtLoginUser.Text, txtPwdUser.Text, txtKeyword.Text);
+            mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser);
+            mainVM.InfoUser = false;
+        }
+
+        private void cmdCancelUser_Click(object sender, RoutedEventArgs e)
+        {
+            mainVM.MyRegistered = mainVM.MyForum.User;
+            cmbStatus.SelectedIndex = mainVM.MyRegistered.ObjStatus.IdStatus - 1;
+            cmbTraining.SelectedIndex = mainVM.MyRegistered.ObjTraining.IdTraining - 1;
+            mainVM.InfoUser = false;
         }
 
         private void cmdEditTopic_Click(object sender, RoutedEventArgs e)
@@ -539,21 +553,7 @@ namespace FIISA_Universel
             }
         }
 
-        private void cmdSaveUser_Click(object sender, RoutedEventArgs e)
-        {
-            mainVM.MyRegistered = new Registered(mainVM.MyForum.User.IdUser, (Status)cmbStatus.SelectedItem, (Training)cmbTraining.SelectedItem, txtName.Text,
-                txtFirstname.Text, txtEmail.Text, txtLoginUser.Text, txtPwdUser.Text, txtKeyword.Text);
-            mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser);
-            mainVM.InfoUser = false;
-        }
-
-        private void cmdCancelUser_Click(object sender, RoutedEventArgs e)
-        {
-            mainVM.MyRegistered = mainVM.MyForum.User;
-            cmbStatus.SelectedIndex = mainVM.MyRegistered.ObjStatus.IdStatus - 1;
-            cmbTraining.SelectedIndex = mainVM.MyRegistered.ObjTraining.IdTraining - 1;
-            mainVM.InfoUser = false;
-        }
+        
 
         
 
