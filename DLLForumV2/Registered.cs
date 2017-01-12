@@ -103,7 +103,7 @@ namespace DLLForumV2
             DTO.FirstnameUser = firstnameuser;
             DTO.EmailUser = emailuser;
             DTO.LoginUser = loginuser;
-            DTO.PwdUser = pwduser;
+            DTO.PwdUser = TokenManager.HashPwd(LoginUser, PwdUser);
             DTO.KeywordUser = keyworduser;
         }
 
@@ -112,6 +112,13 @@ namespace DLLForumV2
             DALWSR_Result r1 = dal.GetUserByIdAsync(iduser, CancellationToken.None);
             RegisteredDTO regDto = (RegisteredDTO)r1.Data;
             return new Registered(regDto, GetStatus(regDto.StatusUser), GetTraining(regDto.TrainingUser));
+        }
+
+        public bool SaveUser(Registered registered, Token token)
+        {
+            RegisteredDTO e = registered.DTO;
+            DALWSR_Result r1 = dal.SaveUser(registered.DTO, token, CancellationToken.None);
+            return r1.IsSuccess;
         }
 
         public List<Registered> GetListUsers()
@@ -146,7 +153,28 @@ namespace DLLForumV2
         public bool DeleteTopic(Topic topic, Token token)
         {
             DALWSR_Result r1 = dal.DeleteTopic(topic.IdTopic, token, CancellationToken.None);
-            return r1.IsSuccess;
+            DALWSR_Result r2 = dal.GetMessagesByTopicAsync(topic.IdTopic, CancellationToken.None);
+            bool result = true;
+            if (r1.Data != null)
+            {
+                if(r2.Data != null)
+                {
+                    foreach (MessageDTO item in (List<MessageDTO>)r2.Data)
+                    {
+                        DALWSR_Result r3 = dal.DeleteMessage(item.IdMessage, token, CancellationToken.None);
+                        if (r3.IsSuccess == false)
+                        {
+                            result = false;
+                        }
+                    }
+                }
+                
+            }
+            if(r1.IsSuccess == false)
+            {
+                result = false;
+            }
+            return result;
         }
 
         public bool SaveMessage(Message message, Token token)
@@ -252,16 +280,6 @@ namespace DLLForumV2
             }
             else return true;
         }
-
-        /*private bool Val_Login()
-        {
-
-        }*/
-
-        /*private bool Val_Pwd()
-        {
-
-        }*/
     }
 
 }

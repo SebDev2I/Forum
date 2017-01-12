@@ -23,6 +23,7 @@ namespace DLLForumV2
         {
             IdTraining = dto.IdTraining;
             NameTraining = dto.NameTraining;
+            DTO = dto;
         }
 
         public Training(int idtraining, string nametraining)

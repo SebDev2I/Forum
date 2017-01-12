@@ -106,7 +106,7 @@ namespace FIISA_Universel
             lstTopic.SelectionChanged += lstTopic_SelectionChanged;
         }
 
-        private void TopicItem_Click(object sender, RoutedEventArgs e)
+        /*private void TopicItem_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Collapsed;
             AddMessage.Visibility = Visibility.Collapsed;
@@ -141,11 +141,10 @@ namespace FIISA_Universel
             StackPanel p = (StackPanel)g.Children[1];
 
             p.Visibility = Visibility.Visible;
-        }
+        }*/
 
         private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int essai = lstTopic.SelectedIndex;
             AddTopic.Visibility = Visibility.Collapsed;
             AddMessage.Visibility = Visibility.Collapsed;
             txtTitleTopic.Text = string.Empty;
@@ -188,7 +187,6 @@ namespace FIISA_Universel
 
         private void lstMessage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int essai = lstMessage.SelectedIndex;
             AddTopic.Visibility = Visibility.Collapsed;
             AddMessage.Visibility = Visibility.Collapsed;
             txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
@@ -246,9 +244,16 @@ namespace FIISA_Universel
                 txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
                 MessageDialog essai = new MessageDialog("Le sujet a bien été créé!");
                 mainVM.InitializeListTopic();
+                lstTopic.SelectedIndex = 0;
+                lblNotTopic.Visibility = Visibility.Collapsed;
+                lstTopic.Visibility = Visibility.Visible;
                 essai.ShowAsync();
             }
-            cmdAddMessage.Visibility = Visibility.Visible;
+            if(lstTopic.Visibility == Visibility.Collapsed && lblNotMessage.Visibility == Visibility.Collapsed)
+            {
+                cmdAddMessage.Visibility = Visibility.Visible;
+            }
+            
             cmdAddTopic.Visibility = Visibility.Visible;
         }
 
@@ -280,6 +285,8 @@ namespace FIISA_Universel
                 txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
                 MessageDialog essai = new MessageDialog("Le message a bien été créé!");
                 mainVM.InitializeListMessage();
+                lstMessage.Visibility = Visibility.Visible;
+                lblNotMessage.Visibility = Visibility.Collapsed;
                 essai.ShowAsync();
             }
             cmdAddMessage.Visibility = Visibility.Visible;
@@ -316,7 +323,6 @@ namespace FIISA_Universel
                 {
                     mainVM.MyForum.TokenUser = null;
                     mainVM.IsLogged = false;
-
                     //todo montrer message comme quoi le login/mdp est incorrect
                 }
             }
@@ -325,16 +331,47 @@ namespace FIISA_Universel
                 mainVM.MyForum.TokenUser = null;
                 txtLogin.Text = string.Empty;
                 txtPwd.Password = string.Empty;
+                //mainVM.MyForum.User = null;
                 mainVM.MyRegistered = null;
                 mainVM.IsLogged = false;
+                mainVM.InfoUser = false;
             }
-            
+
         }
 
         private void cmdUser_Click(object sender, RoutedEventArgs e)
         {
-            AddTopic.Visibility = Visibility.Visible;
-            Frame.Navigate(typeof(UserPage), DataContext);
+            cmbStatus.SelectedIndex = mainVM.MyRegistered.ObjStatus.IdStatus - 1;
+            cmbTraining.SelectedIndex = mainVM.MyRegistered.ObjTraining.IdTraining - 1;
+            if (mainVM.InfoUser == true)
+            {
+                mainVM.MyRegistered = mainVM.MyForum.User;
+                mainVM.InfoUser = false;
+            }
+            else
+            {
+                int i = -1;
+                foreach (Status item in cmbStatus.Items)
+                {
+                    i = i + 1;
+                    if (item.IdStatus == mainVM.MyRegistered.ObjStatus.IdStatus)
+                    {
+                        mainVM.IndexStatus = i;
+                    }
+                }
+
+                i = -1;
+                foreach (Training item in cmbTraining.Items)
+                {
+                    i = i + 1;
+                    if (item.IdTraining == mainVM.MyRegistered.ObjTraining.IdTraining)
+                    {
+                        mainVM.IndexTraining = i;
+                    }
+                }
+                mainVM.InfoUser = true;
+            }
+            
         }
 
         private void cmdEditTopic_Click(object sender, RoutedEventArgs e)
@@ -358,14 +395,23 @@ namespace FIISA_Universel
 
         private void cmdDeleteTopic_Click(object sender, RoutedEventArgs e)
         {
-            if (mainVM.MyForum.User.DeleteTopic((Topic)lstTopic.SelectedItem, mainVM.MyForum.TokenUser))
+            MessageDialog validSupprTopic = new MessageDialog("Veuillez confirmer la suppression de ce sujet et de ses messages.");
+            validSupprTopic.Commands.Add(new UICommand("Supprimer", delegate(IUICommand command)
             {
-                MessageDialog essai = new MessageDialog("Le sujet a bien été supprimé!");
-                mainVM.InitializeListTopic();
-                essai.ShowAsync();
-            }
+                if (mainVM.MyForum.User.DeleteTopic((Topic)lstTopic.SelectedItem, mainVM.MyForum.TokenUser))
+                {
+                    MessageDialog essai = new MessageDialog("Le sujet a bien été supprimé!");
+                    mainVM.InitializeListTopic();
+                    cmdAddTopic.Visibility = Visibility.Visible;
+                    cmdAddMessage.Visibility = Visibility.Collapsed;
+                    essai.ShowAsync();
+                }
+            }));
+            validSupprTopic.Commands.Add(new UICommand("Annuler"));
+            validSupprTopic.ShowAsync();
         }
 
+       
         private void cmdValidTopicEdit_Click(object sender, RoutedEventArgs e)
         {
             string str = string.Empty;
@@ -413,13 +459,7 @@ namespace FIISA_Universel
                 essai.ShowAsync();
             }
         }
-
         
-
-        
-
-        
-
         private void cmdUnlock_Click(object sender, RoutedEventArgs e)
         {
         }
@@ -498,45 +538,65 @@ namespace FIISA_Universel
                 }
             }
         }
-        /*private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            AddTopic.Visibility = Visibility.Collapsed;
-            AddMessage.Visibility = Visibility.Collapsed;
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            prTopic.IsActive = true;
-            prTopic.Visibility = Visibility.Visible;
-            Topic output = e.ClickedItem as Topic; ;
-            mainVM.MyTopic = output;
-            mainVM.InitializeListMessage();
-            prTopic.Visibility = Visibility.Collapsed;
-            prTopic.IsActive = false;
-            if (mainVM.HasMessage)
-            {
-                lstMessage.Visibility = Visibility.Visible;
-                lblNotMessage.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                lstMessage.Visibility = Visibility.Collapsed;
-                lblNotMessage.Visibility = Visibility.Visible;
-            }
-            txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
-            txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
-            cmdAddMessage.Visibility = Visibility.Visible;
 
-            ListView c = (ListView)sender;
-            StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
-            ListViewItem lvi = (ListViewItem)ipt.Children[0];
-            Border b = (Border)lvi.ContentTemplateRoot;
-            StackPanel sp = (StackPanel)b.Child;
-            Grid g = (Grid)sp.Children[0];
-            StackPanel sp1 = (StackPanel)g.Children[1];
-            sp1.Visibility = Visibility.Visible;
-        }*/
+        private void cmdSaveUser_Click(object sender, RoutedEventArgs e)
+        {
+            mainVM.MyRegistered = new Registered(mainVM.MyForum.User.IdUser, (Status)cmbStatus.SelectedItem, (Training)cmbTraining.SelectedItem, txtName.Text,
+                txtFirstname.Text, txtEmail.Text, txtLoginUser.Text, txtPwdUser.Text, txtKeyword.Text);
+            mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser);
+            mainVM.InfoUser = false;
+        }
+
+        private void cmdCancelUser_Click(object sender, RoutedEventArgs e)
+        {
+            mainVM.MyRegistered = mainVM.MyForum.User;
+            cmbStatus.SelectedIndex = mainVM.MyRegistered.ObjStatus.IdStatus - 1;
+            cmbTraining.SelectedIndex = mainVM.MyRegistered.ObjTraining.IdTraining - 1;
+            mainVM.InfoUser = false;
+        }
+
+        
+
+
+        /*private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
+{
+AddTopic.Visibility = Visibility.Collapsed;
+AddMessage.Visibility = Visibility.Collapsed;
+txtTitleTopic.Text = string.Empty;
+txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+txtTitleTopic.Text = string.Empty;
+txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
+prTopic.IsActive = true;
+prTopic.Visibility = Visibility.Visible;
+Topic output = e.ClickedItem as Topic; ;
+mainVM.MyTopic = output;
+mainVM.InitializeListMessage();
+prTopic.Visibility = Visibility.Collapsed;
+prTopic.IsActive = false;
+if (mainVM.HasMessage)
+{
+lstMessage.Visibility = Visibility.Visible;
+lblNotMessage.Visibility = Visibility.Collapsed;
+}
+else
+{
+lstMessage.Visibility = Visibility.Collapsed;
+lblNotMessage.Visibility = Visibility.Visible;
+}
+txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
+txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
+cmdAddMessage.Visibility = Visibility.Visible;
+
+ListView c = (ListView)sender;
+StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
+ListViewItem lvi = (ListViewItem)ipt.Children[0];
+Border b = (Border)lvi.ContentTemplateRoot;
+StackPanel sp = (StackPanel)b.Child;
+Grid g = (Grid)sp.Children[0];
+StackPanel sp1 = (StackPanel)g.Children[1];
+sp1.Visibility = Visibility.Visible;
+}*/
         /*private void ListView_Click(object sender, RoutedEventArgs e)
         {
             Button c = (Button)sender;

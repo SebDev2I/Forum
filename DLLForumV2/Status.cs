@@ -24,6 +24,7 @@ namespace DLLForumV2
         {
             IdStatus = dto.IdStatus;
             NameStatus = dto.NameStatus;
+            DTO = dto;
         }
 
         public Status(int idstatus, string namestatus)

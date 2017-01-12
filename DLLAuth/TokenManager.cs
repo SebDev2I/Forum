@@ -32,6 +32,13 @@ namespace DLLAuth
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Join(":", hashLeft, hashRight)));
         }
 
+        public static string HashPwd(string loginuser, string password)
+        {
+            string hash = string.Join(":", new string[] { loginuser, "2isaMillau%2016" });
+            string hashLeft = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Join(":", hash, password)));
+            return hashLeft;
+        }
+
         public static string GenerateTokenWS(string loginuser, string password)
         {
             string hash = string.Join(":", new string[] { loginuser, "2isaMillau%2016" });

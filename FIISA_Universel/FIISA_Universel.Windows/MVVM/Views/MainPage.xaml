@@ -15,6 +15,7 @@
         <BitmapImage x:Key="Lock" UriSource="/Ressources/Lock-64.png"/>
         <BitmapImage x:Key="Unlock" UriSource="/Ressources/Unlock-64.png"/>
         <BitmapImage x:Key="Logo" UriSource="/Ressources/Logo.scale-100.png"/>
+        
         <converter:BooleanToVisibilityConverter
             x:Key="BooleanToVisibilityConverter"
             True="Visible"
@@ -23,6 +24,7 @@
             x:Key="NotBooleanToVisibilityConverter"
             True="Collapsed"
             False="Visible"/>
+        <converter:NotBoolConverter x:Key="NotBoolConverter"/>
 
         <Style x:Key="roundButtonAdd" TargetType="Button">
             <Setter Property="Width" Value="50"/>
@@ -288,8 +290,9 @@
                 </StackPanel>
             </Border>
         </DataTemplate>
-        
-        
+
+        <!--<Path Visibility="{Binding ElementName=lstTopic, Path=SelectedItem, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+
     </Page.Resources>
 
     <Grid x:Name="mainGrid" Background="White">
@@ -443,11 +446,12 @@
         <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.RowSpan="2"
                       VerticalScrollBarVisibility="Hidden">
             <GridView x:Name="lstRubric" 
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top"
-                  ItemsSource="{Binding ListeRubrics}"
-                  ItemTemplate="{StaticResource RubricDataTemplate}"
-                  SelectionChanged="lstRubric_SelectionChanged">
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      ItemsSource="{Binding ListeRubrics}"
+                      ItemTemplate="{StaticResource RubricDataTemplate}"
+                      SelectionChanged="lstRubric_SelectionChanged"
+                      IsEnabled="{Binding InfoUser, Converter={StaticResource NotBoolConverter}}">
                 <!--  <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -494,13 +498,15 @@
                 Grid.Row="2" Grid.Column="1"
                 Style="{StaticResource roundButtonAdd}"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch" Canvas.ZIndex="1"/>
+                VerticalAlignment="Stretch" Canvas.ZIndex="1"
+                    IsEnabled="{Binding InfoUser, Converter={StaticResource NotBoolConverter}}"/>
         </StackPanel>
         <ListView x:Name="lstTopic" Grid.Row="2" Grid.Column="1"
                   Visibility="Visible"
                   ItemsSource="{Binding ListeTopics}"
                   ItemTemplate="{StaticResource TopicDataTemplate}"
-                  SelectionChanged="lstTopic_SelectionChanged">
+                  SelectionChanged="lstTopic_SelectionChanged"
+                  IsEnabled="{Binding InfoUser, Converter={StaticResource NotBoolConverter}}">
             <!--IsItemClickEnabled="True"
                   ItemClick="lstTopic_ItemClick"-->
             <ListView.ItemContainerStyle>
@@ -520,7 +526,8 @@
                    Foreground="Black" FontSize="18"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   TextTrimming="WordEllipsis"/>
+                   TextTrimming="WordEllipsis"
+                   Visibility="{Binding InfoUser, Converter={StaticResource NotBooleanToVisibilityConverter}}"/>
         <StackPanel Grid.Row="2" Grid.Column="2"
                     Visibility="{Binding IsLogged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Margin="0 0 25 25"
@@ -531,7 +538,8 @@
                 Style="{StaticResource roundButtonAdd}"
                 Grid.Row="2" Grid.Column="2"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch" Canvas.ZIndex="1"/>
+                VerticalAlignment="Stretch" Canvas.ZIndex="1"
+                    IsEnabled="{Binding InfoUser, Converter={StaticResource NotBoolConverter}}"/>
         </StackPanel>
         <ListView x:Name="lstMessage" Grid.Row="2" Grid.Column="2"
                   HorizontalAlignment="Stretch"
@@ -539,7 +547,8 @@
                   ItemsSource="{Binding ListeMessages}"
                   ItemTemplate="{StaticResource MessageDataTemplate}"
                   SelectionMode="Single"
-                  SelectionChanged="lstMessage_SelectionChanged">
+                  SelectionChanged="lstMessage_SelectionChanged"
+                  IsEnabled="{Binding InfoUser, Converter={StaticResource NotBoolConverter}}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -581,5 +590,88 @@
                       Height="200" Width="200"></ProgressRing>
 
 
+        <Grid x:Name="InfoUserGrid" Grid.Row="1" Grid.Column="2" Width="400" Grid.RowSpan="3"
+              VerticalAlignment="Top" HorizontalAlignment="Right" Background="White"
+              Visibility="{Binding InfoUser, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Height="30" 
+                       Text="Nom : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Height="30" 
+                       Text="Prénom : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Height="30" 
+                       Text="Formation : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Height="30" 
+                       Text="Statut : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Height="30" 
+                       Text="Email : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Height="30" 
+                       Text="Identifiant : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Height="30" 
+                       Text="Mot de passe : " Foreground="Black" FontSize="16"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" Height="30" 
+                       Text="Mot-clé : " Foreground="Black" FontSize="16"/>
+            
+            <TextBox x:Name="txtName" Grid.Row="0" Grid.Column="1" Height="30" 
+                     Text="{Binding MyRegistered.NameUser}" FontSize="16" Margin="0 0 0 11"/>
+            <TextBox x:Name="txtFirstname" Grid.Row="1" Grid.Column="1" Height="30" 
+                     Text="{Binding MyRegistered.FirstnameUser}" FontSize="16" Margin="0 0 0 11"/>
+            <ComboBox x:Name="cmbStatus" Grid.Row="3" Grid.Column="1"
+                      Height="30" Margin="0 0 0 11"
+                      ItemsSource="{Binding ListeStatus}"
+                      SelectedIndex="{Binding IndexStatus}"
+                      IsEnabled="False">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Foreground="Black" Text="{Binding NameStatus}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="cmbTraining" Grid.Row="2" Grid.Column="1"
+                      Height="30" Margin="0 0 0 11"
+                      ItemsSource="{Binding ListeTrainings}"
+                      SelectedIndex="{Binding IndexTraining}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Foreground="Black" Text="{Binding NameTraining}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox x:Name="txtEmail" Grid.Row="4" Grid.Column="1" Height="30" 
+                     Text="{Binding MyRegistered.EmailUser}" FontSize="16" Margin="0 0 0 11"/>
+            <TextBox x:Name="txtLoginUser" Grid.Row="5" Grid.Column="1" Height="30" 
+                     Text="{Binding MyRegistered.LoginUser}" FontSize="16" Margin="0 0 0 11"/>
+            <TextBox x:Name="txtPwdUser" Grid.Row="6" Grid.Column="1" Height="30" 
+                     Text="{Binding MyRegistered.PwdUser}" FontSize="16" Margin="0 0 0 11"/>
+            <TextBox x:Name="txtKeyword" Grid.Row="7" Grid.Column="1" Height="30" 
+                     Text="{Binding MyRegistered.KeywordUser}" FontSize="16" Margin="0 0 0 11"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center" VerticalAlignment="Stretch">
+                <Button x:Name="cmdSaveUser" Height="50" Width="150"
+                    Content="Enregistrer" Click="cmdSaveUser_Click" 
+                    Foreground="Black" FontSize="16" BorderBrush="Black"  BorderThickness="1"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"/>
+                <Button x:Name="cmdCancelUser"  Height="50" Width="150"
+                    Content="Annuler" Click="cmdCancelUser_Click" 
+                    Foreground="Black" FontSize="16" BorderBrush="Black"  BorderThickness="1"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"/>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Page>
