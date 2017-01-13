@@ -90,8 +90,8 @@
                               Height="{TemplateBinding Height}">
                             <TextBlock Foreground="Black" VerticalAlignment="Center" FontSize="20"
                                        Margin="0 0 10 0">
-                                <Run Text="{Binding MyRegistered.FirstnameUser}"/>
-                                <Run Text="{Binding MyRegistered.NameUser}"/>
+                                <Run Text="{Binding MyForum.User.FirstnameUser}"/>
+                                <Run Text="{Binding MyForum.User.NameUser}"/>
                             </TextBlock>
                         </Grid>
                     </ControlTemplate>

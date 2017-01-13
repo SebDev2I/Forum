@@ -219,31 +219,41 @@ namespace DLLForumV2
                 this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> est requis"));
                 i++;
             }
-            if (NameUser.Length > 50)
+            else
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> doit contenir 50 caractères au maximum"));
-                i++;
+                if (NameUser.Length > 50)
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> doit contenir 50 caractères au maximum"));
+                    i++;
+                }
+                if (!AuditTool.IsAlpha(NameUser))
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> ne peut contenir de chiffres"));
+                    i++;
+                }
             }
-            if (!AuditTool.IsAlpha(NameUser))
-            {
-                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> ne peut contenir de chiffres"));
-                i++;
-            }
-            if (FirstnameUser == DTOBase.String_NullValue)
+            
+            
+            if (FirstnameUser == String_NullValue)
             {
                 this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> est requis"));
                 i++;
             }
-            if (FirstnameUser.Length > 50)
+            else
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> doit contenir 50 caractères au maximum"));
-                i++;
+                if (FirstnameUser.Length > 50)
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> doit contenir 50 caractères au maximum"));
+                    i++;
+                }
+                if (!AuditTool.IsAlpha(FirstnameUser))
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> ne peut contenir de chiffres"));
+                    i++;
+                }
             }
-            if (!AuditTool.IsAlpha(FirstnameUser))
-            {
-                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> ne peut contenir de chiffres"));
-                i++;
-            }
+            
+
             if (LoginUser == String_NullValue)
             {
                 this.ValidationErrors.Add(new ValidationError("Registered.LoginUser", "<LOGIN> est requis"));

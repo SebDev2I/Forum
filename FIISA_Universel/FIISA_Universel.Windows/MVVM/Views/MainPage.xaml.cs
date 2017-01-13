@@ -374,10 +374,37 @@ namespace FIISA_Universel
         }
         private void cmdSaveUser_Click(object sender, RoutedEventArgs e)
         {
-            mainVM.MyRegistered = new Registered(mainVM.MyForum.User.IdUser, (Status)cmbStatus.SelectedItem, (Training)cmbTraining.SelectedItem, txtName.Text,
-                txtFirstname.Text, txtEmail.Text, txtLoginUser.Text, txtPwdUser.Text, txtKeyword.Text);
-            mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser);
-            mainVM.InfoUser = false;
+            string name;
+            if (txtName.Text == "")
+            {
+                name = null;
+            }
+            else name = txtName.Text;
+            string firstname;
+            if (txtFirstname.Text == "")
+            {
+                firstname = null;
+            }
+            else firstname = txtFirstname.Text;
+            mainVM.MyRegistered = new Registered(mainVM.MyForum.User.IdUser, (Status)cmbStatus.SelectedItem, (Training)cmbTraining.SelectedItem, name,
+                firstname, txtEmail.Text, txtLoginUser.Text, txtPwdUser.Text, txtKeyword.Text);
+
+            List<ValidationError> lstErreur = mainVM.MyRegistered.Validate();
+            if (lstErreur.Count > 0)
+            {
+                mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser);
+                mainVM.InfoUser = false;
+            }
+            else
+            {
+                string str = string.Empty;
+                foreach (var item in lstErreur)
+                {
+                    str = str + item.Information + Environment.NewLine;
+                }
+                MessageDialog errorRegister = new MessageDialog(str);
+                errorRegister.ShowAsync();
+            }
         }
 
         private void cmdCancelUser_Click(object sender, RoutedEventArgs e)
