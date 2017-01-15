@@ -17,7 +17,6 @@ namespace DLLForumV2
         public List<Rubric> ListRubric { get; set; }
         public List<Status> ListStatus { get; set; }
         public List<Training> ListTraining { get; set; }
-        //public List<Topic> ListTopic { get; set; }
         public DALClient dal { get; set; }
 
         public Forum()
@@ -42,27 +41,38 @@ namespace DLLForumV2
         public void GetListRubrics()
         {
             DALWSR_Result r1 = dal.GetListRubricsAsync(CancellationToken.None);
-            foreach (RubricDTO item in (List<RubricDTO>)r1.Data)
+            if(r1.Data != null)
             {
-                ListRubric.Add(new Rubric(item));
+                foreach (RubricDTO item in (List<RubricDTO>)r1.Data)
+                {
+                    ListRubric.Add(new Rubric(item));
+                }
             }
         }
 
         public void GetListStatus()
         {
             DALWSR_Result r1 = dal.GetListStatus(CancellationToken.None);
-            foreach (StatusDTO item in (List<StatusDTO>)r1.Data)
+            if(r1.Data != null)
             {
-                ListStatus.Add(new Status(item));
+                foreach (StatusDTO item in (List<StatusDTO>)r1.Data)
+                {
+                    ListStatus.Add(new Status(item));
+                }
             }
+            
         }
         public void GetListtraining()
         {
             DALWSR_Result r1 = dal.GetListTrainings(CancellationToken.None);
-            foreach (TrainingDTO item in (List<TrainingDTO>)r1.Data)
+            if (r1.Data != null)
             {
-                ListTraining.Add(new Training(item));
+                foreach (TrainingDTO item in (List<TrainingDTO>)r1.Data)
+                {
+                    ListTraining.Add(new Training(item));
+                }
             }
+            
         }
         /*public void GetListTopics()
         {

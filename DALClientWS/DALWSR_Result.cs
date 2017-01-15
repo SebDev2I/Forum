@@ -11,7 +11,7 @@ namespace DALClientWS
 {
     public class DALWSR_Result
     {
-        // PLAGE DES CODES ERREUR POUR L'APPEL DU WebService RDMService ---> [300 - 400[
+        // PLAGE DES CODES ERREUR POUR L'APPEL DU WebService RDMService ---> [300 - 400]
         public const int CodeRet_Login = 300;
         public const int CodeRet_PseudoObligatoire = 301;
         public const int CodeRet_Logout = 302;

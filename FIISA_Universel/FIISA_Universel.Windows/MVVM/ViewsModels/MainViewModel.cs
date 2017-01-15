@@ -4,11 +4,24 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace FIISA_Universel
 {
     public class MainViewModel : ViewModelBase
     {
+        private string _MessagePopup;
+
+        public string MessagePopup
+        {
+            get { return _MessagePopup; }
+            set
+            {
+                _MessagePopup = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private int _IndexStatus;
 
         public int IndexStatus
@@ -182,6 +195,8 @@ namespace FIISA_Universel
             {
                 _Rubrics.Add(item);
             }
+            
+            
         }
         public void InitializeListTopic()
         {

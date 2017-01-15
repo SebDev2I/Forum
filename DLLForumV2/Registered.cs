@@ -111,7 +111,11 @@ namespace DLLForumV2
         {
             DALWSR_Result r1 = dal.GetUserByIdAsync(iduser, CancellationToken.None);
             RegisteredDTO regDto = (RegisteredDTO)r1.Data;
-            return new Registered(regDto, GetStatus(regDto.StatusUser), GetTraining(regDto.TrainingUser));
+            if(regDto != null)
+            {
+                return new Registered(regDto, GetStatus(regDto.StatusUser), GetTraining(regDto.TrainingUser));
+            }
+            return null;
         }
 
         public bool SaveUser(Registered registered, Token token)
@@ -206,8 +210,6 @@ namespace DLLForumV2
         {
             Val_Name();
             Val_Email();
-            //Val_Login();
-            //Val_Pwd();
             return this.ValidationErrors;
         }
 
@@ -216,19 +218,19 @@ namespace DLLForumV2
             int i = 0;
             if (NameUser == String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> est requis"));
+                this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "Le nom est requis"));
                 i++;
             }
             else
             {
                 if (NameUser.Length > 50)
                 {
-                    this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> doit contenir 50 caractères au maximum"));
+                    this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "Le nom doit contenir 50 caractères au maximum"));
                     i++;
                 }
                 if (!AuditTool.IsAlpha(NameUser))
                 {
-                    this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "<NAME> ne peut contenir de chiffres"));
+                    this.ValidationErrors.Add(new ValidationError("Registered.NameUser", "Le nom ne peut contenir de chiffres"));
                     i++;
                 }
             }
@@ -236,19 +238,19 @@ namespace DLLForumV2
             
             if (FirstnameUser == String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> est requis"));
+                this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "Le prénom est requis"));
                 i++;
             }
             else
             {
                 if (FirstnameUser.Length > 50)
                 {
-                    this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> doit contenir 50 caractères au maximum"));
+                    this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "Le prénom doit contenir 50 caractères au maximum"));
                     i++;
                 }
                 if (!AuditTool.IsAlpha(FirstnameUser))
                 {
-                    this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "<FIRSTNAME> ne peut contenir de chiffres"));
+                    this.ValidationErrors.Add(new ValidationError("Registered.FirstNameUser", "Le prénom ne peut contenir de chiffres"));
                     i++;
                 }
             }
@@ -256,18 +258,42 @@ namespace DLLForumV2
 
             if (LoginUser == String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.LoginUser", "<LOGIN> est requis"));
+                this.ValidationErrors.Add(new ValidationError("Registered.LoginUser", "L'identifiant est requis"));
                 i++;
+            }
+            else
+            {
+                if (LoginUser.Length > 50)
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.LoginUser", "L'identifiant doit contenir 50 caractères au maximum"));
+                    i++;
+                }
             }
             if (PwdUser == String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.PwdUser", "<PASSWORD> est requis"));
+                this.ValidationErrors.Add(new ValidationError("Registered.PwdUser", "Le mot de passe est requis"));
                 i++;
+            }
+            else
+            {
+                if (PwdUser.Length > 50)
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.PwdUser", "Le mot de passe doit contenir 50 caractères au maximum"));
+                    i++;
+                }
             }
             if (KeywordUser == String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.KeywordUser", "<KEYWORD> est requis"));
+                this.ValidationErrors.Add(new ValidationError("Registered.KeywordUser", "Le mot-clé est requis"));
                 i++;
+            }
+            else
+            {
+                if (KeywordUser.Length > 50)
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.KeywordUser", "Le mot-clé doit contenir 50 caractères au maximum"));
+                    i++;
+                }
             }
             if (i > 0)
             {
@@ -278,14 +304,28 @@ namespace DLLForumV2
 
         private bool Val_Email()
         {
-            if (!AuditTool.IsEmail(EmailUser))
+            int i = 0;
+            if (EmailUser == String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "<EMAIL> ne correspond pas au format email"));
-                return false;
+                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "L'email est requis"));
+                i++;
             }
-            else if (EmailUser.Length > 100)
+            else
             {
-                this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "<EMAIL> doit contenir 100 caractères au maximum"));
+                if (!AuditTool.IsEmail(EmailUser))
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "L'email n'est pas valide"));
+                    i++;
+                }
+                if (EmailUser.Length > 100)
+                {
+                    this.ValidationErrors.Add(new ValidationError("Registered.EmailUser", "L'email doit contenir 100 caractères au maximum"));
+                    i++;
+                }
+            }
+                
+            if (i > 0)
+            {
                 return false;
             }
             else return true;

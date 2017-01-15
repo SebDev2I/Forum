@@ -31,12 +31,13 @@ namespace FIISA_Universel
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private string _WhatDelete;
         private MainViewModel mainVM;
         public MainPage()
         {
             this.InitializeComponent();
             Application.Current.DebugSettings.EnableFrameRateCounter = false;
-            
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,22 +50,7 @@ namespace FIISA_Universel
         {
 
         }
-        /*private void lstRubric_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Rubric output = e.ClickedItem as Rubric;
-            mainVM.MyRubric = output;
-            mainVM.InitializeListTopic();
-            if (mainVM.HasTopic)
-            {
-                lstTopic.Visibility = Visibility.Visible;
-                lblNotTopic.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                lstTopic.Visibility = Visibility.Collapsed;
-                lblNotTopic.Visibility = Visibility.Visible;
-            }
-        }*/
+
 
         private void lstRubric_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -102,47 +88,14 @@ namespace FIISA_Universel
                 lblNotTopic.Visibility = Visibility.Visible;
             }
             cmdAddTopic.Visibility = Visibility.Visible;
-            
+
             lstTopic.SelectionChanged += lstTopic_SelectionChanged;
+            if (mainVM.HasTopic)
+            {
+                lstTopic.SelectedIndex = 0;
+            }
+            ShowEditDelete(lstTopic);
         }
-
-        /*private void TopicItem_Click(object sender, RoutedEventArgs e)
-        {
-            AddTopic.Visibility = Visibility.Collapsed;
-            AddMessage.Visibility = Visibility.Collapsed;
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            txtTitleTopic.Text = string.Empty;
-            txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-            prTopic.IsActive = true;
-            prTopic.Visibility = Visibility.Visible;
-            Topic output = (Topic)lstTopic.SelectedItem;
-            mainVM.MyTopic = output;
-            mainVM.InitializeListMessage();
-            prTopic.Visibility = Visibility.Collapsed;
-            prTopic.IsActive = false;
-            if (mainVM.HasMessage)
-            {
-                lstMessage.Visibility = Visibility.Visible;
-                lblNotMessage.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                lstMessage.Visibility = Visibility.Collapsed;
-                lblNotMessage.Visibility = Visibility.Visible;
-            }
-            txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
-            txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
-            cmdAddMessage.Visibility = Visibility.Visible;
-            Button c = (Button)sender;
-            StackPanel panel = (StackPanel)c.Content;
-            Grid g = (Grid)panel.Children[0];
-            StackPanel p = (StackPanel)g.Children[1];
-
-            p.Visibility = Visibility.Visible;
-        }*/
-
         private void lstTopic_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Collapsed;
@@ -170,21 +123,20 @@ namespace FIISA_Universel
                 lblNotMessage.Visibility = Visibility.Visible;
             }
             //TODO binding topic (ne fonctionne pas, je suis obligé d'affecter les variables aux composants
-            if(mainVM.MyTopic != null)
+            if (mainVM.MyTopic != null)
             {
                 txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
                 txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
             }
-            
+
             if (EditTopic.Visibility == Visibility.Visible)
             {
                 cmdAddMessage.Visibility = Visibility.Collapsed;
             }
             else cmdAddMessage.Visibility = Visibility.Visible;
 
-            ShowEditDeleteTopic("EditDelete");
+            ShowEditDelete(lstTopic);
         }
-
         private void lstMessage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Collapsed;
@@ -213,14 +165,14 @@ namespace FIISA_Universel
             }
             else cmdAddMessage.Visibility = Visibility.Visible;
 
-            ShowEditDeleteMessage("EditDelete");
+            ShowEditDelete(lstMessage);
         }
-        
+
         private void cmdAddTopic_Click(object sender, RoutedEventArgs e)
         {
             AddTopic.Visibility = Visibility.Visible;
             cmdAddTopic.Visibility = Visibility.Collapsed;
-            cmdAddMessage.Visibility = Visibility.Collapsed;
+            cmdAddMessage.Visibility = Visibility.Collapsed; 
         }
 
         private void cmdAddMessage_Click(object sender, RoutedEventArgs e)
@@ -236,24 +188,25 @@ namespace FIISA_Universel
             txtDescTopic.Document.GetText(Windows.UI.Text.TextGetOptions.FormatRtf, out str);
             //str = RtfToString(str);
             mainVM.MyTopic = new Topic(int.MinValue, mainVM.MyForum.User, mainVM.MyRubric, DateTime.Now, txtTitleTopic.Text, str);
-            
-            if(mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum.TokenUser))
+
+            if (mainVM.MyForum.User.SaveTopic(mainVM.MyTopic, mainVM.MyForum.TokenUser))
             {
                 AddTopic.Visibility = Visibility.Collapsed;
                 txtTitleTopic.Text = string.Empty;
                 txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-                MessageDialog essai = new MessageDialog("Le sujet a bien été créé!");
                 mainVM.InitializeListTopic();
                 lstTopic.SelectedIndex = 0;
                 lblNotTopic.Visibility = Visibility.Collapsed;
                 lstTopic.Visibility = Visibility.Visible;
-                essai.ShowAsync();
+                ShowEditDelete(lstTopic);
+                mainVM.MessagePopup = "Le sujet a bien été créé.";
+                ModalPopupError.IsOpen = true;
             }
-            if(lstTopic.Visibility == Visibility.Collapsed && lblNotMessage.Visibility == Visibility.Collapsed)
+            if (lstTopic.Visibility == Visibility.Collapsed && lblNotMessage.Visibility == Visibility.Collapsed)
             {
                 cmdAddMessage.Visibility = Visibility.Visible;
             }
-            
+
             cmdAddTopic.Visibility = Visibility.Visible;
         }
 
@@ -264,14 +217,12 @@ namespace FIISA_Universel
             {
                 cmdAddTopic.Visibility = Visibility.Visible;
             }
-            if (mainVM.HasMessage)
-            {
-                cmdAddMessage.Visibility = Visibility.Visible;
-            }
+            cmdAddMessage.Visibility = Visibility.Visible;
+            
             txtTitleTopic.Text = string.Empty;
             txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
-        
+
         private void cmdValidMessage_Click(object sender, RoutedEventArgs e)
         {
             string str = string.Empty;
@@ -283,12 +234,13 @@ namespace FIISA_Universel
             {
                 AddMessage.Visibility = Visibility.Collapsed;
                 txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-                MessageDialog essai = new MessageDialog("Le message a bien été créé!");
                 mainVM.InitializeListMessage();
                 lstMessage.Visibility = Visibility.Visible;
                 lblNotMessage.Visibility = Visibility.Collapsed;
-                essai.ShowAsync();
+                mainVM.MessagePopup = "Le message a bien été créé.";
+                ModalPopupError.IsOpen = true;
             }
+            cmdAddTopic.Visibility = Visibility.Visible;
             cmdAddMessage.Visibility = Visibility.Visible;
         }
 
@@ -312,18 +264,43 @@ namespace FIISA_Universel
                 {
                     token = (Token)r.Data;
                 }
+                else
+                {
+                    mainVM.MessagePopup = "Problème de connexion.";
+                    ModalPopupError.IsOpen = true;
+                    //MessageDialog essai = new MessageDialog("Problème de connexion");
+                    //essai.ShowAsync();
+                }
                 if (token.Valid != false)
                 {
                     mainVM.MyForum.TokenUser = token;
                     mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
-                    mainVM.MyRegistered = mainVM.MyForum.User;
-                    mainVM.IsLogged = true;
+                    if (mainVM.MyForum.User != null)
+                    {
+                        mainVM.MyRegistered = mainVM.MyForum.User;
+                        mainVM.IsLogged = true;
+                        if (mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
+                        {
+                            ShowEditDelete(lstMessage);
+                            ShowEditDelete(lstTopic);
+                        }
+                    }
+                    else
+                    {
+                        mainVM.MessagePopup = "Problème de connexion.";
+                        ModalPopupError.IsOpen = true;
+                        //MessageDialog essai = new MessageDialog("Problème de connexion");
+                        //essai.ShowAsync();
+                    }
                 }
                 else
                 {
                     mainVM.MyForum.TokenUser = null;
                     mainVM.IsLogged = false;
-                    //todo montrer message comme quoi le login/mdp est incorrect
+                    mainVM.MessagePopup = "Login ou mot de passe incorrect.";
+                    ModalPopupError.IsOpen = true;
+                    //MessageDialog essai = new MessageDialog("Login ou mot de passe incorrect");
+                    //essai.ShowAsync();
                 }
             }
             else
@@ -335,6 +312,8 @@ namespace FIISA_Universel
                 mainVM.MyRegistered = null;
                 mainVM.IsLogged = false;
                 mainVM.InfoUser = false;
+                ShowEditDelete(lstMessage);
+                ShowEditDelete(lstTopic);
             }
 
         }
@@ -380,20 +359,95 @@ namespace FIISA_Universel
                 name = null;
             }
             else name = txtName.Text;
+
             string firstname;
             if (txtFirstname.Text == "")
             {
                 firstname = null;
             }
             else firstname = txtFirstname.Text;
+
+            string email;
+            if (txtEmail.Text == "")
+            {
+                email = null;
+            }
+            else email = txtEmail.Text;
+
+            string login;
+            if (txtLoginUser.Text == "")
+            {
+                login = null;
+            }
+            else login = txtLoginUser.Text;
+
+            string pwd;
+            if (txtPwdUser.Text == "")
+            {
+                pwd = null;
+            }
+            else pwd = txtPwdUser.Text;
+
+            string keyword;
+            if (txtKeyword.Text == "")
+            {
+                keyword = null;
+            }
+            else keyword = txtKeyword.Text;
+
             mainVM.MyRegistered = new Registered(mainVM.MyForum.User.IdUser, (Status)cmbStatus.SelectedItem, (Training)cmbTraining.SelectedItem, name,
-                firstname, txtEmail.Text, txtLoginUser.Text, txtPwdUser.Text, txtKeyword.Text);
+                firstname, email, login, pwd, keyword);
 
             List<ValidationError> lstErreur = mainVM.MyRegistered.Validate();
-            if (lstErreur.Count > 0)
+            if (lstErreur.Count < 1)
             {
-                mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser);
-                mainVM.InfoUser = false;
+                if (mainVM.MyRegistered.SaveUser(mainVM.MyRegistered, mainVM.MyForum.TokenUser))
+                {
+                    mainVM.MyForum.TokenUser = null;
+                    Token token = new Token(0, login, pwd, 0);
+
+                    DALClient dal = new DALClient();
+                    DALWSR_Result r = dal.LoginAsync(token, CancellationToken.None);
+                    if (r.Data != null)
+                    {
+                        token = (Token)r.Data;
+                    }
+                    else
+                    {
+                        mainVM.MessagePopup = "Problème de connexion.";
+                        ModalPopupError.IsOpen = true;
+                        //MessageDialog essai = new MessageDialog("Problème de connexion");
+                        //essai.ShowAsync();
+                    }
+                    if (token.Valid != false)
+                    {
+                        mainVM.MyForum.TokenUser = token;
+                        mainVM.MyForum.User = mainVM.MyForum.User.GetInfoUser(token.IdUser);
+                        if (mainVM.MyForum.User != null)
+                        {
+                            mainVM.MyRegistered = mainVM.MyForum.User;
+                            mainVM.IsLogged = true;
+                            mainVM.InfoUser = false;
+                        }
+                        else
+                        {
+                            mainVM.MessagePopup = "Problème de connexion.";
+                            ModalPopupError.IsOpen = true;
+                            //MessageDialog essai = new MessageDialog("Problème de connexion");
+                            //essai.ShowAsync();
+                        }
+                    }
+                    else
+                    {
+                        mainVM.MyForum.TokenUser = null;
+                        mainVM.IsLogged = false;
+                        mainVM.MessagePopup = "Problème d'authentification, veuillez contacter l'administrateur.";
+                        ModalPopupError.IsOpen = true;
+                        //MessageDialog essai = new MessageDialog("Problème d'authentification, veuillez contacter l'administrateur");
+                        //essai.ShowAsync();
+                    }
+                }
+
             }
             else
             {
@@ -402,8 +456,10 @@ namespace FIISA_Universel
                 {
                     str = str + item.Information + Environment.NewLine;
                 }
-                MessageDialog errorRegister = new MessageDialog(str);
-                errorRegister.ShowAsync();
+                mainVM.MessagePopup = str;
+                ModalPopupError.IsOpen = true;
+                //MessageDialog errorRegister = new MessageDialog(str);
+                //errorRegister.ShowAsync();
             }
         }
 
@@ -422,7 +478,7 @@ namespace FIISA_Universel
             foreach (Rubric item in cmbRubric.Items)
             {
                 i = i + 1;
-                if(item == mainVM.MyRubric)
+                if (item == mainVM.MyRubric)
                 {
                     index = i;
                 }
@@ -436,23 +492,12 @@ namespace FIISA_Universel
 
         private void cmdDeleteTopic_Click(object sender, RoutedEventArgs e)
         {
-            MessageDialog validSupprTopic = new MessageDialog("Veuillez confirmer la suppression de ce sujet et de ses messages.");
-            validSupprTopic.Commands.Add(new UICommand("Supprimer", delegate(IUICommand command)
-            {
-                if (mainVM.MyForum.User.DeleteTopic((Topic)lstTopic.SelectedItem, mainVM.MyForum.TokenUser))
-                {
-                    MessageDialog essai = new MessageDialog("Le sujet a bien été supprimé!");
-                    mainVM.InitializeListTopic();
-                    cmdAddTopic.Visibility = Visibility.Visible;
-                    cmdAddMessage.Visibility = Visibility.Collapsed;
-                    essai.ShowAsync();
-                }
-            }));
-            validSupprTopic.Commands.Add(new UICommand("Annuler"));
-            validSupprTopic.ShowAsync();
+            mainVM.MessagePopup = "Veuillez confirmer la suppression de ce sujet et de ses messages.";
+            ModalPopupConfirm.IsOpen = true;
+            _WhatDelete = "Topic";
         }
 
-       
+
         private void cmdValidTopicEdit_Click(object sender, RoutedEventArgs e)
         {
             string str = string.Empty;
@@ -463,9 +508,9 @@ namespace FIISA_Universel
                 EditTopic.Visibility = Visibility.Collapsed;
                 txtTitleTopicEdit.Text = string.Empty;
                 txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-                MessageDialog essai = new MessageDialog("Le sujet a bien été modifié!");
                 mainVM.InitializeListTopic();
-                essai.ShowAsync();
+                mainVM.MessagePopup = "Le sujet a bien été modifié.";
+                ModalPopupError.IsOpen = true;
             }
             cmdAddMessage.Visibility = Visibility.Visible;
             cmdAddTopic.Visibility = Visibility.Visible;
@@ -479,7 +524,7 @@ namespace FIISA_Universel
                 cmdAddTopic.Visibility = Visibility.Visible;
             }
             cmdAddMessage.Visibility = Visibility.Visible;
-            
+
             //txtTitleTopicEdit.Text = string.Empty;
             //txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
         }
@@ -493,14 +538,11 @@ namespace FIISA_Universel
 
         private void cmdDeleteMessage_Click(object sender, RoutedEventArgs e)
         {
-            if (mainVM.MyForum.User.DeleteMessage((Message)lstMessage.SelectedItem, mainVM.MyForum.TokenUser))
-            {
-                MessageDialog essai = new MessageDialog("Le message a bien été supprimé!");
-                mainVM.InitializeListMessage();
-                essai.ShowAsync();
-            }
+            mainVM.MessagePopup = "Veuillez confirmer la suppression de ce message.";
+            ModalPopupConfirm.IsOpen = true;
+            _WhatDelete = "Message";
         }
-        
+
         private void cmdUnlock_Click(object sender, RoutedEventArgs e)
         {
         }
@@ -523,9 +565,9 @@ namespace FIISA_Universel
             {
                 EditMessage.Visibility = Visibility.Collapsed;
                 txtContentMessageEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-                MessageDialog essai = new MessageDialog("Le message a bien été modifié!");
                 mainVM.InitializeListMessage();
-                essai.ShowAsync();
+                mainVM.MessagePopup = "Le message a bien été modifié.";
+                ModalPopupError.IsOpen = true;
             }
             cmdAddMessage.Visibility = Visibility.Visible;
             cmdAddTopic.Visibility = Visibility.Visible;
@@ -533,24 +575,59 @@ namespace FIISA_Universel
 
         private void cmdCancelMessageEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            EditMessage.Visibility = Visibility.Collapsed;
+            if (mainVM.HasMessage)
+            {
+                cmdAddMessage.Visibility = Visibility.Visible;
+            }
+            cmdAddTopic.Visibility = Visibility.Visible;
         }
 
-        private void ShowEditDeleteTopic(string ctrlname)
+        private void ShowEditDelete(ListView lst)
         {
             if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
             {
-                foreach (var stackpanel in FindVisualChildren<StackPanel>(lstTopic))
+                if (lst.SelectedItem == null)
+                    return;
+                foreach (var item in lst.Items)
                 {
-                    if (stackpanel.Name == ctrlname)
+                    foreach (var stackpanel in FindVisualChildren<StackPanel>(lst))
                     {
-                        stackpanel.Visibility = Visibility.Visible;
-                        //stackpanel.IsHitTestVisible = true;
+                        if (stackpanel.Name == "EditDelete")
+                        {
+                            stackpanel.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                }
+                var _Container = lst.ItemContainerGenerator.ContainerFromItem(lst.SelectedItem);
+                foreach (var stackpanel in FindVisualChildren<StackPanel>(_Container))
+                {
+                    if (stackpanel.Name == "EditDelete")
+                    {
+                        if (stackpanel.Visibility == Visibility.Collapsed)
+                        {
+                            stackpanel.Visibility = Visibility.Visible;
+                        }
+                        else stackpanel.Visibility = Visibility.Collapsed;
+
+                    }
+                }
+            }
+            else
+            {
+                foreach (var item in lst.Items)
+                {
+                    foreach (var stackpanel in FindVisualChildren<StackPanel>(lst))
+                    {
+                        if (stackpanel.Name == "EditDelete")
+                        {
+                            stackpanel.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
             }
         }
-        private void ShowEditDeleteMessage(string ctrlname)
+        /*private void ShowEditDeleteMessage(string ctrlname)
         {
             if (mainVM.IsLogged && mainVM.MyRegistered.ObjStatus.NameStatus != "Stagiaire")
             {
@@ -562,7 +639,7 @@ namespace FIISA_Universel
                     }
                 }
             }
-        }
+        }*/
         public IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -580,57 +657,60 @@ namespace FIISA_Universel
             }
         }
 
-        
-
-        
-
-
-        /*private void lstTopic_ItemClick(object sender, ItemClickEventArgs e)
-{
-AddTopic.Visibility = Visibility.Collapsed;
-AddMessage.Visibility = Visibility.Collapsed;
-txtTitleTopic.Text = string.Empty;
-txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-txtContentMessage.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-txtTitleTopic.Text = string.Empty;
-txtDescTopic.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, string.Empty);
-prTopic.IsActive = true;
-prTopic.Visibility = Visibility.Visible;
-Topic output = e.ClickedItem as Topic; ;
-mainVM.MyTopic = output;
-mainVM.InitializeListMessage();
-prTopic.Visibility = Visibility.Collapsed;
-prTopic.IsActive = false;
-if (mainVM.HasMessage)
-{
-lstMessage.Visibility = Visibility.Visible;
-lblNotMessage.Visibility = Visibility.Collapsed;
-}
-else
-{
-lstMessage.Visibility = Visibility.Collapsed;
-lblNotMessage.Visibility = Visibility.Visible;
-}
-txtTitleTopicEdit.Text = mainVM.MyTopic.TitleTopic;
-txtDescTopicEdit.Document.SetText(Windows.UI.Text.TextSetOptions.FormatRtf, mainVM.MyTopic.DescTopic);
-cmdAddMessage.Visibility = Visibility.Visible;
-
-ListView c = (ListView)sender;
-StackPanel ipt = (StackPanel)c.ItemsPanelRoot;
-ListViewItem lvi = (ListViewItem)ipt.Children[0];
-Border b = (Border)lvi.ContentTemplateRoot;
-StackPanel sp = (StackPanel)b.Child;
-Grid g = (Grid)sp.Children[0];
-StackPanel sp1 = (StackPanel)g.Children[1];
-sp1.Visibility = Visibility.Visible;
-}*/
-        /*private void ListView_Click(object sender, RoutedEventArgs e)
+        private void cmdClosePopup_Click(object sender, RoutedEventArgs e)
         {
-            Button c = (Button)sender;
-            StackPanel panel = (StackPanel)c.Content;
-            StackPanel p = (StackPanel)panel.Children[0];
-            p.Children[1].Visibility = Visibility.Visible;
+            mainVM.MessagePopup = string.Empty;
+            ModalPopupError.IsOpen = false;
+        }
 
-        }*/
+        private void cmdDeletePopup_Click(object sender, RoutedEventArgs e)
+        {
+            ModalPopupConfirm.IsOpen = false;
+            if(_WhatDelete == "Topic")
+            {
+                if (mainVM.MyForum.User.DeleteTopic((Topic)lstTopic.SelectedItem, mainVM.MyForum.TokenUser))
+                {
+                    mainVM.MessagePopup = "Le sujet a bien été supprimé.";
+                    ModalPopupError.IsOpen = true;
+                    mainVM.InitializeListTopic();
+                    lstTopic.SelectedIndex = 0;
+                    cmdAddTopic.Visibility = Visibility.Visible;
+                    cmdAddMessage.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    mainVM.MessagePopup = "Une erreur s'est produite lors de la suppression";
+                    ModalPopupError.IsOpen = true;
+                }
+            }
+            
+
+            if(_WhatDelete == "Message")
+            {
+                if (mainVM.MyForum.User.DeleteMessage((Message)lstMessage.SelectedItem, mainVM.MyForum.TokenUser))
+                {
+                    mainVM.MessagePopup = "Le message a bien été supprimé.";
+                    ModalPopupError.IsOpen = true;
+                    mainVM.InitializeListMessage();
+                    cmdAddMessage.Visibility = Visibility.Visible;
+                    if (!mainVM.HasMessage)
+                    {
+                        lblNotMessage.Visibility = Visibility.Visible;
+                    }
+                }
+                else
+                {
+                    mainVM.MessagePopup = "Une erreur s'est produite lors de la suppression";
+                    ModalPopupError.IsOpen = true;
+                }
+            }
+                
+        }
+
+        private void cmdCancelPopup_Click(object sender, RoutedEventArgs e)
+        {
+            mainVM.MessagePopup = string.Empty;
+            ModalPopupConfirm.IsOpen = false;
+        }
     }
 }
