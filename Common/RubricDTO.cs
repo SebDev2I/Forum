@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// Classe dto représentant l'ensemble des données d'une rubrique
+    /// </summary>
     public class RubricDTO : DTOBase
     {
         public int IdRubric { get; set; }

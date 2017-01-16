@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Common
 {
+    /// <summary>
+    /// Classe contenant les propriétés statiques définissant les valeurs null
+    /// </summary>
     public class CommonBase
     {
         //Valeurs null de configuration

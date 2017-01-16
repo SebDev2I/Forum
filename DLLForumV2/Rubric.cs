@@ -8,14 +8,36 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace DLLForumV2
-{
+{ 
+    /// <summary>
+    /// Classe pour les rubriques du forum
+    /// </summary>
     public class Rubric : ForumBase
     {
+        /// <summary>
+        /// Id de la rubrique
+        /// </summary>
         public int IdRubric { get; set; }
+        /// <summary>
+        /// Nom de la rubrique
+        /// </summary>
         public string NameRubric { get; set; }
+        /// <summary>
+        /// Rubrique sous forme de dto
+        /// </summary>
         public RubricDTO DTO { get; set; }
+        /// <summary>
+        /// Liste des sujets d'une rubriques
+        /// </summary>
         public List<Topic> ListTopicsByRubric { get; set; }
+        /// <summary>
+        /// Permet l'accès aux ressources du web service
+        /// </summary>
         private DALClient dal { get; set; }
+
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Rubric()
         {
             dal = new DALClient();
@@ -25,6 +47,10 @@ namespace DLLForumV2
             DTO = new RubricDTO();
         }
 
+        /// <summary>
+        /// Constructeur pour mapper dto en Rubric
+        /// </summary>
+        /// <param name="dto"></param>
         public Rubric(RubricDTO dto) : this()
         {
             IdRubric = dto.IdRubric;
@@ -32,6 +58,11 @@ namespace DLLForumV2
             DTO = dto;
         }
 
+        /// <summary>
+        /// Constructeur complet
+        /// </summary>
+        /// <param name="idrubric"></param>
+        /// <param name="namerubric"></param>
         public Rubric(int idrubric, string namerubric) : this()
         {
             IdRubric = idrubric;
@@ -41,6 +72,9 @@ namespace DLLForumV2
             DTO.NameRubric = namerubric;
         }
 
+        /// <summary>
+        /// Méthode permettant d'obtenir la liste des sujets par rubrique
+        /// </summary>
         public void GetListTopicsByRubric()
         {
             ListTopicsByRubric.Clear();
@@ -62,6 +96,11 @@ namespace DLLForumV2
             }
             
         }
+
+        /// <summary>
+        /// Validation des propriétés de la rubrique
+        /// </summary>
+        /// <returns></returns>
         public override List<ValidationError> Validate()
         {
             Val_Name();
@@ -74,23 +113,27 @@ namespace DLLForumV2
         }
 
         
-
+        /// <summary>
+        /// Méthode permettant de valider les chaînes de caractère,
+        /// valeur null, longueur maxi, alphaonly
+        /// </summary>
+        /// <returns></returns>
         private bool Val_Name()
         {
             int i = 0;
             if (NameRubric == ForumBase.String_NullValue)
             {
-                this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "<NAME_RUBRIC> est requis"));
+                this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "Le nom de la rubrique est requis"));
                 i++;
             }
             if (NameRubric.Length > 50)
             {
-                this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "<NAME_RUBRIC> doit contenir 50 caractères au maximum"));
+                this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "Le nom de la rubrique doit contenir 50 caractères au maximum"));
                 i++;
             }
             if (!AuditTool.IsAlpha(NameRubric))
             {
-                this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "<NAME_RUBRIC> ne peut contenir de chiffres"));
+                this.ValidationErrors.Add(new ValidationError("Rubric.NameRubric", "Le nom de la rubrique ne peut contenir de chiffres"));
                 i++;
             }
             if (i > 0)

@@ -11,23 +11,63 @@ using System.Threading.Tasks;
 
 namespace DLLForumV2
 {
+    /// <summary>
+    /// Classe pour l'utilisateur authentifié du forum
+    /// </summary>
     public class Registered : ForumBase
     {
+        /// <summary>
+        /// Id de l'utilisateur
+        /// </summary>
         public int IdUser { get; set; }
-        //public int StatusUser { get; set; }
+        /// <summary>
+        /// Status de l'utilisateur
+        /// </summary>
         public Status ObjStatus { get; set; }
-        //public int TrainingUser { get; set; }
+        /// <summary>
+        /// Formation de l'utilisateur
+        /// </summary>
         public Training ObjTraining { get; set; }
+        /// <summary>
+        /// Le nom de famille de l'utilisateur
+        /// </summary>
         public string NameUser { get; set; }
+        /// <summary>
+        /// Le prénom de l'utilisateur
+        /// </summary>
         public string FirstnameUser { get; set; }
+        /// <summary>
+        /// L'email
+        /// </summary>
         public string EmailUser { get; set; }
+        /// <summary>
+        /// L'identifiant
+        /// </summary>
         public string LoginUser { get; set; }
+        /// <summary>
+        /// Le mot de passe
+        /// </summary>
         public string PwdUser { get; set; }
+        /// <summary>
+        /// Le mot-clé
+        /// </summary>
         public string KeywordUser { get; set; }
+        /// <summary>
+        /// Utilisateur sous forme de dto
+        /// </summary>
         public RegisteredDTO DTO { get; set; }
+        /// <summary>
+        /// Liste des utilisateurs ayant un compte
+        /// </summary>
         public List<Registered> ListRegistered { get; set; }
+        /// <summary>
+        /// Permet l'accès aux ressources du web service
+        /// </summary>
         private DALClient dal { get; set; }
 
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Registered()
         {
             dal = new DALClient();
@@ -44,30 +84,12 @@ namespace DLLForumV2
             DTO = new RegisteredDTO();
         }
 
-        /*public Registered(int iduser, int statususer, int traininguser, string nameuser, string firstnameuser, string emailuser)
-        {
-            IdUser = iduser;
-            StatusUser = statususer;
-            TrainingUser = traininguser;
-            NameUser = nameuser;
-            FirstnameUser = firstnameuser;
-            EmailUser = emailuser;
-        }*/
-
-        /*public Registered(RegisteredDTO dto)
-        {
-            IdUser = dto.IdUser;
-            //StatusUser = dto.StatusUser;
-            //TrainingUser = dto.TrainingUser;
-            NameUser = dto.NameUser;
-            FirstnameUser = dto.FirstnameUser;
-            EmailUser = dto.EmailUser;
-            LoginUser = dto.LoginUser;
-            PwdUser = dto.PwdUser;
-            KeywordUser = dto.KeywordUser;
-            DTO = dto;
-        }*/
-
+        /// <summary>
+        /// Constructeur pour mapper dto en Registered
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="objstatus"></param>
+        /// <param name="objtraining"></param>
         public Registered(RegisteredDTO dto, Status objstatus, Training objtraining) : this()
         {
             IdUser = dto.IdUser;
@@ -82,13 +104,23 @@ namespace DLLForumV2
             DTO = dto;
         }
 
+        /// <summary>
+        /// Constructeur complet
+        /// </summary>
+        /// <param name="iduser"></param>
+        /// <param name="objstatus"></param>
+        /// <param name="objtraining"></param>
+        /// <param name="nameuser"></param>
+        /// <param name="firstnameuser"></param>
+        /// <param name="emailuser"></param>
+        /// <param name="loginuser"></param>
+        /// <param name="pwduser"></param>
+        /// <param name="keyworduser"></param>
         public Registered(int iduser, Status objstatus, Training objtraining, string nameuser, string firstnameuser, 
             string emailuser, string loginuser, string pwduser, string keyworduser) : this()
         {
             IdUser = iduser;
-            //StatusUser = idstatus;
             ObjStatus = objstatus;
-            //TrainingUser = idtraining;
             NameUser = nameuser;
             FirstnameUser = firstnameuser;
             EmailUser = emailuser;
@@ -107,6 +139,11 @@ namespace DLLForumV2
             DTO.KeywordUser = keyworduser;
         }
 
+        /// <summary>
+        /// Méthode pour avoir les infos d'un utilisateur ayant un compte
+        /// </summary>
+        /// <param name="iduser"></param>
+        /// <returns></returns>
         public Registered GetInfoUser(int iduser)
         {
             DALWSR_Result r1 = dal.GetUserByIdAsync(iduser, CancellationToken.None);
@@ -118,6 +155,12 @@ namespace DLLForumV2
             return null;
         }
 
+        /// <summary>
+        /// Méthode permettant de sauvegarder un utilisateur, create ou update
+        /// </summary>
+        /// <param name="registered"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool SaveUser(Registered registered, Token token)
         {
             RegisteredDTO e = registered.DTO;
@@ -125,6 +168,10 @@ namespace DLLForumV2
             return r1.IsSuccess;
         }
 
+        /// <summary>
+        /// Méthode permettant d'avoir la liste des utilisateurs ayant un compte
+        /// </summary>
+        /// <returns></returns>
         public List<Registered> GetListUsers()
         {
             DALWSR_Result r1 = dal.GetUsers(CancellationToken.None);
@@ -135,12 +182,23 @@ namespace DLLForumV2
             return ListRegistered;
         }
 
+        /// <summary>
+        /// Méthode permettant d'obtenir la formation
+        /// </summary>
+        /// <param name="idtraining"></param>
+        /// <returns></returns>
         public Training GetTraining(int idtraining)
         {
             DALWSR_Result r3 = dal.GetTrainingByIdAsync(idtraining, CancellationToken.None);
             TrainingDTO trainingDto = (TrainingDTO)r3.Data;
             return new Training(trainingDto);
         }
+
+        /// <summary>
+        /// Méthode permettant d'obtenir le statut
+        /// </summary>
+        /// <param name="idstatus"></param>
+        /// <returns></returns>
         public Status GetStatus(int idstatus)
         {
             DALWSR_Result r1 = dal.GetStatusByIdAsync(idstatus, CancellationToken.None);
@@ -148,12 +206,24 @@ namespace DLLForumV2
             return new Status(statusDto);
         }
 
+        /// <summary>
+        /// Méthode permettant de sauvegarder un sujet, create ou update
+        /// </summary>
+        /// <param name="topic"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool SaveTopic(Topic topic, Token token)
         {
             DALWSR_Result r1 = dal.SaveTopic(topic.DTO, token, CancellationToken.None);
             return r1.IsSuccess;
         }
 
+        /// <summary>
+        /// Méthode permettant de supprimer un sujet et ses messages
+        /// </summary>
+        /// <param name="topic"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool DeleteTopic(Topic topic, Token token)
         {
             DALWSR_Result r1 = dal.DeleteTopic(topic.IdTopic, token, CancellationToken.None);
@@ -181,12 +251,24 @@ namespace DLLForumV2
             return result;
         }
 
+        /// <summary>
+        /// Methode permettant de sauvegarder un message, create ou update
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool SaveMessage(Message message, Token token)
         {
             DALWSR_Result r1 = dal.SaveMessage(message.DTO, token, CancellationToken.None);
             return r1.IsSuccess;
         }
 
+        /// <summary>
+        /// Méthode permettant de supprimer un message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public bool DeleteMessage(Message message, Token token)
         {
             DALWSR_Result r1 = dal.DeleteMessage(message.IdMessage, token, CancellationToken.None);
@@ -206,6 +288,10 @@ namespace DLLForumV2
                 + " Mot-clé : " + KeywordUser;
         }
 
+        /// <summary>
+        /// Validation des propriétés de l'utilisateur
+        /// </summary>
+        /// <returns></returns>
         public override List<ValidationError> Validate()
         {
             Val_Name();
@@ -213,6 +299,11 @@ namespace DLLForumV2
             return this.ValidationErrors;
         }
 
+        /// <summary>
+        /// Méthode permettant de valider les chaînes de caractères, 
+        /// valeur null, longueur maxi, alphaonly
+        /// </summary>
+        /// <returns></returns>
         private bool Val_Name()
         {
             int i = 0;
@@ -302,6 +393,10 @@ namespace DLLForumV2
             else return true;
         }
 
+        /// <summary>
+        /// Méthode permettant de vérifier le format email
+        /// </summary>
+        /// <returns></returns>
         private bool Val_Email()
         {
             int i = 0;

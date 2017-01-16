@@ -10,15 +10,39 @@ using System.Threading.Tasks;
 
 namespace DLLForumV2
 {
+    /// <summary>
+    /// Classe principale, elle est instanciée à l'ouverture de l'application
+    /// </summary>
     public class Forum
     {
+        /// <summary>
+        /// Utilisateur de la session
+        /// </summary>
         public Registered User { get; set; }
+        /// <summary>
+        /// Jeton pour authentifier l'utilisateur
+        /// </summary>
         public Token TokenUser { get; set; }
+        /// <summary>
+        /// Liste des rubriques
+        /// </summary>
         public List<Rubric> ListRubric { get; set; }
+        /// <summary>
+        /// Liste des statuts
+        /// </summary>
         public List<Status> ListStatus { get; set; }
+        /// <summary>
+        /// Liste des formations
+        /// </summary>
         public List<Training> ListTraining { get; set; }
+        /// <summary>
+        /// Permet l'accès aux ressources du web service
+        /// </summary>
         public DALClient dal { get; set; }
 
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Forum()
         {
             dal = new DALClient();
@@ -32,12 +56,20 @@ namespace DLLForumV2
             GetListtraining();
         }
 
+        /// <summary>
+        /// Constructeur pour une session
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="token"></param>
         public Forum(Registered user, Token token) : this()
         {
             User = user;
             TokenUser = token;
         }
 
+        /// <summary>
+        /// Méthode pour obtenir la liste des rubriques
+        /// </summary>
         public void GetListRubrics()
         {
             DALWSR_Result r1 = dal.GetListRubricsAsync(CancellationToken.None);
@@ -50,6 +82,9 @@ namespace DLLForumV2
             }
         }
 
+        /// <summary>
+        /// Méthode pour obtenir la liste des statuts
+        /// </summary>
         public void GetListStatus()
         {
             DALWSR_Result r1 = dal.GetListStatus(CancellationToken.None);
@@ -62,6 +97,10 @@ namespace DLLForumV2
             }
             
         }
+
+        /// <summary>
+        /// Méthode pour obtenir la liste des formations
+        /// </summary>
         public void GetListtraining()
         {
             DALWSR_Result r1 = dal.GetListTrainings(CancellationToken.None);
@@ -74,25 +113,5 @@ namespace DLLForumV2
             }
             
         }
-        /*public void GetListTopics()
-        {
-            DALWSR_Result r1 = dal.GetTopicsAsync(CancellationToken.None);
-            Registered reg;
-            foreach (TopicDTO item in (List<TopicDTO>)r1.Data)
-            {
-                DALWSR_Result r2 = dal.GetRubricByIdAsync(item.IdRubric, CancellationToken.None);
-                RubricDTO rubric = (RubricDTO)r2.Data;
-                DALWSR_Result r3 = dal.GetUserByIdAsync(item.IdUser, CancellationToken.None);
-                RegisteredDTO regDto = (RegisteredDTO)r3.Data;
-                reg = new Registered();
-                reg.ObjStatus = reg.GetStatus(regDto.StatusUser);
-                reg.ObjTraining = reg.GetTraining(regDto.TrainingUser);
-                ListTopic.Add(new Topic(item, new Registered(regDto, reg.ObjStatus, reg.ObjTraining), new Rubric(rubric)));
-            }
-            //return ListTopic;
-        }*/
-
-
-
     }
 }

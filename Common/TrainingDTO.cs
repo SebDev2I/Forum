@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// Classe dto représentant l'ensemble des données d'une formation
+    /// </summary>
     public class TrainingDTO : DTOBase
     {
         public int IdTraining { get; set; }

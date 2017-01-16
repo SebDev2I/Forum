@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// Classe dto représentant l'ensemble des données d'un sujet
+    /// </summary>
     public class TopicDTO : DTOBase
     {
         public int IdTopic { get; set; }

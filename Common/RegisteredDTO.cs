@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// Classe dto représentant l'ensemble des données d'un utilisateur
+    /// </summary>
     [DataContract]
     public class RegisteredDTO : DTOBase
     {

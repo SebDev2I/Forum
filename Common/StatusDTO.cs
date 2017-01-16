@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    /// <summary>
+    /// Classe dto représentant l'ensemble des données d'un statut
+    /// </summary>
     public class StatusDTO : DTOBase
     {
         public int IdStatus { get; set; }
