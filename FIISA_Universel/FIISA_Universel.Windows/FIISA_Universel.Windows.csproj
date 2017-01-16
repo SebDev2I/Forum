@@ -103,9 +103,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MessagePage.xaml.cs">
-      <DependentUpon>MessagePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -114,9 +111,6 @@
     <Compile Include="MVVM\ViewsModels\TopicViewModel.cs" />
     <Compile Include="MVVM\Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\Views\TopicPage.xaml.cs">
-      <DependentUpon>TopicPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="RichEditBoxExtended.cs" />
   </ItemGroup>
@@ -145,19 +139,11 @@
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MessagePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MVVM\Views\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MVVM\Views\MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MVVM\Views\TopicPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

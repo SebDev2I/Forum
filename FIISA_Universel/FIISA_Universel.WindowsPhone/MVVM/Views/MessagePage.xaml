@@ -572,7 +572,7 @@
                     x:Name="topicBorder"
                     BorderThickness="2"
                     CornerRadius="0,0,15,0"
-                    Margin="8 0">
+                    Margin="8 0 25 0">
                 <StackPanel>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -635,24 +635,26 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
+                <TextBlock x:Name="lblNotTopic"  Text="Pas encore de message pour ce sujet" 
+                   Grid.Row="1" Grid.Column="1"
+                   Visibility="Collapsed"
+                   FontSize="18"
+                           Margin="8 50 8 50"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextTrimming="WordEllipsis"/>
+                <ProgressRing x:Name="prTopic" IsActive="true" Visibility="Collapsed" Grid.Row="1" Grid.Column="1" 
+                      FontSize="20"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Height="100" Width="100"></ProgressRing>
             </StackPanel>
         </ScrollViewer>
 
 
 
 
-        <TextBlock x:Name="lblNotTopic"  Text="Pas encore de message pour ce sujet" 
-                   Grid.Row="1" Grid.Column="1"
-                   Visibility="Collapsed"
-                   FontSize="18"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   TextTrimming="WordEllipsis"/>
-        <ProgressRing x:Name="prTopic" IsActive="true" Visibility="Collapsed" Grid.Row="1" Grid.Column="1" 
-                      FontSize="20"
-                      VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      Height="100" Width="100"></ProgressRing>
+        
 
         
     </Grid>

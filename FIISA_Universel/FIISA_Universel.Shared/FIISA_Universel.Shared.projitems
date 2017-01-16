@@ -20,15 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBoolConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\SizeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewsModels\ViewModelBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\UserPage.xaml.cs">
-      <DependentUpon>UserPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\UserPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Ressources\corbeille.png" />
@@ -38,5 +29,8 @@
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Logo.scale-100.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Modifier-64.png" />
     <Content Include="$(MSBuildThisFileDirectory)Ressources\Unlock-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
 </Project>
