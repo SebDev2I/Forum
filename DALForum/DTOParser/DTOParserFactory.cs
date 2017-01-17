@@ -27,7 +27,7 @@ namespace DALForum
                     return new DTOParser_Training();
             }
             // Si nous arrivons ici alors c'est que nous n'avons pas réussi à trouver le type correspondant. 
-            //Nous levons donc une exception.
+            // Nous levons donc une exception.
             throw new Exception("Unknown Type");
         }
     }

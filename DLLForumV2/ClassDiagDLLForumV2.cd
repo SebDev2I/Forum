@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DLLForumV2.Forum">
+    <Position X="4.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAhAQAAEQAAAAAASBAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Forum.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+      <Property Name="TokenUser" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DLLForumV2.ForumBase" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAABAQAAAAAAAAAAEACAAAIAAEAAA=</HashCode>
+      <FileName>ForumBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DLLForumV2.Message">
+    <Position X="9.25" Y="2.25" Width="1.5" />
+    <AssociationLine Name="ObjUser" Type="DLLForumV2.Registered" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="5.473" />
+        <Point X="10" Y="6.875" />
+        <Point X="2" Y="6.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQgAACAIACAgCAEABAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ObjUser" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DLLForumV2.Registered">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <AssociationLine Name="ObjStatus" Type="DLLForumV2.Status" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="5.938" />
+        <Point X="4.75" Y="5.938" />
+        <Point X="4.75" Y="4.896" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ObjTraining" Type="DLLForumV2.Training" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="5.625" />
+        <Point X="2.938" Y="5.625" />
+        <Point X="2.938" Y="4.896" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QQYgAIBBCEiAECAEABAgAAIEAAgBAAAAAAAAAACAAAE=</HashCode>
+      <FileName>Registered.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ObjStatus" />
+      <Property Name="ObjTraining" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DLLForumV2.Rubric">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAQCACAAEABAAAAAAgAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Rubric.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DLLForumV2.Status">
+    <Position X="4" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAIACAAAAEABAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DLLForumV2.Topic">
+    <Position X="7.5" Y="2.25" Width="1.5" />
+    <AssociationLine Name="ObjUser" Type="DLLForumV2.Registered" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.188" Y="5.858" />
+        <Point X="8.188" Y="6.5" />
+        <Point X="2" Y="6.5" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="ObjRubric" Type="DLLForumV2.Rubric" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="5.688" />
+        <Point X="6.5" Y="5.688" />
+        <Point X="6.5" Y="5.473" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQgAICAIACAQAAEAJAAAAAAAAAAgAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Topic.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ObjUser" />
+      <Property Name="ObjRubric" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DLLForumV2.Training">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACAAAAEABAAAIAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Training.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DLLForumV2.ValidationError">
+    <Position X="11" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAA=</HashCode>
+      <FileName>ValidationError.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DLLAuth.Token">
+    <Position X="7.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

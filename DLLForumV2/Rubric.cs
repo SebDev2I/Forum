@@ -27,7 +27,7 @@ namespace DLLForumV2
         /// </summary>
         public RubricDTO DTO { get; set; }
         /// <summary>
-        /// Liste des sujets d'une rubriques
+        /// Liste des sujets d'une rubrique
         /// </summary>
         public List<Topic> ListTopicsByRubric { get; set; }
         /// <summary>

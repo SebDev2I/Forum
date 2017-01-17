@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DALForum.DALBase">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAACAAEAAAAABAAAAGAAEgCAgAAACCADAAIAAAA=</HashCode>
+      <FileName>DALBase\DALBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.MessageDb">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="5.5" Y="0.26" />
+        <Point X="5.5" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEQAAAAAAAQAAAAAAAIAAAAAAgAAAACAAAA=</HashCode>
+      <FileName>DALBase\MessageDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.RegisteredDb">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="9" Y="0.26" />
+        <Point X="9" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAgAAAAEAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>DALBase\RegisteredDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.RubricDb">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="12.5" Y="0.26" />
+        <Point X="12.5" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAQAAQAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>DALBase\RubricDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.StatusDb">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="14.25" Y="0.26" />
+        <Point X="14.25" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAhAAAAAAAAA=</HashCode>
+      <FileName>DALBase\StatusDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.TokenDb">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="3.812" Y="0.26" />
+        <Point X="3.812" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAEAACAAAAAAAAAAgAAAAAABAAQAAAAAA=</HashCode>
+      <FileName>DALBase\TokenDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.TopicDb">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="7.25" Y="0.26" />
+        <Point X="7.25" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AQAAAAIAACAAAAAAAAAAAAAAAABAAAAAAgAAAACAAAA=</HashCode>
+      <FileName>DALBase\TopicDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.TrainingDb">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="DALForum.DALBase" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="1.375" />
+        <Point X="2.24" Y="1.375" />
+        <Point X="2.24" Y="0.26" />
+        <Point X="10.75" Y="0.26" />
+        <Point X="10.75" Y="0.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAABAAEAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>DALBase\TrainingDb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOParser\DTOParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser_Message">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAIQAAABAAAAAACEAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>DTOParser\DTOParser_Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser_Registered">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACQAACAAAAgEBCgAAAAAAAQACAgAAA=</HashCode>
+      <FileName>DTOParser\DTOParser_Registered.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser_Rubric">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAACQAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOParser\DTOParser_Rubric.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser_Status">
+    <Position X="5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAQAAAAAAAgAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOParser\DTOParser_Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser_Topic">
+    <Position X="7.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACACQAAAAAAAAAACECEAAAAAAAAAgAAA=</HashCode>
+      <FileName>DTOParser\DTOParser_Topic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParser_Training">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAACQAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOParser\DTOParser_Training.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DALForum.DTOParserFactory">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOParser\DTOParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

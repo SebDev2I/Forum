@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Common.CommonBase">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAQAAAAAAAAAAAACAAAIAAEAAA=</HashCode>
+      <FileName>CommonBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.DTOBase">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>DTOBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.MessageDTO">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAKAAAgCAEAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>MessageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.RegisteredDTO">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIAAAAACAAAEAAEAAAAAAIAAAABAAAAAAEAAAAQAAE=</HashCode>
+      <FileName>RegisteredDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.RubricDTO">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAEAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>RubricDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.StatusDTO">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatusDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.TopicDTO">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAKQAAQAAEAAAAAAAAAAAAgAAAAAAAIAAAAAA=</HashCode>
+      <FileName>TopicDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.TrainingDTO">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAIAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>TrainingDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
