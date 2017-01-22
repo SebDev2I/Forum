@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="0d59ad62-4027-4ef8-a6fe-cfcc625254bc" Publisher="CN=cdi8nosj" Version="1.0.0.0" />
+  <Identity Name="0d59ad62-4027-4ef8-a6fe-cfcc625254bc" Publisher="CN=cdi8nosj" Version="1.0.0.1" />
   <Properties>
     <DisplayName>FIISA_Universel.Windows</DisplayName>
     <PublisherDisplayName>cdi8nosj</PublisherDisplayName>

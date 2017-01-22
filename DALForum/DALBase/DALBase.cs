@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace DALForum
 {
+    /// <summary>
+    /// Classe d'acceès aux données, elle contient les paramètres de connexion au sgbdr,
+    /// 
+    /// </summary>
     public abstract class DALBase
     {
         private static readonly string DATASOURCE = Properties.Settings.Default.datasource;

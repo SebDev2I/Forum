@@ -31,6 +31,8 @@ namespace FIISA_Universel
         public LoginPage()
         {
             this.InitializeComponent();
+            Application.Current.DebugSettings.EnableFrameRateCounter = false;
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
