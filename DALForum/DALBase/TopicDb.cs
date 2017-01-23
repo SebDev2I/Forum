@@ -9,14 +9,26 @@ using System.Threading.Tasks;
 
 namespace DALForum
 {
+    /// <summary>
+    /// Classe contenant les méthodes crud de la table TOPIC
+    /// </summary>
     public class TopicDb : DALBase
     {
+        /// <summary>
+        /// Méthode pour ramener la liste de tous les sujets
+        /// </summary>
+        /// <returns></returns>
         public List<TopicDTO> GetAll()
         {
             SqlCommand command = GetDbSprocCommand("GETALLTOPIC");
             return GetDTOList<TopicDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour ramener un sujet par son id
+        /// </summary>
+        /// <param name="idtopic"></param>
+        /// <returns></returns>
         public TopicDTO GetTopicById(int idtopic)
         {
             SqlCommand command = GetDbSprocCommand("GETTOPICBYID");
@@ -24,6 +36,11 @@ namespace DALForum
             return GetSingleDTO<TopicDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour ramener la liste des sujets par rubrique
+        /// </summary>
+        /// <param name="idrubric"></param>
+        /// <returns></returns>
         public List<TopicDTO> GetTopicByRubric(int idrubric)
         {
             SqlCommand command = GetDbSprocCommand("GETTOPICBYRUBRIC");
@@ -31,6 +48,11 @@ namespace DALForum
             return GetDTOList<TopicDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour ramener la liste des sujets par user
+        /// </summary>
+        /// <param name="iduser"></param>
+        /// <returns></returns>
         public List<TopicDTO> GetTopicByUser(int iduser)
         {
             SqlCommand command = GetDbSprocCommand("GETTOPICBYUSER");
@@ -38,6 +60,10 @@ namespace DALForum
             return GetDTOList<TopicDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour sauvegarder un sujet (save et update)
+        /// </summary>
+        /// <param name="topic"></param>
         public void SaveTopic(ref TopicDTO topic)
         {
             SqlCommand command = new SqlCommand();
@@ -72,6 +98,11 @@ namespace DALForum
             }
         }
 
+        /// <summary>
+        /// Méthode pour supprimer un sujet
+        /// </summary>
+        /// <param name="idtopic"></param>
+        /// <returns></returns>
         public bool DeleteTopic(int idtopic)
         {
             SqlCommand command = new SqlCommand();

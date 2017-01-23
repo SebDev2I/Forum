@@ -9,14 +9,26 @@ using System.Threading.Tasks;
 
 namespace DALForum
 {
+    /// <summary>
+    /// Méthode contenant les méthodes crud de la table RUBRIC
+    /// </summary>
     public class RubricDb : DALBase
     {
+        /// <summary>
+        /// Méthode permettant de ramener la liste de toutes les rubriques
+        /// </summary>
+        /// <returns></returns>
        public List<RubricDTO> GetAll()
         {
             SqlCommand cmd = GetDbSprocCommand("GETALLRUBRIC");
             return GetDTOList<RubricDTO>(ref cmd);
         }
 
+        /// <summary>
+        /// Méthode pour ramener une rubrique
+        /// </summary>
+        /// <param name="idrubric"></param>
+        /// <returns></returns>
         public RubricDTO GetRubricById(int idrubric)
         {
             SqlCommand command = GetDbSprocCommand("GETRUBRICBYID");
@@ -24,6 +36,10 @@ namespace DALForum
             return GetSingleDTO<RubricDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour sauvegarder une rubrique (save et update)
+        /// </summary>
+        /// <param name="rubric"></param>
         public void SaveRubric(ref RubricDTO rubric)
         {
             SqlCommand command = new SqlCommand();
@@ -55,6 +71,11 @@ namespace DALForum
             }
         }
 
+        /// <summary>
+        /// Méthode pour supprimer une rubrique
+        /// </summary>
+        /// <param name="idrubric"></param>
+        /// <returns></returns>
         public bool DeleteRubric(int idrubric)
         {
             SqlCommand command = new SqlCommand();

@@ -9,14 +9,26 @@ using System.Threading.Tasks;
 
 namespace DALForum
 {
+    /// <summary>
+    /// Classe contenant les méthodes crud de la table MESSAGE
+    /// </summary>
     public class MessageDb : DALBase
     {
+        /// <summary>
+        /// Méthode pour ramener la liste de tous les messages
+        /// </summary>
+        /// <returns></returns>
         public List<MessageDTO> GetAll()
         {
             SqlCommand command = GetDbSprocCommand("GETALLMESSAGE");
             return GetDTOList<MessageDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour ramener un message par son id
+        /// </summary>
+        /// <param name="idmessage"></param>
+        /// <returns></returns>
         public MessageDTO GetMessageById(int idmessage)
         {
             SqlCommand command = GetDbSprocCommand("GETMESSAGEBYID");
@@ -24,6 +36,11 @@ namespace DALForum
             return GetSingleDTO<MessageDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour la liste des messages par topic
+        /// </summary>
+        /// <param name="idtopic"></param>
+        /// <returns></returns>
         public List<MessageDTO> GetMessageByTopic(int idtopic)
         {
             SqlCommand command = GetDbSprocCommand("GETMESSAGEBYTOPIC");
@@ -31,6 +48,11 @@ namespace DALForum
             return GetDTOList<MessageDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour ramener la liste des message par user
+        /// </summary>
+        /// <param name="iduser"></param>
+        /// <returns></returns>
         public List<MessageDTO> GetMessageByUser(int iduser)
         {
             SqlCommand command = GetDbSprocCommand("GETMESSAGEBYUSER");
@@ -38,6 +60,10 @@ namespace DALForum
             return GetDTOList<MessageDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour sauvegarder un message (save et update)
+        /// </summary>
+        /// <param name="message"></param>
         public void SaveMessage(ref MessageDTO message)
         {
             SqlCommand command = new SqlCommand();
@@ -71,6 +97,11 @@ namespace DALForum
             }
         }
 
+        /// <summary>
+        /// Méthode pour supprimer un message
+        /// </summary>
+        /// <param name="idmessage"></param>
+        /// <returns></returns>
         public bool DeleteMessage(int idmessage)
         {
             SqlCommand command = new SqlCommand();

@@ -22,6 +22,10 @@ namespace DALForum
         private static readonly string PWD = Properties.Settings.Default.pwd;
         private static StringBuilder CNXSTR = null;
 
+        /// <summary>
+        /// Méthode permettant de créer la chaîne de connexion pour l'accès à la bdd
+        /// </summary>
+        /// <returns></returns>
         private static string CreateCnxStr()
         {
             CNXSTR = new StringBuilder();
@@ -45,7 +49,11 @@ namespace DALForum
             get { return CreateCnxStr(); }
         }
 
-        // GetDbSqlCommand
+        /// <summary>
+        /// Méthode pour créer une commande sql en passant une requête sql
+        /// </summary>
+        /// <param name="sqlQuery"></param>
+        /// <returns></returns>
         protected static SqlCommand GetDbSQLCommand(string sqlQuery)
         {
             SqlCommand command = new SqlCommand();
@@ -55,13 +63,20 @@ namespace DALForum
             return command;
         }
 
-        // GetDbConnection
+        /// <summary>
+        /// Méthode pour ouvrir la connexion à la bdd
+        /// </summary>
+        /// <returns></returns>
         protected static SqlConnection GetDbConnection()
         {
             return new SqlConnection(ConnectionString);
         }
 
-        // GetDbSprocCommand
+        /// <summary>
+        /// Méthode permettant de créer une commande sql en passant le nom d'une procédure stockée
+        /// </summary>
+        /// <param name="sprocName"></param>
+        /// <returns></returns>
         protected static SqlCommand GetDbSprocCommand(string sprocName)
         {
             SqlCommand command = new SqlCommand(sprocName);
@@ -70,7 +85,12 @@ namespace DALForum
             return command;
         }
 
-        // CreateNullParameter
+        /// <summary>
+        /// Méthode pour créer un paramètre d'entre de valeur null
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="paramType"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateNullParameter(string name, SqlDbType paramType)
         {
             SqlParameter parameter = new SqlParameter();
@@ -81,7 +101,13 @@ namespace DALForum
             return parameter;
         }
 
-        // CreateNullParameter - avec la taille pour nvarchars
+        /// <summary>
+        /// Méthode pour créer un paramètre d'entrée de type string null
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="paramType"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateNullParameter(string name, SqlDbType paramType, int size)
         {
             SqlParameter parameter = new SqlParameter();
@@ -93,7 +119,12 @@ namespace DALForum
             return parameter;
         }
 
-        // CreateOutputParameter
+        /// <summary>
+        /// Méthode pour créer un paramètre de sortie avec son nom et son type
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="paramType"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateOutputParameter(string name, SqlDbType paramType)
         {
             SqlParameter parameter = new SqlParameter();
@@ -103,7 +134,13 @@ namespace DALForum
             return parameter;
         }
 
-        // CreateOuputParameter - avec la taille pour nvarchars
+        /// <summary>
+        /// Méthode pour créer un paramètre de sortie avec la taille de la chaîne, son type et son nom
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="paramType"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateOutputParameter(string name, SqlDbType paramType, int size)
         {
             SqlParameter parameter = new SqlParameter();
@@ -114,7 +151,12 @@ namespace DALForum
             return parameter;
         }
         
-        // CreateParameter - int
+        /// <summary>
+        /// Méthode pour créer un paramèrtre de type int
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateParameter(string name, int value)
         {
             if (value == Common.DTOBase.Int_NullValue)
@@ -133,7 +175,12 @@ namespace DALForum
             }
         }
 
-        // CreateParameter - datetime
+        /// <summary>
+        /// Méthode pour créer un paramètre de type datetime
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateParameter(string name, DateTime value)
         {
             if (value == Common.DTOBase.DateTime_NullValue)
@@ -152,7 +199,13 @@ namespace DALForum
             }
         }
 
-        // CreateParameter - nvarchar
+        /// <summary>
+        /// Méthode pour créer un paramètre de type string avec la taille
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
         protected static SqlParameter CreateParameter(string name, string value, int size)
         {
             if (value == Common.DTOBase.String_NullValue)
@@ -172,7 +225,12 @@ namespace DALForum
             }
         }
 
-        // GetSingleDTO
+        /// <summary>
+        /// Méthode pour retourner un objet dto à partir du sqldatareader du résultat de la proc
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="command"></param>
+        /// <returns></returns>
         protected static T GetSingleDTO<T>(ref SqlCommand command) where T : DTOBase
         {
             T dto = null;
@@ -207,7 +265,12 @@ namespace DALForum
             return dto;
         }
 
-        // GetDTOList
+        /// <summary>
+        /// Méthode pour retourner une liste de dto à partir du sqldatareader du résultat de la proc
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="command"></param>
+        /// <returns></returns>
         protected static List<T> GetDTOList<T>(ref SqlCommand command) where T : DTOBase
         {
             List<T> dtoList = new List<T>();

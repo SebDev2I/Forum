@@ -8,8 +8,16 @@ using System.Text;
 
 namespace DALForum
 {
+    /// <summary>
+    /// Classe contenant les méthodes crud de la table REGISTERED
+    /// </summary>
     public class RegisteredDb : DALBase
     {
+        /// <summary>
+        /// Méthode pour ramener un user par son id
+        /// </summary>
+        /// <param name="iduser"></param>
+        /// <returns></returns>
         public RegisteredDTO GetUserById(int iduser)
         {
             SqlCommand command = GetDbSprocCommand("GETUSERSBYID");
@@ -17,12 +25,20 @@ namespace DALForum
             return GetSingleDTO<RegisteredDTO>(ref command);
         }
 
+        /// <summary>
+        /// Méthode pour ramener la liste de tous les users
+        /// </summary>
+        /// <returns></returns>
         public List<RegisteredDTO> GetAll()
         {
             SqlCommand cmd = GetDbSprocCommand("GETALLUSERS");
             return GetDTOList<RegisteredDTO>(ref cmd);
         }
 
+        /// <summary>
+        /// Méthode pour sauvegarder un utilisateur (save et update)
+        /// </summary>
+        /// <param name="registered"></param>
         public void SaveUser(ref RegisteredDTO registered)
         {
             SqlCommand command = new SqlCommand();
@@ -63,6 +79,11 @@ namespace DALForum
             
         }
 
+        /// <summary>
+        /// Méthode pour supprimer un utilisateur
+        /// </summary>
+        /// <param name="iduser"></param>
+        /// <returns></returns>
         public bool DeleteUser(int iduser)
         {
             SqlCommand command = new SqlCommand();
@@ -78,28 +99,5 @@ namespace DALForum
             if(nb == 1){ isDeleted = true; }
             return isDeleted;
         }
-        /*public bool UpdateUser(RegisteredDTO registered)
-        {
-            bool isUpdated = false;
-            if (!registered.IdUser.Equals(Common.DTOBase.Int_NullValue))
-            {
-                SqlCommand command = GetDbSprocCommand("UPDATEUSERS");
-                command.Parameters.Add(CreateParameter("@ID", registered.IdUser));
-                command.Parameters.Add(CreateParameter("@IDSTATUS", registered.StatusUser));
-                command.Parameters.Add(CreateParameter("@IDTRAINING", registered.TrainingUser));
-                command.Parameters.Add(CreateParameter("@NAME", registered.NameUser, 50));
-                command.Parameters.Add(CreateParameter("@FIRSTNAME", registered.FirstnameUser, 50));
-                command.Parameters.Add(CreateParameter("@EMAIL", registered.EmailUser, 50));
-                command.Parameters.Add(CreateParameter("@LOGIN", registered.LoginUser, 50));
-                command.Parameters.Add(CreateParameter("@PASSWORD", registered.PwdUser, 1024));
-                command.Parameters.Add(CreateParameter("@KEYWORD", registered.KeywordUser, 50));
-                
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-                command.Connection.Close();
-                isUpdated = true;
-            }
-            return isUpdated;
-        }*/
     }
 }
